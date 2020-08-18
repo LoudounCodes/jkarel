@@ -1,6 +1,6 @@
 <project name="fcpsKarel" default="dist-files" basedir=".">
     <target name="build-all">
-        <javac srcdir="." classpath=".:xercesImpl.jar" target="1.6" />
+        <javac srcdir="." classpath=".:xercesImpl.jar" />
     </target>
     <target name="rebuild-all" depends="clean, build-all" />
     <target name="dist-files" depends="build-all">
@@ -21,6 +21,6 @@
         </delete>
     </target>
     <target name="docs">
-        <javadoc sourcepath="." destdir="docs" packagenames="edu.fcps.*" />
+        <javadoc sourcepath="." classpath=".:xercesImpl.jar" destdir="docs" packagenames="edu.fcps.*" />
     </target>
 </project>

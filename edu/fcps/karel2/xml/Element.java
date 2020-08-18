@@ -11,11 +11,11 @@ import org.xml.sax.ext.*;
  * either be a String or another XMLElement.  Order is preserved with the original tree.  For example, for the content of the 
  * message element in:
  * <code>
- * <pre>  &lt;content&gt;
+ * &lt;content&gt;
  *     &lt;message&gt;
  *       This &lt;bold&gt;is&lt;/bold&gt; cool!
  *     &lt;/message&gt;
- *   &lt;/content&gt;</pre>
+ *   &lt;/content&gt;
  * </code>
  * would be transformed to {"This ", XMLElement [bold], " cool!"}, whose elements would be accessed via getSubObjects().get(0),
  * getSubObjects().get(1), and getSubObjects().get(2) respectively.  If you're not transmitting a message where order matters [this
@@ -169,8 +169,8 @@ public class Element
 	}
 	
 	/**
-	 * Returns an ArrayList<Element> of all the elements that match the given name
-	 * @return a possibly empty ArrayList<Element> of matches
+	 * Returns an ArrayList&gt;Element&lt; of all the elements that match the given name
+	 * @return a possibly empty ArrayList$gt;Element$lt; of matches
 	 */
 	public ArrayList<Element> getElements(String name)
 	{
