@@ -44,6 +44,15 @@
           <attribute name="Class-Path" value="${manifest.classpath}"/>
         </manifest>
         <fileset dir="${build.dir}"/>
+        
+        <fileset dir="src">
+          <filename name="**/*.map"/>
+        </fileset>
+        
+        <fileset dir="src">
+          <filename name="**/*.gif"/>
+        </fileset>
+        
         <fileset dir=".">
           <filename name="lib/*.jar"/>
         </fileset>
