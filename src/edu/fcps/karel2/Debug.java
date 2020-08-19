@@ -1,4 +1,4 @@
-package edu.fcps.karel2.util;
+package edu.fcps.karel2;
 
 /**
  * Debug provides an easy way for all components of the client to output various levels of debug information, from full to error,

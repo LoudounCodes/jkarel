@@ -1,6 +1,6 @@
 package edu.fcps.karel2.xml;
 
-import edu.fcps.karel2.util.*;
+import edu.fcps.karel2.*;
 
 import java.io.*;
 import java.util.HashMap;

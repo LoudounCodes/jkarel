@@ -1,7 +1,6 @@
 package edu.fcps.karel2.xml;
 
 import edu.fcps.karel2.*;
-import edu.fcps.karel2.util.*;
 
 import java.lang.reflect.*;
 

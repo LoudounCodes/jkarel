@@ -1,4 +1,4 @@
-package edu.fcps.karel2.util;
+package edu.fcps.karel2;
 
 /**
  * @author Andy Street, alstreet@vt.edu, 2007

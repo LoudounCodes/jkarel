@@ -1,6 +1,5 @@
 package edu.fcps.karel2;
 
-import edu.fcps.karel2.util.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
