@@ -12,7 +12,12 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.Locator;
 import org.xml.sax.ext.Attributes2Impl;
-import org.apache.xerces.parsers.SAXParser;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * The XMLParser implements ContentHandler to use the SAXParser contained in Apache's J-Xerces2 implementation.  The parser uses
@@ -40,9 +45,9 @@ import org.apache.xerces.parsers.SAXParser;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class XMLParser implements ContentHandler
+public class XMLParser extends DefaultHandler
 {
-	private SAXParser parser;
+	private XMLReader parser;
 	private ArrayList<Element> elements = null;
 	private Element rootElement = null;
 	
@@ -53,11 +58,15 @@ public class XMLParser implements ContentHandler
 	{
 		Debug.println("Initializing base parser objects...", 3);
 		
-		Debug.println("Creating parser...", 3);
-		parser = new SAXParser();
+    try {
+		  Debug.println("Creating parser...", 3);
+		  parser = XMLReaderFactory.createXMLReader();
 		
-		Debug.println("Setting Handler...", 3);
-		parser.setContentHandler(this);
+  		Debug.println("Setting Handler...", 3);
+	  	parser.setContentHandler(this);
+    } catch (SAXException e) {
+        e.printStackTrace();
+    }
 	}
 	
 	/**
