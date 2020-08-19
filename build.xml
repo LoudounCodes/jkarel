@@ -1,9 +1,9 @@
-<project name="fcpsKarel" default="jar" basedir=".">
+<project name="fcpsKarel" default="build-all" basedir=".">
     <property name = "src.dir" value = "src"/>
     <property name = "build.dir" value = "scratch"/>
     <property name = "output.dir" value = "out"/>
     <property name = "lib.dir" value = "lib"/>
-    <property name = "version" value = "3.0.0"/>
+    <property name = "version" value = "2.0.1"/>
     
     <path id = "dependencies">
        <fileset dir = "lib">
@@ -15,8 +15,10 @@
       <mkdir dir="${build.dir}"/>
       <mkdir dir="${output.dir}"/>
     </target>
-     
-    <target name="build-all" depends="prerequisite-build">
+    
+    <target name="build-all" depends="build-jar, build-docs"/>
+
+    <target name="build-src" depends="prerequisite-build">
         <javac srcdir = "${src.dir}"
                destdir = "${build.dir}">
                
@@ -36,7 +38,7 @@
     </pathconvert>
     
     
-    <target name="jar" depends="build-all">
+    <target name="build-jar" depends="build-src">
       <jar destfile="${output.dir}/fcpskarel-${version}.jar">
         <manifest>
           <attribute name="Class-Path" value="${manifest.classpath}"/>
@@ -65,8 +67,13 @@
       <delete dir="${output.dir}"/>
     </target>
     
-    <target name="docs">
-        <javadoc sourcepath="." classpath=".:xercesImpl.jar" destdir="docs" packagenames="edu.fcps.*" />
+    <target name="build-docs">
+        <javadoc sourcepath="src"
+                 destdir="${output.dir}/docs"
+                 packagenames="edu.fcps.*" >
+                 
+          <classpath refid = "dependencies" />
+        </javadoc>
     </target>
 
 </project>
