@@ -200,7 +200,7 @@ public class WorldBackend {
 		}
 		catch (FileNotFoundException e) {
 			if (fileName != null)
-				Debug.printWarning("Map " + fileName + " not found, using default map file...");
+				Display.logger.warning("Map " + fileName + " not found, using default map file...");
 
 			try {
 				InputStream is = getClass().getResourceAsStream(Display.DEFAULT_MAP);
@@ -211,7 +211,7 @@ public class WorldBackend {
 				return is;
 			}
 			catch (Exception g) {
-				Debug.printError("Default map file not found!  Aborting...");
+				Display.logger.severe("Default map file not found!  Aborting...");
 				System.exit(1);
 			}
 		}

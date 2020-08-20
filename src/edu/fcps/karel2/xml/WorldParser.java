@@ -60,7 +60,7 @@ public class WorldParser {
 					e1.printStackTrace();
 					throw e1;
 				} catch (NoSuchMethodException e1) {
-					Debug.printWarning("Could not find method " + propPrepend + e.getName() + " for property " + e.getName() + "!  Ignoring...");
+					XMLParser.logger.severe("Could not find method " + propPrepend + e.getName() + " for property " + e.getName() + "!  Ignoring...");
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 					System.exit(2);
@@ -86,7 +86,7 @@ public class WorldParser {
 					e1.printStackTrace();
 					throw e1;
 				} catch (NoSuchMethodException e1) {
-					Debug.printWarning("Could not find method " + objPrepend + e.getName() + " for object " + e.getName() + "!  Ignoring...");
+					XMLParser.logger.severe("Could not find method " + objPrepend + e.getName() + " for object " + e.getName() + "!  Ignoring...");
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 					System.exit(2);

@@ -5,6 +5,10 @@ package edu.fcps.karel2;
 import java.awt.*;
 import javax.swing.*;
 
+import java.util.logging.Logger;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+
 /*
  * Copyright (C) Andy Street 2007
  *
@@ -40,7 +44,13 @@ public class Display {
 	 */
 	public static final String DEFAULT_MAP = "/default.map";
 
+  public static Logger logger = Logger.getLogger("Karel Logger");
 
+  static {
+    logger.setLevel(Level.WARNING);
+  }
+  
+  
   // a lot of stuff here might really belong in robot.
   
 	/**
@@ -214,7 +224,7 @@ public class Display {
 	 */
 	public static void setSpeed(int s) {
 		if (s > MAX_SPEED || s < 1) {
-			Debug.printWarning("Trying to set speed greater than maximum ("
+			Display.logger.warning("Trying to set speed greater than maximum ("
 			                   + MAX_SPEED + ")!  Setting to max instead...");
 			speed = MAX_SPEED;
 			return;
@@ -283,7 +293,7 @@ public class Display {
 					return wkarel;
 				}
 			default:
-				Debug.printError("Karel image for direction " + direction + " not found!  Aborting...");
+				Display.logger.severe("Karel image for direction " + direction + " not found!  Aborting...");
 				System.exit(7);
 				return null;
 		}
@@ -333,7 +343,7 @@ public class Display {
 	 */
 	static void die(String reason) {
 		isDead = true;
-		Debug.printError(reason);
+		Display.logger.severe(reason);
 		hang();
 		System.exit(0);
 	}

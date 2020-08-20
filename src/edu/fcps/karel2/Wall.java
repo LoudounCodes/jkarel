@@ -84,7 +84,7 @@ public class Wall extends Item {
 		if (style == Display.VERTICAL || style == Display.HORIZONTAL)
 			this.style = style;
 		else {
-			Debug.printWarning("Invalid wall style: " + style + "...  Using VERTICAL.");
+			Display.logger.warning("Invalid wall style: " + style + "...  Using VERTICAL.");
 			this.style = Display.VERTICAL;
 		}
 	}

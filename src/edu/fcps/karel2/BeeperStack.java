@@ -42,7 +42,7 @@ public class BeeperStack extends Item {
 		super(x, y);
 
 		if (beepers < 1 && beepers != Display.INFINITY) {
-			Debug.printWarning("Invalid amount of beepers: "
+			Display.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 1...");
 			beepers = 1;
 		}

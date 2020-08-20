@@ -75,7 +75,7 @@ public class Robot extends Item {
 		this.y = y;
 
 		if (beepers < 0 && beepers != Display.INFINITY) {
-			Debug.printWarning("Invalid amount of beepers: "
+			Display.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 0...");
 			beepers = 0;
 		}

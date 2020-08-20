@@ -19,6 +19,12 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.util.logging.Logger;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+
+
+
 /**
  * The XMLParser implements ContentHandler to use the SAXParser contained in Apache's J-Xerces2 implementation.  The parser uses
  * callbacks to construct an XMLElement representing the base of the
@@ -51,18 +57,24 @@ public class XMLParser extends DefaultHandler
 	private ArrayList<Element> elements = null;
 	private Element rootElement = null;
 	
+  public static Logger logger = Logger.getLogger("XML Logger");
+  
+  static {
+    logger.setLevel(Level.SEVERE);
+  }
+  
 	/**
 	 * The default constructor.
 	 */
 	public XMLParser()
 	{
-		Debug.println("Initializing base parser objects...", 3);
+		logger.info("Initializing base parser objects...");
 		
     try {
-		  Debug.println("Creating parser...", 3);
+		  logger.info("Creating parser...");
 		  parser = XMLReaderFactory.createXMLReader();
 		
-  		Debug.println("Setting Handler...", 3);
+  		logger.info("Setting Handler...");
 	  	parser.setContentHandler(this);
     } catch (SAXException e) {
         e.printStackTrace();
@@ -106,10 +118,10 @@ public class XMLParser extends DefaultHandler
 	
 	public void startDocument()
 	{
-		Debug.println("Initializing parser objects...", 4);
+		logger.fine("Initializing parser objects...");
 		elements = new ArrayList<Element>();
 		
-		Debug.println("Incoming XML message, starting parser...", 4);
+		logger.fine("Incoming XML message, starting parser...");
 	}
 	public void endDocument()
 	{
@@ -126,22 +138,21 @@ public class XMLParser extends DefaultHandler
 	}
 	public void startElement(String namespaceURI, String localName, String rawName, Attributes as)
 	{	
-		if(Debug.debugLevel() >= 5)
-		{
-			Debug.println("Start of element received:", 5);
-			Debug.println("  Namespace URI: " + namespaceURI, 5);
-			Debug.println("  Local Name: " + localName, 5);
-			Debug.println("  Raw Name: " + rawName, 5);
-			Debug.println("  Attributes:", 5);
+
+			logger.fine("Start of element received:");
+			logger.fine("  Namespace URI: " + namespaceURI);
+			logger.fine("  Local Name: " + localName);
+			logger.fine("  Raw Name: " + rawName);
+			logger.fine("  Attributes:");
 			for(int i = 0; i < as.getLength(); i++)
 			{
-				Debug.println("    Namespace URI: " + as.getURI(i), 5);
-				Debug.println("    Type: " + as.getType(i), 5);
-				Debug.println("    Qualified (prefixed) Name: " + as.getQName(i), 5);
-				Debug.println("    Local Name: " + as.getLocalName(i), 5);
-				Debug.println("    Value: " + as.getValue(i), 5);
+				logger.fine("    Namespace URI: " + as.getURI(i));
+				logger.fine("    Type: " + as.getType(i));
+				logger.fine("    Qualified (prefixed) Name: " + as.getQName(i));
+				logger.fine("    Local Name: " + as.getLocalName(i));
+				logger.fine("    Value: " + as.getValue(i));
 			}
-		}
+		
 		
 		edu.fcps.karel2.xml.Attributes a = new edu.fcps.karel2.xml.Attributes();
 		a.setAttributes(as);
@@ -155,18 +166,17 @@ public class XMLParser extends DefaultHandler
 		
 		elements.add(e);
 		
-		Debug.println("End of start of element.", 5);
+		logger.fine("End of start of element.");
 	}
 	public void endElement(String namespaceURI, String localName, String rawName)
 	{
-		if(Debug.debugLevel() >= 5)
-		{
-			Debug.println("End of element received:", 5);
-			Debug.println("  Namespace URI: " + namespaceURI, 5);
-			Debug.println("  Local Name: " + localName, 5);
-			Debug.println("  Raw Name: " + rawName, 5);
-			Debug.println("End of end of element.", 5);
-		}
+
+			logger.fine("End of element received:");
+			logger.fine("  Namespace URI: " + namespaceURI);
+			logger.fine("  Local Name: " + localName);
+			logger.fine("  Raw Name: " + rawName);
+			logger.fine("End of end of element.");
+	
 		
 		int elemLen = elements.size();
 		
@@ -179,13 +189,11 @@ public class XMLParser extends DefaultHandler
 		
 		if(content.length() != 0)
 		{
-			if(Debug.debugLevel() >= 5)
-			{
-				Debug.println("Characters received:", 5);
-				Debug.println("  Characters: " + content, 5);
-				Debug.println("End of characters.", 5);
-				Debug.println("Adding content...", 5);
-			}
+	
+				logger.fine("Characters received:");
+				logger.fine("  Characters: " + content);
+				logger.fine("End of characters.");
+				logger.fine("Adding content...");
 			
 			elements.get(elements.size() - 1).addText(content);
 		}
@@ -204,16 +212,15 @@ public class XMLParser extends DefaultHandler
 	}
 	public void ignorableWhitespace(char[] ch, int s, int len)
 	{
-		if(Debug.debugLevel() >= 5)
-		{
-			Debug.println("Ignorable whitespace:", 5);
-			Debug.println("  Characters: " + new String(ch, s, len), 5);
-			Debug.println("End of ignorable whitespace.", 5);
-		}
+
+			logger.fine("Ignorable whitespace:");
+			logger.fine("  Characters: " + new String(ch, s, len));
+			logger.fine("End of ignorable whitespace.");
+
 	}
 	public void skippedEntity(String entName)
 	{
-		Debug.println("Skipped entity: " + entName, 1);
+		logger.info("Skipped entity: " + entName);
 	}
 }
 
