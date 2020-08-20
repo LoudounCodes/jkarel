@@ -159,7 +159,8 @@ public class WorldBackend {
 	public void addObject_robot(Attributes a) {
 		int x = Integer.parseInt(a.get("x"));
 		int y = Integer.parseInt(a.get("y"));
-		int direction = Integer.parseInt(a.get("direction"));
+		int directionVal = Integer.parseInt(a.get("direction"));
+    Direction direction = Direction.values()[directionVal];
 		int beepers = Integer.parseInt(a.get("beepers"));
 
 		new Robot(x, y, direction, beepers, true);

@@ -16,14 +16,14 @@ import java.util.List;
 public class Robot extends Item {
 
 	private int beepers;
-	private int direction;
+	private Direction direction;
 
 	/**
 	 * Contructs a Robot at the default location of (1,1) facing east with
 	 * no beepers.
 	 */
 	public Robot() {
-		this(1, 1, Display.EAST, 0);
+		this(1, 1, Direction.EAST, 0);
 	}
 
 	/**Contructs a Robot at the specified location, direction, and number
@@ -34,7 +34,7 @@ public class Robot extends Item {
 	 * the constants from Display
 	 * @param beepers the number of beepers the new Robot will start with
 	 */
-	public Robot(int x, int y, int dir, int beepers) {
+	public Robot(int x, int y, Direction dir, int beepers) {
 		super(x, y);
 		init(x, y, dir, beepers, false);
 	}
@@ -51,7 +51,7 @@ public class Robot extends Item {
 	 * update
 	 */
 
-	public Robot(int x, int y, int dir, int beepers, boolean internal) {
+	public Robot(int x, int y, Direction dir, int beepers, boolean internal) {
 		super(x, y);
 		init(x, y, dir, beepers, internal);
 	}
@@ -65,7 +65,7 @@ public class Robot extends Item {
 	 * to cause the display to update or not.(Internal indicates no display
 	 * update
 	 */
-	private void init(int x, int y, int dir, int beepers, boolean internal) {
+	private void init(int x, int y, Direction dir, int beepers, boolean internal) {
 
 		if (WorldBackend.getCurrent() == null) {
 			Display.openDefaultWorld();
@@ -80,7 +80,7 @@ public class Robot extends Item {
 			beepers = 0;
 		}
 
-		direction = Display.validateDirection(dir);
+		direction = dir;
 		this.beepers = beepers;
 		if (internal)
 			WorldBackend.getCurrent().addRobotInternal(this);
@@ -93,7 +93,7 @@ public class Robot extends Item {
 	 * Returns an integer representing the direction of the robot.
 	 * Compare to the constants in Display.
 	 */
-	public int getDirection() {
+	public Direction getDirection() {
 		return direction;
 	}
 
@@ -119,12 +119,12 @@ public class Robot extends Item {
 			Coordinate c = getWallCoordinate(direction);
 
 			switch (direction) {
-				case Display.NORTH:
-				case Display.SOUTH:
+				case NORTH:
+				case SOUTH:
 					Display.die("Tried to walk through a horizontal wall at (" + c.x + ", " + c.y + ")!");
 					break;
-				case Display.EAST:
-				case Display.WEST:
+				case EAST:
+				case WEST:
 				default:
 					Display.die("Tried to walk through a vertical wall at (" + c.x + ", " + c.y + ")!");
 			}
@@ -133,16 +133,16 @@ public class Robot extends Item {
 		}
 
 		switch (direction) {
-			case Display.NORTH:
+			case NORTH:
 				y++;
 				break;
-			case Display.EAST:
+			case EAST:
 				x++;
 				break;
-			case Display.SOUTH:
+			case SOUTH:
 				y--;
 				break;
-			case Display.WEST:
+			case WEST:
 				x--;
 				break;
 		}
@@ -158,7 +158,7 @@ public class Robot extends Item {
 		if (Display.isDead())
 			return;
 
-		direction = Display.validateDirection(direction + 1);
+		direction = direction.left();
 
 		Display.step();
 	}
@@ -172,7 +172,7 @@ public class Robot extends Item {
 		if (Display.isDead())
 			return;
 
-		direction = Display.validateDirection(direction - 1);
+		direction = direction.right();
 
 		Display.step();
 	}
@@ -242,7 +242,7 @@ public class Robot extends Item {
 	 * and then moving forward.
 	 */
 	public boolean rightIsClear() {
-		return isClear(Display.validateDirection(direction - 1));
+		return isClear(direction.right());
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class Robot extends Item {
 	 * then moving forward.
 	 */
 	public boolean leftIsClear() {
-		return isClear(Display.validateDirection(direction + 1));
+		return isClear(direction.left());
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class Robot extends Item {
 	 * and then moving forward.
 	 */
 	public boolean backIsClear() {
-		return isClear(Display.validateDirection(direction + 2));
+		return isClear(direction.right().right());
 	}
 
 	/**
@@ -281,25 +281,25 @@ public class Robot extends Item {
 	 * Returns whether or not this Robot is facing north.
 	 */
 	public boolean facingNorth() {
-		return direction == Display.NORTH;
+		return direction == Direction.NORTH;
 	}
 	/**
 	 * Returns whether or not this Robot is facing south.
 	 */
 	public boolean facingSouth() {
-		return direction == Display.SOUTH;
+		return direction == Direction.SOUTH;
 	}
 	/**
 	 * Returns whether or not this Robot is facing east.
 	 */
 	public boolean facingEast() {
-		return direction == Display.EAST;
+		return direction == Direction.EAST;
 	}
 	/**
 	 * Returns whether or not this Robot is facing west.
 	 */
 	public boolean facingWest() {
-		return direction == Display.WEST;
+		return direction == Direction.WEST;
 	}
 
 	/**
@@ -308,16 +308,16 @@ public class Robot extends Item {
 	 * @param direction the direction to check. Uses values from the
 	 * constants in the Display class.
 	 */
-	private boolean isClear(int direction) {
+	private boolean isClear(Direction dir) {
 		Coordinate c = getWallCoordinate(direction);
 
-		switch (direction) {
-			case Display.NORTH:
-			case Display.SOUTH:
+		switch (dir) {
+			case NORTH:
+			case SOUTH:
 				return !WorldBackend.getCurrent()
 				       .checkWall(c.x, c.y, Display.HORIZONTAL);
-			case Display.EAST:
-			case Display.WEST:
+			case EAST:
+			case WEST:
 			default:
 				return !WorldBackend.getCurrent()
 				       .checkWall(c.x, c.y, Display.VERTICAL);
@@ -335,17 +335,17 @@ public class Robot extends Item {
 	 * Returns the coordinate of where the wall directly in front of the
 	 * robot would be.
 	 */
-	private Coordinate getWallCoordinate(int dir) {
+	private Coordinate getWallCoordinate(Direction dir) {
 		int xc = x, yc = y;
 
 		switch (dir) {
-			case Display.NORTH: //Check in front, not behind
-			case Display.EAST: //Check in front, not behind
+			case NORTH: //Check in front, not behind
+			case EAST: //Check in front, not behind
 				break;
-			case Display.SOUTH: //Checking behind current location
+			case SOUTH: //Checking behind current location
 				yc--;
 				break;
-			case Display.WEST: //Checking behind current location
+			case WEST: //Checking behind current location
 				xc--;
 				break;
 		}

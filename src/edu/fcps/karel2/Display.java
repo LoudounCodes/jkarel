@@ -53,22 +53,6 @@ public class Display {
   
   // a lot of stuff here might really belong in robot.
   
-	/**
-	 * Defined direction for east (right).
-	 */
-	public static final int EAST = 0;
-	/**
-	 * Defined direction for north (up).
-	 */
-	public static final int NORTH = 1;
-	/**
-	 * Defined direction for west (left).
-	 */
-	public static final int WEST = 2;
-	/**
-	 * Defined direction for south (down).
-	 */
-	public static final int SOUTH = 3;
 
 	/**
 	 * Default width of the display window.
@@ -116,15 +100,6 @@ public class Display {
 	 * The font size to write numbers on the beepers.
 	 */
 	private static int beeperFontSize = 10;
-
-	/**
-	 * Array to hold all the directions.
-	 */
-	private static final int[] directions = { NORTH,
-	                                        EAST,
-	                                        SOUTH,
-	                                        WEST
-	                                        };
 
 	/**
 	 * Location of the image of karel facing north.
@@ -250,24 +225,12 @@ public class Display {
 		return beeperFont;
 	}
 
-	/**
-	 * Takes a possible invalid direction and returns a valid one via modding
-	 * @param dir a possibly invalid direction
-	 * @return a valid direction
-	 */
-	public static int validateDirection(int dir) {
-		for (int i = 0; i < directions.length; i++)
-			if (dir == directions[i])
-				return dir;
-
-		return ((dir % 4) + 4) % 4; //This is in case it's negative
-	}
 
 	/**
 	 * Returns the Karel ImageIcon associated with the specified direction
 	 */
-	static ImageIcon getKarelImage(int direction) {
-		switch (direction) {
+	static ImageIcon getKarelImage(Direction dir) {
+		switch (dir) {
 			case NORTH: {
 					if (nkarel == null)
 						nkarel = new ImageIcon(Display.class.getResource(nkarelLocation));
@@ -293,7 +256,7 @@ public class Display {
 					return wkarel;
 				}
 			default:
-				Display.logger.severe("Karel image for direction " + direction + " not found!  Aborting...");
+				Display.logger.severe("Karel image for direction " + dir + " not found!  Aborting...");
 				System.exit(7);
 				return null;
 		}
