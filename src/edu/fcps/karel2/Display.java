@@ -1,5 +1,6 @@
 package edu.fcps.karel2;
 
+// my goal is to rename this 'arena'
 
 import java.awt.*;
 import javax.swing.*;
