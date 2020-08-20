@@ -40,6 +40,9 @@ public class Display {
 	 */
 	public static final String DEFAULT_MAP = "/default.map";
 
+
+  // a lot of stuff here might really belong in robot.
+  
 	/**
 	 * Defined direction for east (right).
 	 */
