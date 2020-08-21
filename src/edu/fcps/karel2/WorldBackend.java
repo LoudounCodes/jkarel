@@ -40,8 +40,8 @@ public class WorldBackend {
 		robots = Collections.synchronizedList(new ArrayList<Robot>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
 
-		walls.add(xAxisWall = new Wall(1, 0, width, Display.HORIZONTAL));
-		walls.add(yAxisWall = new Wall(0, 1, height, Display.VERTICAL));
+		walls.add(xAxisWall = new Wall(1, 0, width, Arena.HORIZONTAL));
+		walls.add(yAxisWall = new Wall(0, 1, height, Arena.VERTICAL));
 
 		parseMap(mapName);
 	}
@@ -60,7 +60,7 @@ public class WorldBackend {
 		synchronized (robots) {
 			robots.add(r);
 		}
-		Display.step();
+		Arena.step();
 	}
 	/**
 	* Adds a robot to the world without having a time step. (Used when a map
@@ -81,7 +81,7 @@ public class WorldBackend {
 		synchronized (robots) {
 			robots.remove(r);
 		}
-		Display.step();
+		Arena.step();
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class WorldBackend {
 	 */
 	public void putBeepers(int x, int y, int num) {
 		Location c = new Location(x, y);
-		if (num == Display.INFINITY) {
+		if (num == Arena.INFINITY) {
 			synchronized (beepers) {
 				beepers.put(c, new BeeperStack(x, y, num));
 			}
@@ -106,7 +106,7 @@ public class WorldBackend {
 			if ((b = beepers.get(c)) != null)
 				oldBeepers = b.getBeepers();
 
-			if (oldBeepers == Display.INFINITY)
+			if (oldBeepers == Arena.INFINITY)
 				return;
 
 			if (oldBeepers + num < 1)
@@ -135,7 +135,7 @@ public class WorldBackend {
 		String num = a.get("num");
 
 		if (num.equalsIgnoreCase("infinite"))
-			putBeepers(x, y, Display.INFINITY);
+			putBeepers(x, y, Arena.INFINITY);
 		else
 			putBeepers(x, y, Integer.parseInt(num));
 	}
@@ -148,7 +148,7 @@ public class WorldBackend {
 		int y = Integer.parseInt(a.get("y"));
 		int length = Integer.parseInt(a.get("length"));
 		int style = a.get("style").equalsIgnoreCase("horizontal") ?
-		            Display.HORIZONTAL : Display.VERTICAL;
+		            Arena.HORIZONTAL : Arena.VERTICAL;
 
 		addWall(new Wall(x, y, length, style));
 	}
@@ -174,7 +174,7 @@ public class WorldBackend {
 		int w = Integer.parseInt(a.get("width"));
 		int h = Integer.parseInt(a.get("height"));
 
-		Display.setSize(w, h);
+		Arena.setSize(w, h);
 	}
 
 	/**
@@ -201,10 +201,10 @@ public class WorldBackend {
 		}
 		catch (FileNotFoundException e) {
 			if (fileName != null)
-				Display.logger.warning("Map " + fileName + " not found, using default map file...");
+				Arena.logger.warning("Map " + fileName + " not found, using default map file...");
 
 			try {
-				InputStream is = getClass().getResourceAsStream(Display.DEFAULT_MAP);
+				InputStream is = getClass().getResourceAsStream(Arena.DEFAULT_MAP);
 
 				if (is == null)
 					throw new FileNotFoundException();
@@ -212,7 +212,7 @@ public class WorldBackend {
 				return is;
 			}
 			catch (Exception g) {
-				Display.logger.severe("Default map file not found!  Aborting...");
+				Arena.logger.severe("Default map file not found!  Aborting...");
 				System.exit(1);
 			}
 		}
@@ -249,7 +249,7 @@ public class WorldBackend {
 	boolean checkWall(int x, int y, int style) {
 		synchronized (walls) {
 			switch (style) {
-				case Display.HORIZONTAL:
+				case Arena.HORIZONTAL:
 					for (Wall w : walls)
 						if (w.getStyle() == style)
 							if (w.getY() == y &&
@@ -258,7 +258,7 @@ public class WorldBackend {
 								return true;
 
 					break;
-				case Display.VERTICAL:
+				case Arena.VERTICAL:
 				default:
 					for (Wall w : walls)
 						if (w.getStyle() == style)
@@ -308,13 +308,13 @@ public class WorldBackend {
 		if (this.width != width) {
 			this.width = width;
 			walls.remove(xAxisWall);
-			walls.add(xAxisWall = new Wall(1, 0, width, Display.HORIZONTAL));
+			walls.add(xAxisWall = new Wall(1, 0, width, Arena.HORIZONTAL));
 		}
 
 		if (this.height != height) {
 			this.height = height;
 			walls.remove(yAxisWall);
-			walls.add(yAxisWall = new Wall(0, 1, height, Display.VERTICAL));
+			walls.add(yAxisWall = new Wall(0, 1, height, Arena.VERTICAL));
 		}
 	}
 

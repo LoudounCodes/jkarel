@@ -41,7 +41,7 @@ public class WorldFrame extends JFrame {
 		current = this;
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(Display.FRAME_WIDTH, Display.FRAME_HEIGHT);
+		setSize(Arena.FRAME_WIDTH, Arena.FRAME_HEIGHT);
 		setLocation(250, 250);
 		setContentPane(new WorldPanel(wb));
 		setVisible(true);

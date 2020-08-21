@@ -54,15 +54,15 @@ public class Wall extends Item {
 	 * @param y the y location of the Wall
 	 */
 	public Wall(int x, int y) {
-		this(x, y, Display.VERTICAL);
+		this(x, y, Arena.VERTICAL);
 	}
 
 	/**
 	 * Constructs a Wall of length 1 with the specified style
 	 * @param x the x location of the Wall
 	 * @param y the y location of the Wall
-	 * @param style the orientation of the wall (Display.VERTICAL or
-	 * Display.HORIZONTAL)
+	 * @param style the orientation of the wall (Arena.VERTICAL or
+	 * Arena.HORIZONTAL)
 	 */
 	public Wall(int x, int y, int style) {
 		this(x, y, 1, style);
@@ -73,19 +73,19 @@ public class Wall extends Item {
 	 * @param x the x location of the Wall
 	 * @param y the y location of the Wall
 	 * @param length the length of the Wall
-	 * @param style the orientation of the wall (Display.VERTICAL or
-	 * Display.HORIZONTAL)
+	 * @param style the orientation of the wall (Arena.VERTICAL or
+	 * Arena.HORIZONTAL)
 	 */
 	public Wall(int x, int y, int length, int style) {
 		super(x, y);
 
 		this.length = length;
 
-		if (style == Display.VERTICAL || style == Display.HORIZONTAL)
+		if (style == Arena.VERTICAL || style == Arena.HORIZONTAL)
 			this.style = style;
 		else {
-			Display.logger.warning("Invalid wall style: " + style + "...  Using VERTICAL.");
-			this.style = Display.VERTICAL;
+			Arena.logger.warning("Invalid wall style: " + style + "...  Using VERTICAL.");
+			this.style = Arena.VERTICAL;
 		}
 	}
 
@@ -99,8 +99,8 @@ public class Wall extends Item {
 
 	/**
 	 * Returns the style of the Wall
-	 * @return the orientation of the wall (Display.VERTICAL or
-	 * Display.HORIZONTAL)
+	 * @return the orientation of the wall (Arena.VERTICAL or
+	 * Arena.HORIZONTAL)
 	 */
 	public int getStyle() {
 		return style;
@@ -119,12 +119,12 @@ public class Wall extends Item {
 		double height = WorldPanel.getCurrent().getYBlockLength();
 
 		switch (style) {
-			case Display.VERTICAL:
+			case Arena.VERTICAL:
 				g.fillRect((int)(c.x + width / 2 - (WALL_WIDTH - 1) / 2),
 				           (int)(c.y - height * length + height / 2),
 				           WALL_WIDTH, (int)(height * length + 1));
 				break;
-			case Display.HORIZONTAL:
+			case Arena.HORIZONTAL:
 				g.fillRect((int)(c.x - width / 2),
 				           (int)(c.y - height / 2 - (WALL_WIDTH - 1) / 2),
 				           (int)(width * length + 1), WALL_WIDTH);

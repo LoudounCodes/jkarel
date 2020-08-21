@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * A Robot is a basic movable object in the world. Students interct primarily
  * with Robot objects in order to solve the problems in the labs. Robots tend
- * to update their status whenever asked and then request a display update with
- * Display.step(). This class is intended to be subclassed to add simple
+ * to update their status whenever asked and then request a arena update with
+ * Arena.step(). This class is intended to be subclassed to add simple
  * behaviors.
  * @author Andy Street, alstreet@vt.edu, 2007
  */
@@ -28,10 +28,10 @@ public class Robot extends Item {
 
 	/**Contructs a Robot at the specified location, direction, and number
 	 * of beepers.
-	 * @param x the x coordinate of the new Robot's location
-	 * @param y the y coordinate of the new Robot's location
+	 * @param x the x location of the new Robot's location
+	 * @param y the y location of the new Robot's location
 	 * @param dir the number representing the direction of the robot, using
-	 * the constants from Display
+	 * the constants from Arena
 	 * @param beepers the number of beepers the new Robot will start with
 	 */
 	public Robot(int x, int y, Direction dir, int beepers) {
@@ -41,13 +41,13 @@ public class Robot extends Item {
 
 	/**Contructs a Robot at the specified location, direction, and number of beepers
 	 * and adds it to the WorldBackend.
-	 * @param x the x coordinate of the new Robot's location
-	 * @param y the y coordinate of the new Robot's location
+	 * @param x the x location of the new Robot's location
+	 * @param y the y location of the new Robot's location
 	 * @param dir the number representing the direction of the robot, using
-	 * the constants from Display
+	 * the constants from Arena
 	 * @param beepers the number of beepers the new Robot will start with
 	 * @param internal a boolean specifiying whether the robot construction
-	 * to cause the display to update or not.(Internal indicates no display
+	 * to cause the arena to update or not.(Internal indicates no display
 	 * update
 	 */
 
@@ -56,26 +56,26 @@ public class Robot extends Item {
 		init(x, y, dir, beepers, internal);
 	}
 	/**Common code called by both constructors.
-	 * @param x the x coordinate of the new Robot's location
-	 * @param y the y coordinate of the new Robot's location
+	 * @param x the x location of the new Robot's location
+	 * @param y the y location of the new Robot's location
 	 * @param dir the number representing the direction of the robot, using
-	 * the constants from Display
+	 * the constants from Arena
 	 * @param beepers the number of beepers the new Robot will start with
 	 * @param internal a boolean specifiying whether the robot construction
-	 * to cause the display to update or not.(Internal indicates no display
+	 * to cause the arena to update or not.(Internal indicates no arena
 	 * update
 	 */
 	private void init(int x, int y, Direction dir, int beepers, boolean internal) {
 
 		if (WorldBackend.getCurrent() == null) {
-			Display.openDefaultWorld();
+			Arena.openDefaultWorld();
 		}
 
 		this.x = x;
 		this.y = y;
 
-		if (beepers < 0 && beepers != Display.INFINITY) {
-			Display.logger.warning("Invalid amount of beepers: "
+		if (beepers < 0 && beepers != Arena.INFINITY) {
+			Arena.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 0...");
 			beepers = 0;
 		}
@@ -91,7 +91,7 @@ public class Robot extends Item {
 
 	/**
 	 * Returns an integer representing the direction of the robot.
-	 * Compare to the constants in Display.
+	 * Compare to the constants in Arena.
 	 */
 	public Direction getDirection() {
 		return direction;
@@ -107,10 +107,10 @@ public class Robot extends Item {
 	/**
 	 * Moves the Robot forward one square in the direction it is facing.
 	 * If the Robot tries to move through a wall, an the simulation will
-	 * exit with an error. Calls Display.step() to update the screen.
+	 * exit with an error. Calls Arena.step() to update the screen.
 	 */
 	public synchronized void move() {
-		if (Display.isDead())
+		if (Arena.isDead())
 			return;
 
 		boolean clear = frontIsClear();
@@ -121,12 +121,12 @@ public class Robot extends Item {
 			switch (direction) {
 				case NORTH:
 				case SOUTH:
-					Display.die("Tried to walk through a horizontal wall at (" + c.x + ", " + c.y + ")!");
+					Arena.die("Tried to walk through a horizontal wall at (" + c.x + ", " + c.y + ")!");
 					break;
 				case EAST:
 				case WEST:
 				default:
-					Display.die("Tried to walk through a vertical wall at (" + c.x + ", " + c.y + ")!");
+					Arena.die("Tried to walk through a vertical wall at (" + c.x + ", " + c.y + ")!");
 			}
 
 			return;
@@ -147,87 +147,87 @@ public class Robot extends Item {
 				break;
 		}
 
-		Display.step();
+		Arena.step();
 	}
 
 	/**
 	 * Turns the robot counterclockwise 90 degrees.
-	 * Calls Display.step() to update the screen.
+	 * Calls Arena.step() to update the screen.
 	 */
 	public void turnLeft() {
-		if (Display.isDead())
+		if (Arena.isDead())
 			return;
 
 		direction = direction.left();
 
-		Display.step();
+		Arena.step();
 	}
 
 	/**
 	 * Turns the robot clockwise 90 degrees.
 	 * This method is private as students are meant to write their own out
-	 * of the other methods later. Calls Display.step() to update the screen.
+	 * of the other methods later. Calls Arena.step() to update the screen.
 	 */
 	private void turnRight() {
-		if (Display.isDead())
+		if (Arena.isDead())
 			return;
 
 		direction = direction.right();
 
-		Display.step();
+		Arena.step();
 	}
 
 	/**
 	 * Places a beeper at the current location in the world, or adds it to
 	 * the a currently existing pile.
-	 * Calls Display.step() to update the screen.
+	 * Calls Arena.step() to update the screen.
 	 */
 	public void putBeeper() {
-		if (Display.isDead())
+		if (Arena.isDead())
 			return;
 
-		if (beepers < 1 && beepers != Display.INFINITY) {
-			Display.die("Trying to put non-existent beepers!");
+		if (beepers < 1 && beepers != Arena.INFINITY) {
+			Arena.die("Trying to put non-existent beepers!");
 			return;
 		}
 
-		if (beepers != Display.INFINITY)
+		if (beepers != Arena.INFINITY)
 			beepers--;
 
 		WorldBackend.getCurrent().putBeepers(x, y, 1);
 
-		Display.step();
+		Arena.step();
 	}
 
 	/**
 	 * Picks up a beeper from the current location in the world, removing
 	 * it from the currently existing pile.
-	 * Calls Display.step() to update the screen.
+	 * Calls Arena.step() to update the screen.
 	 */
 	public void pickBeeper() {
-		if (Display.isDead())
+		if (Arena.isDead())
 			return;
 
 		if (!WorldBackend.getCurrent().checkBeepers(x, y)) {
-			Display.die("Trying to pick non-existent beepers!");
+			Arena.die("Trying to pick non-existent beepers!");
 			return;
 		}
 
-		if (beepers != Display.INFINITY)
+		if (beepers != Arena.INFINITY)
 			beepers++;
 
 		WorldBackend.getCurrent().putBeepers(x, y, -1);
 
-		Display.step();
+		Arena.step();
 	}
 
 	/**
 	 * Picks up a beeper from the current location in the world, removing
 	 * it from the currently existing pile.
-	 * Calls Display.step() to update the screen.
+	 * Calls Arena.step() to update the screen.
 	 */
 	public boolean hasBeepers() {
-		return beepers > 0 || beepers == Display.INFINITY;
+		return beepers > 0 || beepers == Arena.INFINITY;
 	}
 
 	/**
@@ -306,7 +306,7 @@ public class Robot extends Item {
 	 * Checks to see if a wall would prevent the robot from moving in the
 	 * specified direction.
 	 * @param direction the direction to check. Uses values from the
-	 * constants in the Display class.
+	 * constants in the Arena class.
 	 */
 	private boolean isClear(Direction dir) {
 		Location c = getWallLocation(direction);
@@ -315,12 +315,12 @@ public class Robot extends Item {
 			case NORTH:
 			case SOUTH:
 				return !WorldBackend.getCurrent()
-				       .checkWall(c.x, c.y, Display.HORIZONTAL);
+				       .checkWall(c.x, c.y, Arena.HORIZONTAL);
 			case EAST:
 			case WEST:
 			default:
 				return !WorldBackend.getCurrent()
-				       .checkWall(c.x, c.y, Display.VERTICAL);
+				       .checkWall(c.x, c.y, Arena.VERTICAL);
 		}
 	}
 
@@ -332,7 +332,7 @@ public class Robot extends Item {
 	}
 
 	/**
-	 * Returns the coordinate of where the wall directly in front of the
+	 * Returns the location of where the wall directly in front of the
 	 * robot would be.
 	 */
 	private Location getWallLocation(Direction dir) {
@@ -357,10 +357,10 @@ public class Robot extends Item {
 	 * Renders the graphical representation of the Robot to the graphics
 	 * object at the specified location.
 	 * @param g the graphics context to render onto
-	 * @param c the coordinates of the position to render to (in pixels)
+	 * @param c the locations of the position to render to (in pixels)
 	 */
 	public void render(Graphics g, Location c) {
-		ImageIcon i = Display.getKarelImage(direction);
+		ImageIcon i = Arena.getKarelImage(direction);
 		g.drawImage(i.getImage(), c.x - i.getIconWidth() / 2,
 		            c.y - i.getIconHeight() / 2, null);
 	}

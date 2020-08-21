@@ -24,9 +24,9 @@ package edu.fcps.karel2;
  */
 
 /**
- * Location is a basic container for two ints representing the x and y coordinates of some object.
+ * Location is a basic container for two ints representing the x and y locations of some object.
  * It overrides Object's equals() and hashCode() methods so that two different Location objects
- * with the same x and y coordinates are identified as being the same (useful for rertrieving data from
+ * with the same x and y locations are identified as being the same (useful for rertrieving data from
  * HashMaps)
  */
 

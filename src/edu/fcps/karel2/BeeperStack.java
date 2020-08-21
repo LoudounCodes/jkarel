@@ -41,8 +41,8 @@ public class BeeperStack extends Item {
 	public BeeperStack(int x, int y, int beepers) {
 		super(x, y);
 
-		if (beepers < 1 && beepers != Display.INFINITY) {
-			Display.logger.warning("Invalid amount of beepers: "
+		if (beepers < 1 && beepers != Arena.INFINITY) {
+			Arena.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 1...");
 			beepers = 1;
 		}
@@ -58,7 +58,7 @@ public class BeeperStack extends Item {
 	}
 
 	/**
-	 * Renders the beeper stack at the specified pixel coordinates using
+	 * Renders the beeper stack at the specified pixel locations using
 	 * the specified Graphics object.
 	 */
 	public void render(Graphics g, Location c) {
@@ -66,12 +66,12 @@ public class BeeperStack extends Item {
 		g.fillOval(c.x - RADIUS, c.y - RADIUS, RADIUS * 2, RADIUS * 2);
 
 		String text;
-		if (numBeepers == Display.INFINITY)
+		if (numBeepers == Arena.INFINITY)
 			text = "\u221E "; //The infinity sign
 		else
 			text = "" + numBeepers;
 
-		Font f = Display.getBeeperFont();
+		Font f = Arena.getBeeperFont();
 
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D bounds = fm.getStringBounds(text, g);

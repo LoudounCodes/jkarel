@@ -29,15 +29,15 @@ import java.util.logging.Level;
  */
 
 /**
- * Display houses most of the static constants used in object creation and
+ * Arena houses most of the static constants used in object creation and
  * rendering, Karel file locations and images, and the speed at which the
- * WorldPanel updates.  The Display.step() method is responsible for the
+ * WorldPanel updates.  The Arena.step() method is responsible for the
  * animation of the Panel.
  * @author Andy Street, alstreet@vt.edu, 2007
  * @author Craig Saperstein, cmsaperstein@gmail.com, 2010
  */
 
-public class Display {
+public class Arena {
 
 	/**
 	 * Map loaded if no other map is specified.
@@ -55,11 +55,11 @@ public class Display {
   
 
 	/**
-	 * Default width of the display window.
+	 * Default width of the arena window.
 	 */
 	public static int FRAME_WIDTH = 550;
 	/**
-	 * Default height of the display window
+	 * Default height of the arena window
 	 */
 	public static int FRAME_HEIGHT = 550;
 
@@ -173,7 +173,7 @@ public class Display {
 	public static void placeBeeper(int x, int y)
 	{
 		if (WorldBackend.getCurrent() == null) {
-			Display.openDefaultWorld();
+			Arena.openDefaultWorld();
 		}
 
 		if (isDead())
@@ -193,13 +193,13 @@ public class Display {
 	}
 
 	/**
-	 * Sets the speed at which the Display updates.
-	 * @param s the requested speed of the Display.  If it is greater than the
+	 * Sets the speed at which the Arena updates.
+	 * @param s the requested speed of the Arena.  If it is greater than the
 	 * max speed, the speed is set to the max speed
 	 */
 	public static void setSpeed(int s) {
 		if (s > MAX_SPEED || s < 1) {
-			Display.logger.warning("Trying to set speed greater than maximum ("
+			Arena.logger.warning("Trying to set speed greater than maximum ("
 			                   + MAX_SPEED + ")!  Setting to max instead...");
 			speed = MAX_SPEED;
 			return;
@@ -209,7 +209,7 @@ public class Display {
 	}
 
 	/**
-	 * Returns the speed at which the Display updates.
+	 * Returns the speed at which the Arena updates.
 	 */
 	public static int getSpeed() {
 		return speed;
@@ -233,30 +233,30 @@ public class Display {
 		switch (dir) {
 			case NORTH: {
 					if (nkarel == null)
-						nkarel = new ImageIcon(Display.class.getResource(nkarelLocation));
+						nkarel = new ImageIcon(Arena.class.getResource(nkarelLocation));
 
 					return nkarel;
 				}
 			case EAST: {
 					if (ekarel == null)
-						ekarel = new ImageIcon(Display.class.getResource(ekarelLocation));
+						ekarel = new ImageIcon(Arena.class.getResource(ekarelLocation));
 
 					return ekarel;
 				}
 			case SOUTH: {
 					if (skarel == null)
-						skarel = new ImageIcon(Display.class.getResource(skarelLocation));
+						skarel = new ImageIcon(Arena.class.getResource(skarelLocation));
 
 					return skarel;
 				}
 			case WEST: {
 					if (wkarel == null)
-						wkarel = new ImageIcon(Display.class.getResource(wkarelLocation));
+						wkarel = new ImageIcon(Arena.class.getResource(wkarelLocation));
 
 					return wkarel;
 				}
 			default:
-				Display.logger.severe("Karel image for direction " + dir + " not found!  Aborting...");
+				Arena.logger.severe("Karel image for direction " + dir + " not found!  Aborting...");
 				System.exit(7);
 				return null;
 		}
@@ -276,7 +276,7 @@ public class Display {
 
 	/**
 	 * Repaints the WorldPanel, then pauses the Thread for a period of time
-	 * based on the current Display speed.
+	 * based on the current Arena speed.
 	 */
 	static void step() {
 		if (firstStep) {
@@ -289,7 +289,7 @@ public class Display {
 	}
 
 	/**
-	 * Sleeps the Thread for a period of time based on the current Display speed.
+	 * Sleeps the Thread for a period of time based on the current Arena speed.
 	 */
 	public static void pause() {
 		try {
@@ -301,12 +301,12 @@ public class Display {
 	}
 
 	/**
-	 * Outputs the reason why the Display cannot continue to update, calls
+	 * Outputs the reason why the Arena cannot continue to update, calls
 	 * hang(), then exits when hang() returns.
 	 */
 	static void die(String reason) {
 		isDead = true;
-		Display.logger.severe(reason);
+		Arena.logger.severe(reason);
 		hang();
 		System.exit(0);
 	}
@@ -322,7 +322,7 @@ public class Display {
 	}
 
 	/**
-	 * Returns whether or not the Display is currently dead
+	 * Returns whether or not the Arena is currently dead
 	 * (no longer able to update).
 	 */
 	public static boolean isDead() {
