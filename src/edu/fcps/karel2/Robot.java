@@ -116,7 +116,7 @@ public class Robot extends Item {
 		boolean clear = frontIsClear();
 
 		if (!clear) {
-			Coordinate c = getWallCoordinate(direction);
+			Location c = getWallLocation(direction);
 
 			switch (direction) {
 				case NORTH:
@@ -309,7 +309,7 @@ public class Robot extends Item {
 	 * constants in the Display class.
 	 */
 	private boolean isClear(Direction dir) {
-		Coordinate c = getWallCoordinate(direction);
+		Location c = getWallLocation(direction);
 
 		switch (dir) {
 			case NORTH:
@@ -335,7 +335,7 @@ public class Robot extends Item {
 	 * Returns the coordinate of where the wall directly in front of the
 	 * robot would be.
 	 */
-	private Coordinate getWallCoordinate(Direction dir) {
+	private Location getWallLocation(Direction dir) {
 		int xc = x, yc = y;
 
 		switch (dir) {
@@ -350,7 +350,7 @@ public class Robot extends Item {
 				break;
 		}
 
-		return new Coordinate(xc, yc);
+		return new Location(xc, yc);
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class Robot extends Item {
 	 * @param g the graphics context to render onto
 	 * @param c the coordinates of the position to render to (in pixels)
 	 */
-	public void render(Graphics g, Coordinate c) {
+	public void render(Graphics g, Location c) {
 		ImageIcon i = Display.getKarelImage(direction);
 		g.drawImage(i.getImage(), c.x - i.getIconWidth() / 2,
 		            c.y - i.getIconHeight() / 2, null);

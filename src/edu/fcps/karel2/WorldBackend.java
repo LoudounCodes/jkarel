@@ -18,7 +18,7 @@ public class WorldBackend {
 
 	private static WorldBackend current = null;
 
-	private Map<Coordinate, BeeperStack> beepers;
+	private Map<Location, BeeperStack> beepers;
 	private List<Robot> robots;
 	private List<Wall> walls;
 
@@ -35,7 +35,7 @@ public class WorldBackend {
 	public WorldBackend(String mapName) {
 		current = this;
 
-		beepers = Collections.synchronizedMap(new HashMap < Coordinate,
+		beepers = Collections.synchronizedMap(new HashMap < Location,
 		                                      BeeperStack > ());
 		robots = Collections.synchronizedList(new ArrayList<Robot>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
@@ -87,12 +87,12 @@ public class WorldBackend {
 	/**
 	 * Adds the specified number of beepers to the stack of beepers at the
 	 * specified location.
-	 * @param x the x coordinate of the taget location
-	 * @param y the y coordinate of the taget location
+	 * @param x the x location of the taget location
+	 * @param y the y location of the taget location
 	 * @param num number of beepers to place at the location.
 	 */
 	public void putBeepers(int x, int y, int num) {
-		Coordinate c = new Coordinate(x, y);
+		Location c = new Location(x, y);
 		if (num == Display.INFINITY) {
 			synchronized (beepers) {
 				beepers.put(c, new BeeperStack(x, y, num));
@@ -221,9 +221,9 @@ public class WorldBackend {
 	}
 
 	/**
-	 * Returns a Map of BeeperStacks with Coordinate keys
+	 * Returns a Map of BeeperStacks with Location keys
 	 */
-	Map<Coordinate, BeeperStack> getBeepers() {
+	Map<Location, BeeperStack> getBeepers() {
 		return beepers;
 	}
 	/**
@@ -242,8 +242,8 @@ public class WorldBackend {
 	/**
 	 * Checks to see if a wall exists at the specified location and direction.
 	 * Used when trying to determine collisions.
-	 * @param x x-coordinate of potential wall
-	 * @param y y-coordinate of potential wall
+	 * @param x x-location of potential wall
+	 * @param y y-location of potential wall
 	 * @param style orientation of potential wall
 	 */
 	boolean checkWall(int x, int y, int style) {
@@ -275,19 +275,19 @@ public class WorldBackend {
 
 	/**
 	 * Checks to see if any beepers exist at the specified location.
-	 * @param x x-coordinate of the location to check
-	 * @param y y-coordinate of the location to check
+	 * @param x x-location of the location to check
+	 * @param y y-location of the location to check
 	 */
 	boolean checkBeepers(int x, int y) {
-		return beepers.get(new Coordinate(x, y)) != null;
+		return beepers.get(new Location(x, y)) != null;
 	}
 
 	/**
 	 * Checks to see if there is a Robot besides the specified robot at a
 	 * given location.
 	 * @param r Robot to exclude from the search
-	 * @param x x-coordinate of the location to search
-	 * @param y y-coordinate of the location to search
+	 * @param x x-location of the location to search
+	 * @param y y-location of the location to search
 	 */
 	boolean isNextToARobot(Robot r, int x, int y) {
 		synchronized (robots) {
@@ -319,10 +319,10 @@ public class WorldBackend {
 	}
 
 	/**
-	 * Returns a coordinate representing the size of the world.
+	 * Returns a location representing the size of the world.
 	 */
-	public Coordinate getSize() {
-		return new Coordinate(width, height);
+	public Location getSize() {
+		return new Location(width, height);
 	}
 
 	/**

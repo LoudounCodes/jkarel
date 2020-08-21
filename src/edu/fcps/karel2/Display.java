@@ -165,9 +165,9 @@ public class Display {
 	}
 
 	/**
-	 * Placea beeper at some coordinate x,y
-	 * @param x the x coordinate of the desired placement
-	 * @param y the y coordinate of the desired placement 
+	 * Placea beeper at some location x,y
+	 * @param x the x location of the desired placement
+	 * @param y the y location of the desired placement 
 	 */
 	
 	public static void placeBeeper(int x, int y)

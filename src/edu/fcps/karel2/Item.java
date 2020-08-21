@@ -22,7 +22,7 @@ import java.awt.Graphics;
  */
 
 /**
- * The Item class keeps track of an x and y coordinate and provides an abstract
+ * The Item class keeps track of an x and y location and provides an abstract
  * render method.
  * @author Andy Street, alstreet@vt.edu, 2007
  */
@@ -32,7 +32,7 @@ public abstract class Item {
 	protected int x, y;
 
 	/**
-	 * Constructs an item with the specified x and y coordinates.
+	 * Constructs an item with the specified x and y locations.
 	 */
 	public Item(int x, int y) {
 		this.x = x;
@@ -40,14 +40,14 @@ public abstract class Item {
 	}
 
 	/**
-	 * Returns the x coordinate.
+	 * Returns the x location.
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * Returns the y coordinate.
+	 * Returns the y location.
 	 */
 	public int getY() {
 		return y;
@@ -56,6 +56,6 @@ public abstract class Item {
 	/**
 	 * Renders the Item.
 	 */
-	public abstract void render(Graphics g, Coordinate c);
+	public abstract void render(Graphics g, Location c);
 
 }

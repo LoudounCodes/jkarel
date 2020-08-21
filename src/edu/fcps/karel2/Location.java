@@ -24,24 +24,24 @@ package edu.fcps.karel2;
  */
 
 /**
- * Coordinate is a basic container for two ints representing the x and y coordinates of some object.
- * It overrides Object's equals() and hashCode() methods so that two different Coordinate objects
+ * Location is a basic container for two ints representing the x and y coordinates of some object.
+ * It overrides Object's equals() and hashCode() methods so that two different Location objects
  * with the same x and y coordinates are identified as being the same (useful for rertrieving data from
  * HashMaps)
  */
 
-public class Coordinate {
+public class Location {
 	
 	public int x, y;
 	
-	public Coordinate(int x, int y)
+	public Location(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
 	}
 	
         /**
-         * Generates a predictable hash code for the given x and y of the Coordinate.
+         * Generates a predictable hash code for the given x and y of the Location.
          */
 	public int hashCode()
 	{
@@ -49,14 +49,14 @@ public class Coordinate {
 	}
 	
         /**
-         * Checks if the x and y of the passed Coordinate are the same as this object's x and y.
+         * Checks if the x and y of the passed Location are the same as this object's x and y.
          */
 	public boolean equals(Object o)
 	{
-		if(!(o instanceof Coordinate))
+		if(!(o instanceof Location))
 			return false;
 		
-		Coordinate c = (Coordinate)o;
+		Location c = (Location)o;
 		
 		if(c.x == x && c.y == y)
 			return true;

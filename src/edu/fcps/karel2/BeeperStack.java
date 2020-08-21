@@ -61,7 +61,7 @@ public class BeeperStack extends Item {
 	 * Renders the beeper stack at the specified pixel coordinates using
 	 * the specified Graphics object.
 	 */
-	public void render(Graphics g, Coordinate c) {
+	public void render(Graphics g, Location c) {
 		g.setColor(Color.black);
 		g.fillOval(c.x - RADIUS, c.y - RADIUS, RADIUS * 2, RADIUS * 2);
 

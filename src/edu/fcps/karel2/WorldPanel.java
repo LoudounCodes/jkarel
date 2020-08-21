@@ -57,18 +57,18 @@ public class WorldPanel extends JPanel {
 	 * Graphics object.
 	 */
 	private void renderGrid(Graphics g) {
-		Coordinate worldSize = wb.getSize();
+		Location worldSize = wb.getSize();
 		g.setColor(Color.red);
 
 		for (int i = 1; i <= worldSize.x; i++) {
-			Coordinate c1 = coordinateToPixel(i, 0);
-			Coordinate c2 = coordinateToPixel(i, worldSize.y);
+			Location c1 = locationToPixel(i, 0);
+			Location c2 = locationToPixel(i, worldSize.y);
 			g.drawLine(c1.x, c1.y - blockHeight / 2, c2.x, c2.y);
 		}
 
 		for (int i = 1; i <= worldSize.y; i++) {
-			Coordinate c1 = coordinateToPixel(0, i);
-			Coordinate c2 = coordinateToPixel(worldSize.x, i);
+			Location c1 = locationToPixel(0, i);
+			Location c2 = locationToPixel(worldSize.x, i);
 			g.drawLine(c1.x + blockWidth / 2, c1.y, c2.x, c2.y);
 		}
 	}
@@ -78,10 +78,10 @@ public class WorldPanel extends JPanel {
 	 * Graphics object.
 	 */
 	private void renderBeepers(Graphics g) {
-		Map<Coordinate, BeeperStack> beepers = wb.getBeepers();
+		Map<Location, BeeperStack> beepers = wb.getBeepers();
 		synchronized (beepers) {
 			for (BeeperStack b : beepers.values()) {
-				b.render(g, coordinateToPixel(b.getX(), b.getY()));
+				b.render(g, locationToPixel(b.getX(), b.getY()));
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class WorldPanel extends JPanel {
 		List<Wall> walls = wb.getWalls();
 		synchronized (walls) {
 			for (Wall w : walls) {
-				w.render(g, coordinateToPixel(w.getX(), w.getY()));
+				w.render(g, locationToPixel(w.getX(), w.getY()));
 			}
 		}
 	}
@@ -107,7 +107,7 @@ public class WorldPanel extends JPanel {
 		List<Robot> robots = wb.getRobots();
 		synchronized (robots) {
 			for (Robot r : robots) {
-				r.render(g, coordinateToPixel(r.getX(), r.getY()));
+				r.render(g, locationToPixel(r.getX(), r.getY()));
 			}
 		}
 	}
@@ -126,18 +126,18 @@ public class WorldPanel extends JPanel {
 	}
 
 	/**
-	 * Returns the equivelent pixel coordinates of a set of Karel coordinates.
-	 * @param x the Karel x coordinate
-	 * @param y the Karel y coordinate
-	 * @return the transformed pixel coordinates
+	 * Returns the equivelent pixel locations of a set of Karel locations.
+	 * @param x the Karel x location
+	 * @param y the Karel y location
+	 * @return the transformed pixel locations
 	 */
-	public Coordinate coordinateToPixel(int x, int y) {
+	public Location locationToPixel(int x, int y) {
 		Dimension panelSize = getSize(); //In pixels
-		Coordinate worldSize = wb.getSize(); //In Cartesian coordinates
+		Location worldSize = wb.getSize(); //In Cartesian locations
 		int width = panelSize.width;
 		int height = panelSize.height;
 
-		//Center within whitespace buffer, find coordinate by scaling,
+		//Center within whitespace buffer, find location by scaling,
 		//add left hand X_BUFFER, subtract half block width for more
 		//centering
 		int xc = (int)((width - 2 * X_BUFFER) *
@@ -147,14 +147,14 @@ public class WorldPanel extends JPanel {
 		               ((worldSize.y - y) * 1.0 / worldSize.y)) +
 		         Y_BUFFER + blockHeight / 2;
 
-		return new Coordinate(xc, yc);
+		return new Location(xc, yc);
 	}
 
 	/**
-	 * Returns whether the specified Coordinate is within the size
+	 * Returns whether the specified Location is within the size
 	 * specifications of the world.
 	 */
-	public boolean isVisible(Coordinate c) {
+	public boolean isVisible(Location c) {
 		if (c.x > getSize().width || c.y > getSize().height || c.x < 0 || c.y < 0)
 			return false;
 

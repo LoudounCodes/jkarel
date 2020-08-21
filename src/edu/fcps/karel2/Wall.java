@@ -26,12 +26,12 @@ import java.awt.*;
  * between two lanes on the map and causes the program to end when a Robot walks
  * into it.
  *
- * For vertical walls, the x coordinate corresponds to the vertical lane in
- * front of which the Wall will render, and the y coordinate corresponds to the
+ * For vertical walls, the x location corresponds to the vertical lane in
+ * front of which the Wall will render, and the y location corresponds to the
  * horizontal lane on which the first segment of the Wall will center on.
  *
- * For horizontal walls, the x coordinate corresponds to the vertical lane on
- * which the first segment of the wall will center on, and the y coordinate
+ * For horizontal walls, the x location corresponds to the vertical lane on
+ * which the first segment of the wall will center on, and the y location
  * corresponds to the horizontal lane in front of which the Wall will render.
  *
  * If the Wall is of length greater than 1, the Wall will extend outwards
@@ -50,8 +50,8 @@ public class Wall extends Item {
 
 	/**
 	 * Constructs a vertical Wall of length 1
-	 * @param x the x coordinate of the Wall
-	 * @param y the y coordinate of the Wall
+	 * @param x the x location of the Wall
+	 * @param y the y location of the Wall
 	 */
 	public Wall(int x, int y) {
 		this(x, y, Display.VERTICAL);
@@ -59,8 +59,8 @@ public class Wall extends Item {
 
 	/**
 	 * Constructs a Wall of length 1 with the specified style
-	 * @param x the x coordinate of the Wall
-	 * @param y the y coordinate of the Wall
+	 * @param x the x location of the Wall
+	 * @param y the y location of the Wall
 	 * @param style the orientation of the wall (Display.VERTICAL or
 	 * Display.HORIZONTAL)
 	 */
@@ -70,8 +70,8 @@ public class Wall extends Item {
 
 	/**
 	 * Constructs a Wall of the specified length with the specified style
-	 * @param x the x coordinate of the Wall
-	 * @param y the y coordinate of the Wall
+	 * @param x the x location of the Wall
+	 * @param y the y location of the Wall
 	 * @param length the length of the Wall
 	 * @param style the orientation of the wall (Display.VERTICAL or
 	 * Display.HORIZONTAL)
@@ -107,12 +107,12 @@ public class Wall extends Item {
 	}
 
 	/**
-	 * Renders the Wall at the Coordinate specified using the passed
+	 * Renders the Wall at the Location specified using the passed
 	 * Graphics object.
 	 * @param g the Graphics with which to render the Wall
-	 * @param c the Coordinate (in pixels) at which to render the Wall
+	 * @param c the Location (in pixels) at which to render the Wall
 	 */
-	public void render(Graphics g, Coordinate c) {
+	public void render(Graphics g, Location c) {
 		g.setColor(Color.black);
 
 		double width = WorldPanel.getCurrent().getXBlockLength();
