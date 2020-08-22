@@ -79,16 +79,6 @@ public class Arena {
 	public static final int INFINITY = -2;
 
 	/**
-	 * The maximum allowed speed.
-	 */
-	private static final int MAX_SPEED = 10;
-
-	/**
-	 * Internally used to pause before the first paint.
-	 */
-	private static boolean firstStep = true;
-
-	/**
 	 * The font to write numbers on the beepers.
 	 */
 	private static Font beeperFont = null;
@@ -136,15 +126,12 @@ public class Arena {
 	private static ImageIcon wkarel = null;
 
 	/**
-	 * Default world speed.
-	 */
-	private static int speed = 5;
-
-	/**
 	 * Tracks whether or not the program has crashed.
 	 */
 	private static boolean isDead = false;
 
+  private static Pacing pace = Pacing.FAST;
+  
 	/**
 	 * Closes the current world if there is one, then creates a new WorldFrame
 	 * with the specified map file.
@@ -164,6 +151,14 @@ public class Arena {
 		new WorldFrame(new WorldBackend());
 	}
 
+  public static Pacing getPace() {
+    return pace;
+  }
+
+  public static void setPace(Pacing aPace) {
+    pace = aPace;
+  }
+  
 	/**
 	 * Placea beeper at some location x,y
 	 * @param x the x location of the desired placement
@@ -190,29 +185,6 @@ public class Arena {
 	private static void closeWorld() {
 		if (WorldFrame.getCurrent() != null)
 			WorldFrame.getCurrent().close();
-	}
-
-	/**
-	 * Sets the speed at which the Arena updates.
-	 * @param s the requested speed of the Arena.  If it is greater than the
-	 * max speed, the speed is set to the max speed
-	 */
-	public static void setSpeed(int s) {
-		if (s > MAX_SPEED || s < 1) {
-			Arena.logger.warning("Trying to set speed greater than maximum ("
-			                   + MAX_SPEED + ")!  Setting to max instead...");
-			speed = MAX_SPEED;
-			return;
-		}
-
-		speed = s;
-	}
-
-	/**
-	 * Returns the speed at which the Arena updates.
-	 */
-	public static int getSpeed() {
-		return speed;
 	}
 
 	/**
@@ -279,26 +251,11 @@ public class Arena {
 	 * based on the current Arena speed.
 	 */
 	static void step() {
-		if (firstStep) {
-			firstStep = false;
-			pause();
-		}
 
 		WorldPanel.getCurrent().repaint();
-		pause();
+		pace.tick();
 	}
 
-	/**
-	 * Sleeps the Thread for a period of time based on the current Arena speed.
-	 */
-	public static void pause() {
-		try {
-			Thread.sleep(30 * (MAX_SPEED - speed + 1));
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Outputs the reason why the Arena cannot continue to update, calls
