@@ -13,6 +13,7 @@ This version of the framework is making the code more idomatic with current Java
 ### Prerequisites:
 * a modern version of Java, available from a bash-like shell.
 * a modern version of ant, available from a bash-like shell.
+### Build Steps:
 * download this code either by cloneing via git+ssh or downloading an uncompressing the zip file, above.
 * from a command line at the root of the project, type 'ant'.
 ** a jar file and javadoc will appear is if by magic in an 'out' directory.
