@@ -1,6 +1,6 @@
-#LoudounCodes JKarel
+# LoudounCodes JKarel
 
-##Introduction:
+## Introduction:
 This code was born from the Loudoun County Public School System's use of Fairfax County's FCPSKarel conputer science curriculum.
 
 The primary person forking this code (@bokmann) has been using this code for 7 years as a Teacher's Assistant at Loudoun Valley High School.
@@ -9,7 +9,7 @@ In the intervening decade+ since the code was originally written, Java has evolv
 
 This version of the framework is making the code more idomatic with current Java conventions, as well as revisiting some design decisions that should make this code more suitable both for a beginner programming course, as well as a post-AP course learning about software architecture.
 
-##Changes made to this version:
+## Changes made to this version:
 * idioms based on C++ (like enums based on integer values) have been replaced with modern Java semantics (like Java's Enum, introduced in Java 1.5)
 * XML Parsing was moved to use the built-in Java classes rather than the external Xerces library from Apache (makes the setup easier for the begining level class)
 * Fixed the build system to be inline with larger organizational software development practices
@@ -33,7 +33,7 @@ This version of the framework is making the code more idomatic with current Java
 * New jar file is compatible with JRuby.
 * Check the git commit comments for a more detailed changelog.
 
-##Regarding Contributions:
+## Regarding Contributions:
 Contributions are welcome!  As this is intended for a class on software architecture, the impact on pull requests will be considered, so contrbutions will not be blinfly accepted.
 
 To contribute:
@@ -45,7 +45,7 @@ To contribute:
 * make sure you add your name to the list of contributors.  While github tracks that, I hope to eventually embed attribution into the jar file manifest.
 * submit a pull request.
 
-##ToDo:
+## ToDo:
 * redesign curriculum to use new classes and features.
 * Add a maze generation package based on the book "Mazes For Programmers", so that make generating algorithms can be studied in an algorithms course.
 * Design curriculum for a software architecture course.
@@ -55,10 +55,10 @@ To contribute:
   * more advanced robots, ala RoboCode or RTanque?
   * Curriculum using JRuby?
 
-###Contributors to this version, maintained by the nonprofit LoudounCodes:
-* David Bock
+### Contributors to this version, maintained by the nonprofit LoudounCodes:
+* David Bock(@bokmann)
 
-###Previous Contributors to FCPSKarel, on which this work is based:
+### Previous Contributors to FCPSKarel, on which this work is based:
 
 * Andy Street <alstreet@vt.edu> 2007 Original author of FCPS Karel. Thank you for the foundational work.
 * Daniel Johnson <2010djohnson@tjhsst.edu> Summer 2009 Major contributions before we got our grubby little hands on it.
