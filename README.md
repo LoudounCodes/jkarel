@@ -9,6 +9,15 @@ In the intervening decade+ since the code was originally written, Java has evolv
 
 This version of the framework is making the code more idomatic with current Java conventions, as well as revisiting some design decisions that should make this code more suitable both for a beginner programming course, as well as a post-AP course learning about software architecture.
 
+## Building:
+### Prerequisites:
+* a modern version of Java, available from a bash-like shell.
+* a modern version of ant, available from a bash-like shell.
+* download this code either by cloneing via git+ssh or downloading an uncompressing the zip file, above.
+* from a command line at the root of the project, type 'ant'.
+** a jar file and javadoc will appear is if by magic in an 'out' directory.
+** a 'scratch' directory will also be created, with the intermediate results of compiling.
+* typing 'ant clean' will remove the scratch and out directories, returning your directory to a pristine state (except for modifications you may have made to the source).
 ## Changes made to this version:
 * idioms based on C++ (like enums based on integer values) have been replaced with modern Java semantics (like Java's Enum, introduced in Java 1.5)
 * XML Parsing was moved to use the built-in Java classes rather than the external Xerces library from Apache (makes the setup easier for the begining level class)
