@@ -1,6 +1,6 @@
-package edu.fcps.karel2;
+package org.loudouncodes.jkarel;
 
-import edu.fcps.karel2.xml.*;
+import org.loudouncodes.jkarel.xml.*;
 
 import java.io.*;
 import java.net.*;

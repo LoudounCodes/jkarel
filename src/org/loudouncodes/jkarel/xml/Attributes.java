@@ -1,4 +1,6 @@
-package edu.fcps.karel2;
+package org.loudouncodes.jkarel.xml;
+
+import org.xml.sax.ext.Attributes2Impl;
 
 /**
  * @author Andy Street, alstreet@vt.edu, 2007
@@ -24,43 +26,36 @@ package edu.fcps.karel2;
  */
 
 /**
- * Location is a basic container for two ints representing the x and y locations of some object.
- * It overrides Object's equals() and hashCode() methods so that two different Location objects
- * with the same x and y locations are identified as being the same (useful for rertrieving data from
- * HashMaps)
+ * A simple extension of the sax Attributes2Impl that shortens the name and attributes to be added and
+ * removed in a HashMap-like manner.
  */
 
-public class Location {
-	
-	public int x, y;
-	
-	public Location(int x, int y)
+public class Attributes extends Attributes2Impl {
+	public Attributes()
 	{
-		this.x = x;
-		this.y = y;
+		super();
+	}
+	public Attributes(org.xml.sax.Attributes a)
+	{
+		super(a);
 	}
 	
-        /**
-         * Generates a predictable hash code for the given x and y of the Location.
+	/**
+         * Adds an attribute pair.
+         * @param key the attribute key
+         * @param value the attribute value
          */
-	public int hashCode()
+        public void put(String key, String value)
 	{
-		return x * 1000 + y; //Possible problems on HUGE maps?
+		addAttribute("", key, key, "CDATA", value);
 	}
-	
+
         /**
-         * Checks if the x and y of the passed Location are the same as this object's x and y.
+         * A synonym for getValue(String).
+         * @param key the key for the value you wish to retrieve
          */
-	public boolean equals(Object o)
+	public String get(String key)
 	{
-		if(!(o instanceof Location))
-			return false;
-		
-		Location c = (Location)o;
-		
-		if(c.x == x && c.y == y)
-			return true;
-		
-		return false;
+		return getValue(key);
 	}
 }

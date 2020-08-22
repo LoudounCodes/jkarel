@@ -1,6 +1,6 @@
-package edu.fcps.karel2.xml;
+package org.loudouncodes.jkarel.xml;
 
-import edu.fcps.karel2.*;
+import org.loudouncodes.jkarel.*;
 
 import java.lang.reflect.*;
 
@@ -54,7 +54,7 @@ public class WorldParser {
 			for(Element e : properties.getElements())
 			{
 				try {
-					Method m = Class.forName("edu.fcps.karel2.WorldBackend").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("edu.fcps.karel2.xml.Attributes") });
+					Method m = Class.forName("org.loudouncodes.jkarel.WorldBackend").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
 					m.invoke(wb, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();
@@ -80,7 +80,7 @@ public class WorldParser {
 			for(Element e : objects.getElements())
 			{
 				try {
-					Method m = Class.forName("edu.fcps.karel2.WorldBackend").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("edu.fcps.karel2.xml.Attributes") });
+					Method m = Class.forName("org.loudouncodes.jkarel.WorldBackend").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
 					m.invoke(wb, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();

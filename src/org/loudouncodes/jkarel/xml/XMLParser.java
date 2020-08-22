@@ -1,4 +1,4 @@
-package edu.fcps.karel2.xml;
+package org.loudouncodes.jkarel.xml;
 
 import java.io.*;
 import java.util.HashMap;
@@ -152,7 +152,7 @@ public class XMLParser extends DefaultHandler
 			}
 		
 		
-		edu.fcps.karel2.xml.Attributes a = new edu.fcps.karel2.xml.Attributes();
+		org.loudouncodes.jkarel.xml.Attributes a = new org.loudouncodes.jkarel.xml.Attributes();
 		a.setAttributes(as);
 
 		Element e = new Element(localName, a);

@@ -1,4 +1,4 @@
-package edu.fcps.karel2;
+package org.loudouncodes.jkarel;
 
 import java.util.Scanner;
 

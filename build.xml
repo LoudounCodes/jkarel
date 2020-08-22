@@ -1,9 +1,9 @@
-<project name="fcpsKarel" default="build-all" basedir=".">
+<project name="jkarel" default="build-all" basedir=".">
     <property name = "src.dir" value = "src"/>
     <property name = "build.dir" value = "scratch"/>
     <property name = "output.dir" value = "out"/>
     <property name = "lib.dir" value = "lib"/>
-    <property name = "version" value = "2.0.1"/>
+    <property name = "version" value = "1.0.0"/>
     
     <path id = "dependencies">
        <fileset dir = "lib">
@@ -39,7 +39,7 @@
     
     
     <target name="build-jar" depends="build-src">
-      <jar destfile="${output.dir}/fcpskarel-${version}.jar">
+      <jar destfile="${output.dir}/jkarel-${version}.jar">
         <manifest>
           <attribute name="Class-Path" value="${manifest.classpath}"/>
         </manifest>
@@ -79,7 +79,7 @@
     <target name="build-docs">
         <javadoc sourcepath="src"
                  destdir="${output.dir}/docs"
-                 packagenames="edu.fcps.*" >
+                 packagenames="org.loudouncodes.*" >
                  
           <classpath refid = "dependencies" />
         </javadoc>
