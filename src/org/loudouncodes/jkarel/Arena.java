@@ -92,40 +92,6 @@ public class Arena {
 	private static int beeperFontSize = 10;
 
 	/**
-	 * Location of the image of karel facing north.
-	 */
-	private static final String nkarelLocation = "/icons/kareln.gif";
-	/**
-	 * Location of the image of karel facing east.
-	 */
-	private static final String ekarelLocation = "/icons/karele.gif";
-	/**
-	 * Location of the image of karel facing south.
-	 */
-	private static final String skarelLocation = "/icons/karels.gif";
-	/**
-	 * Location of the image of karel facing west.
-	 */
-	private static final String wkarelLocation = "/icons/karelw.gif";
-
-	/**
-	 * Image icon where the north-facing karel is loaed.
-	 */
-	private static ImageIcon nkarel = null;
-	/**
-	 * Image icon where the east-facing karel is loaded.
-	 */
-	private static ImageIcon ekarel = null;
-	/**
-	 * Image icon where the south-facing karel is loaded.
-	 */
-	private static ImageIcon skarel = null;
-	/**
-	 * Image icon where the west-facing karel is loaded.
-	 */
-	private static ImageIcon wkarel = null;
-
-	/**
 	 * Tracks whether or not the program has crashed.
 	 */
 	private static boolean isDead = false;
@@ -198,41 +164,6 @@ public class Arena {
 	}
 
 
-	/**
-	 * Returns the Karel ImageIcon associated with the specified direction
-	 */
-	static ImageIcon getKarelImage(Direction dir) {
-		switch (dir) {
-			case NORTH: {
-					if (nkarel == null)
-						nkarel = new ImageIcon(Arena.class.getResource(nkarelLocation));
-
-					return nkarel;
-				}
-			case EAST: {
-					if (ekarel == null)
-						ekarel = new ImageIcon(Arena.class.getResource(ekarelLocation));
-
-					return ekarel;
-				}
-			case SOUTH: {
-					if (skarel == null)
-						skarel = new ImageIcon(Arena.class.getResource(skarelLocation));
-
-					return skarel;
-				}
-			case WEST: {
-					if (wkarel == null)
-						wkarel = new ImageIcon(Arena.class.getResource(wkarelLocation));
-
-					return wkarel;
-				}
-			default:
-				Arena.logger.severe("Karel image for direction " + dir + " not found!  Aborting...");
-				System.exit(7);
-				return null;
-		}
-	}
 
 	/**
 	 * The same as calling WorldBackend.setSize(x, y)

@@ -3,6 +3,7 @@ package org.loudouncodes.jkarel;
 import java.awt.*;
 import javax.swing.*;
 import java.util.List;
+import java.util.HashMap;
 
 /**
  * A Robot is a basic movable object in the world. Students interct primarily
@@ -15,8 +16,10 @@ import java.util.List;
 
 public class Robot extends Item {
 
+  // location is in the parent class
 	private int beepers;
 	private Direction direction;
+  private HashMap<Direction,ImageIcon> icons;
 
 	/**
 	 * Contructs a Robot at the default location of (1,1) facing east with
@@ -73,6 +76,13 @@ public class Robot extends Item {
 
 		this.x = x;
 		this.y = y;
+
+    icons = new HashMap<Direction,ImageIcon>();
+
+    icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
+    icons.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
+    icons.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
+    icons.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
 
 		if (beepers < 0 && beepers != Arena.INFINITY) {
 			Arena.logger.warning("Invalid amount of beepers: "
@@ -360,7 +370,7 @@ public class Robot extends Item {
 	 * @param c the locations of the position to render to (in pixels)
 	 */
 	public void render(Graphics g, Location c) {
-		ImageIcon i = Arena.getKarelImage(direction);
+		ImageIcon i = icons.get(direction);
 		g.drawImage(i.getImage(), c.x - i.getIconWidth() / 2,
 		            c.y - i.getIconHeight() / 2, null);
 	}
