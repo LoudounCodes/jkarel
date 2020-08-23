@@ -56,11 +56,9 @@ public class Location {
 		if(!(o instanceof Location))
 			return false;
 		
-		Location c = (Location)o;
+		Location that = (Location)o;
 		
-		if(c.x == x && c.y == y)
-			return true;
-		
-		return false;
+		return (that.x == this.x && that.y == this.y);
+
 	}
 }
