@@ -52,7 +52,7 @@ public enum Pacing {
     @Override
     void tick() {
   		try {
-  			Thread.sleep(50);
+  			Thread.sleep(5);
   		}
   		catch (InterruptedException e) {
   			e.printStackTrace();
