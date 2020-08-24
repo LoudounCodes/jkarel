@@ -60,17 +60,19 @@ public class WorldPanel extends JPanel {
 		Location worldSize = wb.getSize();
 		g.setColor(Color.red);
 
-		for (int i = 1; i <= worldSize.x; i++) {
-			Location c1 = locationToPixel(i, 0);
-			Location c2 = locationToPixel(i, worldSize.y);
-			g.drawLine(c1.x, c1.y - blockHeight / 2, c2.x, c2.y);
-		}
-
-		for (int i = 1; i <= worldSize.y; i++) {
-			Location c1 = locationToPixel(0, i);
-			Location c2 = locationToPixel(worldSize.x, i);
-			g.drawLine(c1.x + blockWidth / 2, c1.y, c2.x, c2.y);
-		}
+    int yMin = convertToYPixel(1) + blockHeight / 2;
+    int yMax = convertToYPixel(worldSize.y);
+    for (int i = 1; i <= worldSize.x; i++) {
+      int x = convertToXPixel(i);
+      g.drawLine(x, yMin, x, yMax);
+    }
+    
+    int xMin = convertToXPixel(0) + blockHeight / 2;
+    int xMax = convertToXPixel(worldSize.x);
+    for (int i = 1; i <= worldSize.y; i++) {
+      int y = convertToYPixel(i);
+      g.drawLine(xMin, y , xMax, y);      
+    }
 	}
 
 	/**
@@ -81,7 +83,9 @@ public class WorldPanel extends JPanel {
 		Map<Location, BeeperStack> beepers = wb.getBeepers();
 		synchronized (beepers) {
 			for (BeeperStack b : beepers.values()) {
-				b.render(g, locationToPixel(b.getX(), b.getY()));
+				b.render(g,
+                 convertToXPixel(b.getLocation().getX()),
+                 convertToYPixel(b.getLocation().getY()));
 			}
 		}
 	}
@@ -94,7 +98,9 @@ public class WorldPanel extends JPanel {
 		List<Wall> walls = wb.getWalls();
 		synchronized (walls) {
 			for (Wall w : walls) {
-				w.render(g, locationToPixel(w.getX(), w.getY()));
+				w.render(g,
+                 convertToXPixel(w.getLocation().getX()),
+                 convertToYPixel(w.getLocation().getY()));
 			}
 		}
 	}
@@ -107,7 +113,9 @@ public class WorldPanel extends JPanel {
 		List<Robot> robots = wb.getRobots();
 		synchronized (robots) {
 			for (Robot r : robots) {
-				r.render(g, locationToPixel(r.getX(), r.getY()));
+				r.render(g,
+                 convertToXPixel(r.getLocation().getX()),
+                 convertToYPixel(r.getLocation().getY()));
 			}
 		}
 	}
@@ -125,31 +133,30 @@ public class WorldPanel extends JPanel {
 		renderWalls(g);
 	}
 
-	/**
-	 * Returns the equivelent pixel locations of a set of Karel locations.
-	 * @param x the Karel x location
-	 * @param y the Karel y location
-	 * @return the transformed pixel locations
-	 */
-	public Location locationToPixel(int x, int y) {
+	public int convertToXPixel(int xLocation) {
 		Dimension panelSize = getSize(); //In pixels
 		Location worldSize = wb.getSize(); //In Cartesian locations
 		int width = panelSize.width;
+
+		int x = (int)((width - 2 * X_BUFFER) *
+		               (xLocation * 1.0 / worldSize.x)) +
+		         X_BUFFER - blockWidth / 2;
+		return x;
+	}
+  
+	public int convertToYPixel(int yLocation) {
+		Dimension panelSize = getSize(); //In pixels
+		Location worldSize = wb.getSize(); //In Cartesian locations
 		int height = panelSize.height;
 
-		//Center within whitespace buffer, find location by scaling,
-		//add left hand X_BUFFER, subtract half block width for more
-		//centering
-		int xc = (int)((width - 2 * X_BUFFER) *
-		               (x * 1.0 / worldSize.x)) +
-		         X_BUFFER - blockWidth / 2;
-		int yc = (int)((height - 2 * Y_BUFFER) *
-		               ((worldSize.y - y) * 1.0 / worldSize.y)) +
+		int y = (int)((height - 2 * Y_BUFFER) *
+		               ((worldSize.y - yLocation) * 1.0 / worldSize.y)) +
 		         Y_BUFFER + blockHeight / 2;
-
-		return new Location(xc, yc);
+		return y;
 	}
-
+  
+  
+  
 	/**
 	 * Returns whether the specified Location is within the size
 	 * specifications of the world.

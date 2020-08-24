@@ -110,9 +110,8 @@ public class Wall extends Item {
 	 * Renders the Wall at the Location specified using the passed
 	 * Graphics object.
 	 * @param g the Graphics with which to render the Wall
-	 * @param c the Location (in pixels) at which to render the Wall
 	 */
-	public void render(Graphics g, Location c) {
+	public void render(Graphics g, int x, int y) {    
 		g.setColor(Color.black);
 
 		double width = WorldPanel.getCurrent().getXBlockLength();
@@ -120,13 +119,13 @@ public class Wall extends Item {
 
 		switch (style) {
 			case Arena.VERTICAL:
-				g.fillRect((int)(c.x + width / 2 - (WALL_WIDTH - 1) / 2),
-				           (int)(c.y - height * length + height / 2),
+				g.fillRect((int)(x + width / 2 - (WALL_WIDTH - 1) / 2),
+				           (int)(y - height * length + height / 2),
 				           WALL_WIDTH, (int)(height * length + 1));
 				break;
 			case Arena.HORIZONTAL:
-				g.fillRect((int)(c.x - width / 2),
-				           (int)(c.y - height / 2 - (WALL_WIDTH - 1) / 2),
+				g.fillRect((int)(x - width / 2),
+				           (int)(y - height / 2 - (WALL_WIDTH - 1) / 2),
 				           (int)(width * length + 1), WALL_WIDTH);
 				break;
 		}

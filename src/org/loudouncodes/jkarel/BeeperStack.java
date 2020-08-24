@@ -61,9 +61,10 @@ public class BeeperStack extends Item {
 	 * Renders the beeper stack at the specified pixel locations using
 	 * the specified Graphics object.
 	 */
-	public void render(Graphics g, Location c) {
+	public void render(Graphics g, int x, int y) {
+    
 		g.setColor(Color.black);
-		g.fillOval(c.x - RADIUS, c.y - RADIUS, RADIUS * 2, RADIUS * 2);
+		g.fillOval(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
 
 		String text;
 		if (numBeepers == Arena.INFINITY)
@@ -77,8 +78,8 @@ public class BeeperStack extends Item {
 		Rectangle2D bounds = fm.getStringBounds(text, g);
 
 		g.setColor(Color.white);
-		g.drawString(text, (int)(c.x - bounds.getWidth() / 2),
-		             (int)(c.y + bounds.getHeight() / 2));
+		g.drawString(text, (int)(x - bounds.getWidth() / 2),
+		             (int)(y + bounds.getHeight() / 2));
 	}
 
 }

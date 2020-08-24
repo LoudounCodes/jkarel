@@ -87,15 +87,14 @@ public class WorldBackend {
 	/**
 	 * Adds the specified number of beepers to the stack of beepers at the
 	 * specified location.
-	 * @param x the x location of the taget location
-	 * @param y the y location of the taget location
 	 * @param num number of beepers to place at the location.
+   *
+   * Why are we dealing with locations and getX&Y stuff in this method?
 	 */
-	public void putBeepers(int x, int y, int num) {
-		Location c = new Location(x, y);
+	public void putBeepers(Location l, int num) {
 		if (num == Arena.INFINITY) {
 			synchronized (beepers) {
-				beepers.put(c, new BeeperStack(x, y, num));
+				beepers.put(l, new BeeperStack(l.getX(), l.getY(), num));
 			}
 			return;
 		}
@@ -103,16 +102,16 @@ public class WorldBackend {
 			int oldBeepers = 0;
 
 			BeeperStack b;
-			if ((b = beepers.get(c)) != null)
+			if ((b = beepers.get(l)) != null)
 				oldBeepers = b.getBeepers();
 
 			if (oldBeepers == Arena.INFINITY)
 				return;
 
 			if (oldBeepers + num < 1)
-				beepers.remove(c);
+				beepers.remove(l);
 			else
-				beepers.put(c, new BeeperStack(x, y, num + oldBeepers));
+				beepers.put(l, new BeeperStack(l.getX(), l.getY(), num + oldBeepers));
 		}
 	}
 
@@ -135,9 +134,9 @@ public class WorldBackend {
 		String num = a.get("num");
 
 		if (num.equalsIgnoreCase("infinite"))
-			putBeepers(x, y, Arena.INFINITY);
+			putBeepers(new Location(x, y), Arena.INFINITY);
 		else
-			putBeepers(x, y, Integer.parseInt(num));
+			putBeepers(new Location(x, y), Integer.parseInt(num));
 	}
 	/**
 	 * Helper method to convert the attributes from the file which represent
@@ -278,21 +277,20 @@ public class WorldBackend {
 	 * @param x x-location of the location to check
 	 * @param y y-location of the location to check
 	 */
-	boolean checkBeepers(int x, int y) {
-		return beepers.get(new Location(x, y)) != null;
+	boolean checkBeepers(Location l) {
+		return beepers.get(l) != null;
 	}
 
 	/**
 	 * Checks to see if there is a Robot besides the specified robot at a
 	 * given location.
 	 * @param r Robot to exclude from the search
-	 * @param x x-location of the location to search
-	 * @param y y-location of the location to search
+   * todo - this should take an Item and thats all it should need.
 	 */
-	boolean isNextToARobot(Robot r, int x, int y) {
+	boolean isNextToARobot(Robot r, Location l) {
 		synchronized (robots) {
 			for (Robot robot : robots)
-				if (robot != r && robot.getX() == x && robot.getY() == y)
+				if (robot != r && robot.getX() == l.getX() && robot.getY() == l.getY())
 					return true;
 
 			return false;

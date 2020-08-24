@@ -38,8 +38,7 @@ public class Robot extends Item {
 	 * @param beepers the number of beepers the new Robot will start with
 	 */
 	public Robot(int x, int y, Direction dir, int beepers) {
-		super(x, y);
-		init(x, y, dir, beepers, false);
+		this(x, y, dir, beepers, false);
 	}
 
 	/**Contructs a Robot at the specified location, direction, and number of beepers
@@ -53,45 +52,28 @@ public class Robot extends Item {
 	 * to cause the arena to update or not.(Internal indicates no display
 	 * update
 	 */
-
-	public Robot(int x, int y, Direction dir, int beepers, boolean internal) {
-		super(x, y);
-		init(x, y, dir, beepers, internal);
-	}
-	/**Common code called by both constructors.
-	 * @param x the x location of the new Robot's location
-	 * @param y the y location of the new Robot's location
-	 * @param dir the number representing the direction of the robot, using
-	 * the constants from Arena
-	 * @param beepers the number of beepers the new Robot will start with
-	 * @param internal a boolean specifiying whether the robot construction
-	 * to cause the arena to update or not.(Internal indicates no arena
-	 * update
-	 */
-	private void init(int x, int y, Direction dir, int beepers, boolean internal) {
-
-		if (WorldBackend.getCurrent() == null) {
-			Arena.openDefaultWorld();
-		}
-
-		this.x = x;
-		this.y = y;
-
-    icons = new HashMap<Direction,ImageIcon>();
-
-    icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
-    icons.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
-    icons.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
-    icons.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
-
+	public Robot(int x, int y, Direction dir, int beeperCount, boolean internal) {
+    super(x, y);
+		direction = dir;
+    
 		if (beepers < 0 && beepers != Arena.INFINITY) {
 			Arena.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 0...");
 			beepers = 0;
 		}
+		beepers = beeperCount;
 
-		direction = dir;
-		this.beepers = beepers;
+    icons = new HashMap<Direction,ImageIcon>();
+    icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
+    icons.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
+    icons.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
+    icons.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
+
+		if (WorldBackend.getCurrent() == null) {
+			Arena.openDefaultWorld();
+		}
+
+
 		if (internal)
 			WorldBackend.getCurrent().addRobotInternal(this);
 		else
@@ -127,35 +109,11 @@ public class Robot extends Item {
 
 		if (!clear) {
 			Location c = getWallLocation(direction);
-
-			switch (direction) {
-				case NORTH:
-				case SOUTH:
-					Arena.die("Tried to walk through a horizontal wall at (" + c.x + ", " + c.y + ")!");
-					break;
-				case EAST:
-				case WEST:
-				default:
-					Arena.die("Tried to walk through a vertical wall at (" + c.x + ", " + c.y + ")!");
-			}
-
+			Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
 			return;
 		}
 
-		switch (direction) {
-			case NORTH:
-				y++;
-				break;
-			case EAST:
-				x++;
-				break;
-			case SOUTH:
-				y--;
-				break;
-			case WEST:
-				x--;
-				break;
-		}
+		myLocation.move(direction);
 
 		Arena.step();
 	}
@@ -204,7 +162,7 @@ public class Robot extends Item {
 		if (beepers != Arena.INFINITY)
 			beepers--;
 
-		WorldBackend.getCurrent().putBeepers(x, y, 1);
+		WorldBackend.getCurrent().putBeepers(myLocation, 1);
 
 		Arena.step();
 	}
@@ -218,7 +176,7 @@ public class Robot extends Item {
 		if (Arena.isDead())
 			return;
 
-		if (!WorldBackend.getCurrent().checkBeepers(x, y)) {
+		if (!WorldBackend.getCurrent().checkBeepers(myLocation)) {
 			Arena.die("Trying to pick non-existent beepers!");
 			return;
 		}
@@ -226,7 +184,7 @@ public class Robot extends Item {
 		if (beepers != Arena.INFINITY)
 			beepers++;
 
-		WorldBackend.getCurrent().putBeepers(x, y, -1);
+		WorldBackend.getCurrent().putBeepers(myLocation, -1);
 
 		Arena.step();
 	}
@@ -276,7 +234,7 @@ public class Robot extends Item {
 	 * this Robot.
 	 */
 	public boolean nextToABeeper() {
-		return WorldBackend.getCurrent().checkBeepers(x, y);
+		return WorldBackend.getCurrent().checkBeepers(myLocation);
 	}
 
 	/**
@@ -284,7 +242,7 @@ public class Robot extends Item {
 	 * this Robot.
 	 */
 	public boolean nextToARobot() {
-		return WorldBackend.getCurrent().isNextToARobot(this, x, y);
+		return WorldBackend.getCurrent().isNextToARobot(this, myLocation);
 	}
 
 	/**
@@ -346,7 +304,8 @@ public class Robot extends Item {
 	 * robot would be.
 	 */
 	private Location getWallLocation(Direction dir) {
-		int xc = x, yc = y;
+		int xc = myLocation.getX();
+    int yc = myLocation.getY();
 
 		switch (dir) {
 			case NORTH: //Check in front, not behind
@@ -367,12 +326,12 @@ public class Robot extends Item {
 	 * Renders the graphical representation of the Robot to the graphics
 	 * object at the specified location.
 	 * @param g the graphics context to render onto
-	 * @param c the locations of the position to render to (in pixels)
 	 */
-	public void render(Graphics g, Location c) {
+	public void render(Graphics g, int x, int y) {
 		ImageIcon i = icons.get(direction);
-		g.drawImage(i.getImage(), c.x - i.getIconWidth() / 2,
-		            c.y - i.getIconHeight() / 2, null);
+		g.drawImage(i.getImage(),
+                x - i.getIconWidth() / 2,
+		            y - i.getIconHeight() / 2, null);
 	}
 
 	/**
@@ -381,6 +340,6 @@ public class Robot extends Item {
 	 * @param other the Robot to check against
 	 */
 	public boolean nextToRobot(Robot other) {
-		return (x == other.getX() && y == other.getY());
+		return (myLocation.equals(other.getLocation()));
 	}
 }

@@ -131,7 +131,7 @@ public class Arena {
 	 * @param y the y location of the desired placement 
 	 */
 	
-	public static void placeBeeper(int x, int y)
+	public static void placeBeeper(Location l)
 	{
 		if (WorldBackend.getCurrent() == null) {
 			Arena.openDefaultWorld();
@@ -139,7 +139,7 @@ public class Arena {
 
 		if (isDead())
 			return;
-		WorldBackend.getCurrent().putBeepers(x, y, 1);
+		WorldBackend.getCurrent().putBeepers(l, 1);
 		WorldPanel.getCurrent().repaint();
 	}
 	

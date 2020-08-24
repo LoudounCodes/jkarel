@@ -29,33 +29,40 @@ import java.awt.Graphics;
 
 public abstract class Item {
 
-	protected int x, y;
-
+  protected Location myLocation;
+  
 	/**
 	 * Constructs an item with the specified x and y locations.
 	 */
 	public Item(int x, int y) {
-		this.x = x;
-		this.y = y;
+    myLocation = new Location(x, y);
 	}
 
+  public Location getLocation() {
+    return myLocation;
+  }
+  
 	/**
 	 * Returns the x location.
 	 */
 	public int getX() {
-		return x;
+		return myLocation.getX();
 	}
 
 	/**
 	 * Returns the y location.
 	 */
 	public int getY() {
-		return y;
+		return myLocation.getY();
 	}
 
 	/**
 	 * Renders the Item.
+   * At first glance, x and y might seem duplicative of the Location concept, but these
+   * are different.  Location is an object that references the arena location, but these
+   * x and y coordinates represent a location on the WorldPanel... that is, locations
+   * converted to pixels.
 	 */
-	public abstract void render(Graphics g, Location c);
-
+	public abstract void render(Graphics g, int x, int y);
+  
 }

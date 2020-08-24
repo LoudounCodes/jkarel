@@ -40,6 +40,30 @@ public class Location {
 		this.y = y;
 	}
 	
+  public int getX() {
+    return x;
+  }
+  
+  public int getY() {
+    return y;
+  }
+  
+  public void move(Direction d) {
+		switch (d) {
+			case NORTH:
+				y++;
+				break;
+			case EAST:
+				x++;
+				break;
+			case SOUTH:
+				y--;
+				break;
+			case WEST:
+				x--;
+				break;
+		}
+  }
         /**
          * Generates a predictable hash code for the given x and y of the Location.
          */
@@ -48,6 +72,9 @@ public class Location {
 		return x * 1000 + y; //Possible problems on HUGE maps?
 	}
 	
+  public String toString() {
+    return "[" + x +", " + y +"]";
+  }
         /**
          * Checks if the x and y of the passed Location are the same as this object's x and y.
          */
