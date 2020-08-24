@@ -186,28 +186,34 @@ public class WorldBackend {
 
 	/**
 	 * Helper method to open the specified file.
+   * First, look in the jar file.  If it is not there,
+   * Second, look in the file system.  If it is not there,
+   * Third, warn and load the default.  If we cannot do that,
+   * Fourth, something is seriously wrong, so we should log and exit.
 	 * @param fileName the path to the map file
 	 */
 	private InputStream getInputStreamForMap(String fileName) {
-		FileInputStream f = null;
+		
+    InputStream mapSource = null;
 
 		try {
 			if (fileName == null)
 				throw new FileNotFoundException();
-
-			f = new FileInputStream(new File(fileName));
+      
+			mapSource = getClass().getResourceAsStream(fileName);
+      if (mapSource == null) {
+			  mapSource = new FileInputStream(new File(fileName));
+      }
 		}
 		catch (FileNotFoundException e) {
 			if (fileName != null)
 				Arena.logger.warning("Map " + fileName + " not found, using default map file...");
 
 			try {
-				InputStream is = getClass().getResourceAsStream(Arena.DEFAULT_MAP);
+				mapSource = getClass().getResourceAsStream(Arena.DEFAULT_MAP);
 
-				if (is == null)
+				if (mapSource == null)
 					throw new FileNotFoundException();
-
-				return is;
 			}
 			catch (Exception g) {
 				Arena.logger.severe("Default map file not found!  Aborting...");
@@ -215,7 +221,7 @@ public class WorldBackend {
 			}
 		}
 
-		return f;
+		return mapSource;
 	}
 
 	/**
