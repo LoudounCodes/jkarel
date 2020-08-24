@@ -89,7 +89,6 @@ public class WorldBackend {
 	 * specified location.
 	 * @param num number of beepers to place at the location.
    *
-   * Why are we dealing with locations and getX&Y stuff in this method?
 	 */
 	public void putBeepers(Location l, int num) {
 		if (num == Arena.INFINITY) {

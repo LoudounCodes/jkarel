@@ -2,7 +2,6 @@ package org.loudouncodes.jkarel;
 
 import java.util.Scanner;
 
-
 public enum Pacing {
   
   STEP {

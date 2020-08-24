@@ -41,17 +41,7 @@ public class Robot extends Item {
 		this(x, y, dir, beepers, false);
 	}
 
-	/**Contructs a Robot at the specified location, direction, and number of beepers
-	 * and adds it to the WorldBackend.
-	 * @param x the x location of the new Robot's location
-	 * @param y the y location of the new Robot's location
-	 * @param dir the number representing the direction of the robot, using
-	 * the constants from Arena
-	 * @param beepers the number of beepers the new Robot will start with
-	 * @param internal a boolean specifiying whether the robot construction
-	 * to cause the arena to update or not.(Internal indicates no display
-	 * update
-	 */
+
 	public Robot(int x, int y, Direction dir, int beeperCount, boolean internal) {
     super(x, y);
 		direction = dir;
