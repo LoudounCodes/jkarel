@@ -24,6 +24,12 @@ import java.awt.*;
 
 public class Wall extends Item {
 
+  // not used yet, but needed instead of magic ints defined in arena
+  public enum Orientation {
+    HORIZONTAL, VERTICAL;
+  }
+  
+  
 	private final int WALL_WIDTH = 7;
 
 	private int style;
@@ -104,6 +110,8 @@ public class Wall extends Item {
 				           (int)(y - height * length + height / 2),
 				           WALL_WIDTH, (int)(height * length + 1));
 				break;
+        
+        
 			case Arena.HORIZONTAL:
 				g.fillRect((int)(x - width / 2),
 				           (int)(y - height / 2 - (WALL_WIDTH - 1) / 2),
