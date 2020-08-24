@@ -16,6 +16,12 @@ public class BeeperStack extends Item {
 	 */
 	public static final int INFINITY = -2;
   
+
+	private static Font beeperFont = null;
+	private static String beeperFontName = "monospaced";
+	private static int beeperFontSize = 10;
+  
+  
 	private final int RADIUS = 12;
 
 	private int numBeepers = 1;
@@ -44,6 +50,17 @@ public class BeeperStack extends Item {
 	}
 
 	/**
+	 * Returns the font with which to render beepers.
+	 */
+	private Font getBeeperFont() {
+		if (beeperFont == null)
+			beeperFont = new Font(beeperFontName, Font.PLAIN, beeperFontSize);
+
+		return beeperFont;
+	}
+  
+  
+	/**
 	 * Renders the beeper stack at the specified pixel locations using
 	 * the specified Graphics object.
 	 */
@@ -58,7 +75,7 @@ public class BeeperStack extends Item {
 		else
 			text = "" + numBeepers;
 
-		Font f = Arena.getBeeperFont();
+		Font f = getBeeperFont();
 
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D bounds = fm.getStringBounds(text, g);

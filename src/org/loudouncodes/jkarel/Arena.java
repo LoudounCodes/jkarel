@@ -52,18 +52,7 @@ public class Arena {
 	 */
 	public static final int HORIZONTAL = 2;
 
-	/**
-	 * The font to write numbers on the beepers.
-	 */
-	private static Font beeperFont = null;
-	/**
-	 * The name of the font to write numbers on the beepers.
-	 */
-	private static String beeperFontName = "monospaced";
-	/**
-	 * The font size to write numbers on the beepers.
-	 */
-	private static int beeperFontSize = 10;
+
 
 	/**
 	 * Tracks whether or not the program has crashed.
@@ -128,18 +117,6 @@ public class Arena {
 		if (WorldFrame.getCurrent() != null)
 			WorldFrame.getCurrent().close();
 	}
-
-	/**
-	 * Returns the font with which to render beepers.
-	 */
-	static Font getBeeperFont() {
-		if (beeperFont == null)
-			beeperFont = new Font(beeperFontName, Font.PLAIN, beeperFontSize);
-
-		return beeperFont;
-	}
-
-
 
 	/**
 	 * The same as calling WorldBackend.setSize(x, y)
