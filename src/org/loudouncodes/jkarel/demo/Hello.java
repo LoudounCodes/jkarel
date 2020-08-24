@@ -11,9 +11,7 @@ public class Hello {
     
     Arena.setPace(Pacing.LUDICRUS);
     AlphaBot bot = new AlphaBot();
-    bot.say("Hello World!");
-    
-    
+    bot.say("Hello World!"); 
   }
   
 }

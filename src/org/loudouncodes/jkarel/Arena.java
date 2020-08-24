@@ -53,11 +53,6 @@ public class Arena {
 	public static final int HORIZONTAL = 2;
 
 	/**
-	 * The internal number used to identify an infinite number of beepers.
-	 */
-	public static final int INFINITY = -2;
-
-	/**
 	 * The font to write numbers on the beepers.
 	 */
 	private static Font beeperFont = null;

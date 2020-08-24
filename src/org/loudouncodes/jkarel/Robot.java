@@ -46,7 +46,7 @@ public class Robot extends Item {
     super(x, y);
 		direction = dir;
     
-		if (beepers < 0 && beepers != Arena.INFINITY) {
+		if (beepers < 0 && beepers != BeeperStack.INFINITY) {
 			Arena.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 0...");
 			beepers = 0;
@@ -144,12 +144,12 @@ public class Robot extends Item {
 		if (Arena.isDead())
 			return;
 
-		if (beepers < 1 && beepers != Arena.INFINITY) {
+		if (beepers < 1 && beepers != BeeperStack.INFINITY) {
 			Arena.die("Trying to put non-existent beepers!");
 			return;
 		}
 
-		if (beepers != Arena.INFINITY)
+		if (beepers != BeeperStack.INFINITY)
 			beepers--;
 
 		WorldBackend.getCurrent().putBeepers(myLocation, 1);
@@ -171,7 +171,7 @@ public class Robot extends Item {
 			return;
 		}
 
-		if (beepers != Arena.INFINITY)
+		if (beepers != BeeperStack.INFINITY)
 			beepers++;
 
 		WorldBackend.getCurrent().putBeepers(myLocation, -1);
@@ -185,7 +185,7 @@ public class Robot extends Item {
 	 * Calls Arena.step() to update the screen.
 	 */
 	public boolean hasBeepers() {
-		return beepers > 0 || beepers == Arena.INFINITY;
+		return beepers > 0 || beepers == BeeperStack.INFINITY;
 	}
 
 	/**

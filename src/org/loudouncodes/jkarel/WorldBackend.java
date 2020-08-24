@@ -91,7 +91,7 @@ public class WorldBackend {
    *
 	 */
 	public void putBeepers(Location l, int num) {
-		if (num == Arena.INFINITY) {
+		if (num == BeeperStack.INFINITY) {
 			synchronized (beepers) {
 				beepers.put(l, new BeeperStack(l.getX(), l.getY(), num));
 			}
@@ -104,7 +104,7 @@ public class WorldBackend {
 			if ((b = beepers.get(l)) != null)
 				oldBeepers = b.getBeepers();
 
-			if (oldBeepers == Arena.INFINITY)
+			if (oldBeepers == BeeperStack.INFINITY)
 				return;
 
 			if (oldBeepers + num < 1)
@@ -133,7 +133,7 @@ public class WorldBackend {
 		String num = a.get("num");
 
 		if (num.equalsIgnoreCase("infinite"))
-			putBeepers(new Location(x, y), Arena.INFINITY);
+			putBeepers(new Location(x, y), BeeperStack.INFINITY);
 		else
 			putBeepers(new Location(x, y), Integer.parseInt(num));
 	}

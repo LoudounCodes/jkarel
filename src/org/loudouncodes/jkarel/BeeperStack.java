@@ -11,6 +11,11 @@ import java.awt.geom.Rectangle2D;
  */
 public class BeeperStack extends Item {
 
+	/**
+	 * The internal number used to identify an infinite number of beepers.
+	 */
+	public static final int INFINITY = -2;
+  
 	private final int RADIUS = 12;
 
 	private int numBeepers = 1;
@@ -22,7 +27,7 @@ public class BeeperStack extends Item {
 	public BeeperStack(int x, int y, int beepers) {
 		super(x, y);
 
-		if (beepers < 1 && beepers != Arena.INFINITY) {
+		if (beepers < 1 && beepers != INFINITY) {
 			Arena.logger.warning("Invalid amount of beepers: "
 			                   + beepers + "...  Setting to 1...");
 			beepers = 1;
@@ -48,7 +53,7 @@ public class BeeperStack extends Item {
 		g.fillOval(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
 
 		String text;
-		if (numBeepers == Arena.INFINITY)
+		if (numBeepers == INFINITY)
 			text = "\u221E "; //The infinity sign
 		else
 			text = "" + numBeepers;
