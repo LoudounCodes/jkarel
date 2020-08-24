@@ -77,6 +77,9 @@ public class Arena {
 
   private static Pacing pace = Pacing.FAST;
   
+  
+  private static WorldFrame theWorldFrame;
+  
 	/**
 	 * Closes the current world if there is one, then creates a new WorldFrame
 	 * with the specified map file.
@@ -84,9 +87,13 @@ public class Arena {
 	 */
 	public static void openWorld(String mapName) {
 		closeWorld();
-		new WorldFrame(new WorldBackend(mapName));
+		theWorldFrame = new WorldFrame(new WorldBackend(mapName));
 	}
 
+  public static WorldFrame getWorldFrame() {
+    return theWorldFrame;
+  }
+  
 	/**
 	 * Closes the current world if there is one, then creates a new WorldFrame
 	 * with the default map.
