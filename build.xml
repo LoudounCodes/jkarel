@@ -42,6 +42,7 @@
       <jar destfile="${output.dir}/jkarel-${version}.jar">
         <manifest>
           <attribute name="Class-Path" value="${manifest.classpath}"/>
+          <attribute name="Main-Class" value="org.loudouncodes.jkarel.demo.Hello"/>
         </manifest>
         <fileset dir="${build.dir}"/>
         
