@@ -148,18 +148,7 @@ public class Arena {
 	static void die(String reason) {
 		isDead = true;
 		Arena.logger.severe(reason);
-		hang();
 		System.exit(0);
-	}
-
-	/**
-	 * Blocks the Thread until input is given to System.in.
-	 */
-	private static void hang() { //A bit hacky, but it works
-		try {
-			System.in.read();
-		}
-		catch (Exception e) { }
 	}
 
 	/**
