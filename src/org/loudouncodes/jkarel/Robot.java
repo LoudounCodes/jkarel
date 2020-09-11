@@ -5,38 +5,17 @@ import javax.swing.*;
 import java.util.List;
 import java.util.HashMap;
 
-/**
- * A Robot is a basic movable object in the world. Students interct primarily
- * with Robot objects in order to solve the problems in the labs. Robots tend
- * to update their status whenever asked and then request a arena update with
- * Arena.step(). This class is intended to be subclassed to add simple
- * behaviors.
- * @author Andy Street, alstreet@vt.edu, 2007
- */
 
 public class Robot extends Item {
 
-  // location is in the parent class
 	private int beepers;
 	private Direction direction;
   private HashMap<Direction,ImageIcon> icons;
 
-	/**
-	 * Contructs a Robot at the default location of (1,1) facing east with
-	 * no beepers.
-	 */
 	public Robot() {
 		this(1, 1, Direction.EAST, 0);
 	}
 
-	/**Contructs a Robot at the specified location, direction, and number
-	 * of beepers.
-	 * @param x the x location of the new Robot's location
-	 * @param y the y location of the new Robot's location
-	 * @param dir the number representing the direction of the robot, using
-	 * the constants from Arena
-	 * @param beepers the number of beepers the new Robot will start with
-	 */
 	public Robot(int x, int y, Direction dir, int beepers) {
 		this(x, y, dir, beepers, false);
 	}
