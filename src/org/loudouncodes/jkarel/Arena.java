@@ -43,6 +43,7 @@ public class Arena {
 	public static int FRAME_HEIGHT = 550;
 
 	//Walls
+  // to be refactored in the new world order
 	/**
 	 * Define for a vertical wall.
 	 */
@@ -158,4 +159,37 @@ public class Arena {
 	public static boolean isDead() {
 		return isDead;
 	}
+  
+  
+  public static void addNorthWall(int x, int y) {
+    Wall aWall = new Wall(x, y, 1, Arena.HORIZONTAL);
+    WorldBackend.getCurrent().addWall(aWall);
+		WorldPanel.getCurrent().repaint();
+  }
+  
+  public static void addSouthWall(int x, int y) {
+    Wall aWall = new Wall(x, y-1, 1, Arena.HORIZONTAL);
+    WorldBackend.getCurrent().addWall(aWall);
+		WorldPanel.getCurrent().repaint();
+  }
+  
+  public static void addEastWall(int x, int y) {
+    Wall aWall = new Wall(x, y, 1, Arena.VERTICAL);
+    WorldBackend.getCurrent().addWall(aWall);
+		WorldPanel.getCurrent().repaint();
+  }
+  
+  public static void addWestWall(int x, int y) {
+    Wall aWall = new Wall(x-1, y, 1, Arena.VERTICAL);
+    WorldBackend.getCurrent().addWall(aWall);
+		WorldPanel.getCurrent().repaint();
+  }
+
+  public static void addBeepers(int x, int y, int beeperCount) {
+    Location l = new Location(x, y);
+    WorldBackend.getCurrent().putBeepers(l, beeperCount);
+		WorldPanel.getCurrent().repaint();
+  }
+  
+  
 }
