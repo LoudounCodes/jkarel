@@ -337,6 +337,7 @@ public class WorldBackend {
 
 	/**
 	 * Returns the currently running instance of WorldBackend.
+   * Ew. singleton pattern.  This won't do in the new world order...
 	 */
 	public static WorldBackend getCurrent() {
 		return current;
