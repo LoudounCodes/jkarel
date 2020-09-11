@@ -72,4 +72,4 @@ To contribute:
 
 * Andy Street <alstreet@vt.edu> 2007 Original author of FCPS Karel. Thank you for the foundational work.
 * Daniel Johnson <2010djohnson@tjhsst.edu> Summer 2009 Major contributions before we got our grubby little hands on it.
-
+* Craig Saperstein <cmsaperstein@gmail.com>

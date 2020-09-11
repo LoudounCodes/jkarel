@@ -5,11 +5,6 @@ import javax.swing.*;
 import java.util.Map;
 import java.util.List;
 
-/**
- * The WorldPanel is responsible for actually drawing the world, according to
- * the specifications of the associated WorldBackend.
- * @author Andy Street, alstreet@vt.edu, 2007
- */
 public class WorldPanel extends JPanel {
 
 	private static WorldPanel current = null;
@@ -21,9 +16,6 @@ public class WorldPanel extends JPanel {
 
 	private int blockWidth, blockHeight;
 
-	/**
-	 * Constructs a WorldPanel associated with the specified WorldBackend.
-	 */
 	public WorldPanel(WorldBackend wb) {
 		super();
 
@@ -33,10 +25,6 @@ public class WorldPanel extends JPanel {
 		setBackground(BACKGROUND);
 	}
 
-	/**
-	 * Renders the world paths (avenues and streets) using the specified
-	 * Graphics object.
-	 */
 	private void renderGrid(Graphics g) {
 		Location worldSize = wb.getSize();
 		g.setColor(Color.red);
@@ -56,10 +44,6 @@ public class WorldPanel extends JPanel {
     }
 	}
 
-	/**
-	 * Renders all beepers contained by the world using the specified
-	 * Graphics object.
-	 */
 	private void renderBeepers(Graphics g) {
 		Map<Location, BeeperStack> beepers = wb.getBeepers();
 		synchronized (beepers) {
@@ -71,10 +55,6 @@ public class WorldPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Renders all Walls contained by the world using the specified Graphics
-	 * object.
-	 */
 	private void renderWalls(Graphics g) {
 		List<Wall> walls = wb.getWalls();
 		synchronized (walls) {
@@ -86,10 +66,6 @@ public class WorldPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Renders all Robots contained by the world using the specified Graphics
-	 * object.
-	 */
 	private void renderRobots(Graphics g) {
 		List<Robot> robots = wb.getRobots();
 		synchronized (robots) {
@@ -101,9 +77,6 @@ public class WorldPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Renders the world.
-	 */
 	private void renderScene(Graphics g) {
 		blockWidth = (int)getXBlockLength();
 		blockHeight = (int)getYBlockLength();
@@ -135,13 +108,7 @@ public class WorldPanel extends JPanel {
 		         Y_BUFFER + blockHeight / 2;
 		return y;
 	}
-  
-  
-  
-	/**
-	 * Returns whether the specified Location is within the size
-	 * specifications of the world.
-	 */
+
 	public boolean isVisible(Location c) {
 		if (c.x > getSize().width || c.y > getSize().height || c.x < 0 || c.y < 0)
 			return false;
@@ -149,43 +116,26 @@ public class WorldPanel extends JPanel {
 		return true;
 	}
 
-	/**
-	 * Returns the number of pixels between two consecutive vertical paths
-	 * (avenues). Used for creating walls.
-	 */
 	protected double getXBlockLength() {
 		return ((getSize().getWidth() - 2 * X_BUFFER)
 		        * (1.0 / wb.getSize().x));
 	}
 
-	/**
-	 * Returns the number of pixels between two consecutive horizontal paths
-	 * (streets). Used for creating walls.
-	 */
 	protected double getYBlockLength() {
 		return ((getSize().getHeight() - 2 * Y_BUFFER)
 		        * (1.0 / wb.getSize().y));
 	}
 
-	/**
-	 * Paints the world.
-	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		renderScene(g);
 	}
 
-	/**
-	 * Disables the WorldPanel.
-	 */
 	void close() {
 		current = null;
 	}
 
-	/**
-	 * Returns the current (most recently created) WorldPanel.
-	 */
 	public static WorldPanel getCurrent() {
 		return current;
 	}

@@ -50,26 +50,14 @@ public class Robot extends Item {
 
 	}
 
-	/**
-	 * Returns an integer representing the direction of the robot.
-	 * Compare to the constants in Arena.
-	 */
 	public Direction getDirection() {
 		return direction;
 	}
 
-	/**
-	 * Returns the number of beepers the Robot has.
-	 */
 	public int getBeepers() {
 		return beepers;
 	}
 
-	/**
-	 * Moves the Robot forward one square in the direction it is facing.
-	 * If the Robot tries to move through a wall, an the simulation will
-	 * exit with an error. Calls Arena.step() to update the screen.
-	 */
 	public synchronized void move() {
 		if (Arena.isDead())
 			return;
@@ -87,10 +75,6 @@ public class Robot extends Item {
 		Arena.step();
 	}
 
-	/**
-	 * Turns the robot counterclockwise 90 degrees.
-	 * Calls Arena.step() to update the screen.
-	 */
 	public void turnLeft() {
 		if (Arena.isDead())
 			return;
@@ -100,11 +84,6 @@ public class Robot extends Item {
 		Arena.step();
 	}
 
-	/**
-	 * Turns the robot clockwise 90 degrees.
-	 * This method is private as students are meant to write their own out
-	 * of the other methods later. Calls Arena.step() to update the screen.
-	 */
 	private void turnRight() {
 		if (Arena.isDead())
 			return;
@@ -114,11 +93,6 @@ public class Robot extends Item {
 		Arena.step();
 	}
 
-	/**
-	 * Places a beeper at the current location in the world, or adds it to
-	 * the a currently existing pile.
-	 * Calls Arena.step() to update the screen.
-	 */
 	public void putBeeper() {
 		if (Arena.isDead())
 			return;
@@ -136,11 +110,6 @@ public class Robot extends Item {
 		Arena.step();
 	}
 
-	/**
-	 * Picks up a beeper from the current location in the world, removing
-	 * it from the currently existing pile.
-	 * Calls Arena.step() to update the screen.
-	 */
 	public void pickBeeper() {
 		if (Arena.isDead())
 			return;
@@ -158,93 +127,50 @@ public class Robot extends Item {
 		Arena.step();
 	}
 
-	/**
-	 * Picks up a beeper from the current location in the world, removing
-	 * it from the currently existing pile.
-	 * Calls Arena.step() to update the screen.
-	 */
 	public boolean hasBeepers() {
 		return beepers > 0 || beepers == BeeperStack.INFINITY;
 	}
 
-	/**
-	 * Checks to see if a wall would prevent the robot from moving forward.
-	 */
 	public boolean frontIsClear() {
 		return isClear(direction);
 	}
 
-	/**
-	 * Checks to see if a wall would prevent the robot from turning right
-	 * and then moving forward.
-	 */
 	public boolean rightIsClear() {
 		return isClear(direction.right());
 	}
 
-	/**
-	 * Checks to see if a wall would prevent the robot from turning left and
-	 * then moving forward.
-	 */
 	public boolean leftIsClear() {
 		return isClear(direction.left());
 	}
 
-	/**
-	 * Checks to see if a wall would prevent the robot from turning around
-	 * and then moving forward.
-	 */
 	public boolean backIsClear() {
 		return isClear(direction.right().right());
 	}
 
-	/**
-	 * Returns whether or not there are any beepers on the same square as
-	 * this Robot.
-	 */
 	public boolean nextToABeeper() {
 		return WorldBackend.getCurrent().checkBeepers(myLocation);
 	}
 
-	/**
-	 * Returns whether or not there is another Robot on the same square as
-	 * this Robot.
-	 */
 	public boolean nextToARobot() {
 		return WorldBackend.getCurrent().isNextToARobot(this, myLocation);
 	}
 
-	/**
-	 * Returns whether or not this Robot is facing north.
-	 */
 	public boolean facingNorth() {
 		return direction == Direction.NORTH;
 	}
-	/**
-	 * Returns whether or not this Robot is facing south.
-	 */
+
 	public boolean facingSouth() {
 		return direction == Direction.SOUTH;
 	}
-	/**
-	 * Returns whether or not this Robot is facing east.
-	 */
+
 	public boolean facingEast() {
 		return direction == Direction.EAST;
 	}
-	/**
-	 * Returns whether or not this Robot is facing west.
-	 */
+
 	public boolean facingWest() {
 		return direction == Direction.WEST;
 	}
 
-	/**
-	 * Checks to see if a wall would prevent the robot from moving in the
-	 * specified direction.
-	 * @param direction the direction to check. Uses values from the
-	 * constants in the Arena class.
-	 */
 	private boolean isClear(Direction dir) {
 		Location c = getWallLocation(direction);
 
@@ -261,17 +187,10 @@ public class Robot extends Item {
 		}
 	}
 
-	/**
-	 * Removes the robot from the world, preventing it from displaying.
-	 */
 	public void explode() {
 		WorldBackend.getCurrent().removeRobot(this);
 	}
 
-	/**
-	 * Returns the location of where the wall directly in front of the
-	 * robot would be.
-	 */
 	private Location getWallLocation(Direction dir) {
 		int xc = myLocation.getX();
     int yc = myLocation.getY();
@@ -291,11 +210,6 @@ public class Robot extends Item {
 		return new Location(xc, yc);
 	}
 
-	/**
-	 * Renders the graphical representation of the Robot to the graphics
-	 * object at the specified location.
-	 * @param g the graphics context to render onto
-	 */
 	public void render(Graphics g, int x, int y) {
 		ImageIcon i = icons.get(direction);
 		g.drawImage(i.getImage(),
@@ -303,11 +217,6 @@ public class Robot extends Item {
 		            y - i.getIconHeight() / 2, null);
 	}
 
-	/**
-	 * Returns whether or not the specified Robot is on the same square as
-	 * this Robot.
-	 * @param other the Robot to check against
-	 */
 	public boolean nextToRobot(Robot other) {
 		return (myLocation.equals(other.getLocation()));
 	}
