@@ -57,13 +57,23 @@ To contribute:
 
 ## ToDo:
 * redesign curriculum to use new classes and features.
-* Add a maze generation package based on the book "Mazes For Programmers", so that make generating algorithms can be studied in an algorithms course.
+  * While this code was licensed under the GPL, Fairfax County's original curriculum was not available under a permissible license. Therefore, we are going to go back to the source and create new curriculum aligned with the following resources:
+    * Karel the Robot: A Gentle Introduction to the Art of Programming, by Richard E. Pattis
+    * Big Java, Early Objects, 6th edition, by Cay Horstmann
+    * AP Computer Science A Course and Exam Description: (https://apcentral.collegeboard.org/pdf/ap-computer-science-a-course-and-exam-description.pdf)
+    * Oracle's Java Technology Certification Path: https://education.oracle.com/oracle-certification-path/pFamily_48
+* Add a maze generation package based on the book "Mazes For Programmers", so that maze generating algorithms can be studied in an algorithms course.
 * Design curriculum for a software architecture course.
   * example: Strategy Pattern in the Pacing Enum
   * Inversion/Refactoring of Dependency in the XML package
   * Interface for ArenaData, with a the xml library and a maze generation library as data producers.
   * more advanced robots, ala RoboCode or RTanque?
   * Curriculum using JRuby?
+* Make pluggable tile packs, similar to Micecraft, so that the arena, walls, beepers, and robots can have different looks.
+* Provide a gateway to things like IBM's RoboCode
+* Finish refactorings that are in-flight
+* Write unit tests
+* Add back javadoc worthy of beginning programmers
 
 ### Contributors to this version, maintained by the nonprofit LoudounCodes:
 * David Bock(@bokmann)
