@@ -74,6 +74,7 @@ To contribute:
 * Finish refactorings that are in-flight
 * Write unit tests
 * Add back javadoc worthy of beginning programmers
+* In-class, students seem to have issues with the relative directory path when opening map files. I'd like to redo this so that a bunch of maps for the new curriculum are stored as part of thejar file and defined as constants, so students can open maps without having to reference the file system at all.  It would certainly simplify the setup on systems like Nutanix Frame.
 
 ### Contributors to this version, maintained by the nonprofit LoudounCodes:
 * David Bock(@bokmann)
