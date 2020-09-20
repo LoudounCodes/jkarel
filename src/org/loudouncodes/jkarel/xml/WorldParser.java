@@ -21,7 +21,7 @@ public class WorldParser {
          * @param root the root of the XML DOM tree for the map
          */
         
-        public static void initiateMap(Element root)
+  public static void initiateMap(Element root)
 	{
 		WorldBackend wb = WorldBackend.getCurrent();
 
