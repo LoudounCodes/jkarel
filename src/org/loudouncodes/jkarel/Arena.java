@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.util.logging.Logger;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Arena {
 
@@ -33,6 +35,9 @@ public class Arena {
   
   private static WorldFrame theWorldFrame;
 
+  private static List<ArenaListener> listeners = new ArrayList<ArenaListener>();
+  
+  
 	public static void openWorld(String mapName) {
 		closeWorld();
 		theWorldFrame = new WorldFrame(new WorldBackend(mapName));
