@@ -14,8 +14,13 @@ public class WorldPanel extends JPanel {
 	private final int X_BUFFER = 40, Y_BUFFER = 40;
 	private final Color BACKGROUND = Color.white;
 
+  private ImageIcon floor;
 	private int blockWidth, blockHeight;
 
+  {
+    floor = new ImageIcon(WorldPanel.class.getResource("/icons/arena_floor.png"));
+  }
+  
 	public WorldPanel(WorldBackend wb) {
 		super();
 
@@ -25,24 +30,23 @@ public class WorldPanel extends JPanel {
 		setBackground(BACKGROUND);
 	}
 
-	private void renderGrid(Graphics g) {
+  private void renderFloor(Graphics g) {
 		Location worldSize = wb.getSize();
-		g.setColor(Color.red);
 
-    int yMin = convertToYPixel(1) + blockHeight / 2;
-    int yMax = convertToYPixel(worldSize.y);
-    for (int i = 1; i <= worldSize.x; i++) {
-      int x = convertToXPixel(i);
-      g.drawLine(x, yMin, x, yMax);
+    for (int i = 0; i <= worldSize.x; i++) {
+      for (int j = 0; j <= worldSize.y; j++) {
+        int x1 = convertToXPixel(i);
+        int y1 = convertToYPixel(j);
+        int x2 = convertToXPixel(i+1);
+        int y2 = convertToYPixel(j+1);
+        g.drawImage(floor.getImage(),
+                    x1, y1, x2, y2,
+                    0, 0, floor.getIconWidth(), floor.getIconHeight(),
+                    Color.WHITE, null);
+      }
     }
-    
-    int xMin = convertToXPixel(0) + blockHeight / 2;
-    int xMax = convertToXPixel(worldSize.x);
-    for (int i = 1; i <= worldSize.y; i++) {
-      int y = convertToYPixel(i);
-      g.drawLine(xMin, y , xMax, y);      
-    }
-	}
+  }
+
 
 	private void renderBeepers(Graphics g) {
 		Map<Location, BeeperStack> beepers = wb.getBeepers();
@@ -81,7 +85,7 @@ public class WorldPanel extends JPanel {
 		blockWidth = (int)getXBlockLength();
 		blockHeight = (int)getYBlockLength();
 
-		renderGrid(g);
+    renderFloor(g);
 		renderBeepers(g);
 		renderRobots(g);
 		renderWalls(g);

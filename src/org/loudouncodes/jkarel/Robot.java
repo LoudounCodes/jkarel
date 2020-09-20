@@ -33,6 +33,9 @@ public class Robot extends Item {
 		beepers = beeperCount;
 
     icons = new HashMap<Direction,ImageIcon>();
+    // in the near future, we will make this so one icon is needed, and the rest are
+    // generated via rotation.
+    // icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/karel.png")));
     icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
     icons.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
     icons.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));

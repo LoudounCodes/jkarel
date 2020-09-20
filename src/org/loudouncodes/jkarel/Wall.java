@@ -1,6 +1,7 @@
 package org.loudouncodes.jkarel;
 
 import java.awt.*;
+import javax.swing.*;
 
 public class Wall extends Item {
 
@@ -9,12 +10,17 @@ public class Wall extends Item {
     HORIZONTAL, VERTICAL;
   }
   
+  private static ImageIcon wall;
   
 	private final int WALL_WIDTH = 7;
 
 	private int style;
 	private int length;
 
+  {
+    wall = new ImageIcon(WorldPanel.class.getResource("/icons/arena_wall.png"));
+  }
+  
 	public Wall(int x, int y) {
 		this(x, y, Arena.VERTICAL);
 	}
@@ -52,9 +58,19 @@ public class Wall extends Item {
 
 		switch (style) {
 			case Arena.VERTICAL:
-				g.fillRect((int)(x + width / 2 - (WALL_WIDTH - 1) / 2),
-				           (int)(y - height * length + height / 2),
-				           WALL_WIDTH, (int)(height * length + 1));
+        g.fillRect((int)(x + width / 2 - (WALL_WIDTH - 1) / 2),
+                   (int)(y - height * length + height / 2),
+                   WALL_WIDTH, (int)(height * length + 1));
+        
+        // int x1 = (int)(x + width / 2 - (WALL_WIDTH - 1) / 2);
+        // int y1 = (int)(y - height * length + height / 2);
+        // int x2 = x1+12;
+        // int y2 = y1+ (int) height;
+        // g.drawImage(wall.getImage(),
+        //             x1, y1, x2, y2,
+        //             0, 0, wall.getIconWidth(), wall.getIconHeight(),
+        //             Color.WHITE, null);
+        
 				break;
         
         

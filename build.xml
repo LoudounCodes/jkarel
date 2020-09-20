@@ -54,6 +54,10 @@
           <filename name="**/*.gif"/>
         </fileset>
         
+        <fileset dir="src">
+          <filename name="**/*.png"/>
+        </fileset>
+        
         <fileset dir=".">
           <filename name="lib/*.jar"/>
         </fileset>
