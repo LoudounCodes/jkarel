@@ -6,9 +6,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class WorldBackend {
+public class ArenaModel {
 
-	private static WorldBackend current = null;
+	private static ArenaModel current = null;
 
 	private Map<Location, BeeperStack> beepers;
 	private List<Robot> robots;
@@ -19,7 +19,7 @@ public class WorldBackend {
 
 	private Wall xAxisWall = null, yAxisWall = null;
 
-	public WorldBackend(String mapName) {
+	public ArenaModel(String mapName) {
 		current = this;
 
 		beepers = Collections.synchronizedMap(new HashMap < Location,
@@ -33,7 +33,7 @@ public class WorldBackend {
 		parseMap(mapName);
 	}
 
-	public WorldBackend() {
+	public ArenaModel() {
 		this(null);
 	}
 
@@ -238,10 +238,10 @@ public class WorldBackend {
 	}
 
 	/**
-	 * Returns the currently running instance of WorldBackend.
+	 * Returns the currently running instance of ArenaModel.
    * Ew. singleton pattern.  This won't do in the new world order...
 	 */
-	public static WorldBackend getCurrent() {
+	public static ArenaModel getCurrent() {
 		return current;
 	}
 }

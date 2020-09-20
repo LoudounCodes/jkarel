@@ -7,7 +7,7 @@ import java.lang.reflect.*;
 /**
  * @author Andy Street, alstreet@vt.edu, 2007
  * This class is responsible for taking the XML DOM tree created by the parser and using reflections
- * to populate a WorldBackend representing the map.
+ * to populate a ArenaModel representing the map.
  */
 
 public class WorldParser {
@@ -17,13 +17,13 @@ public class WorldParser {
 
 	/**
          * Takes in an Element representing the root of the XML DOM tree for a map, then uses
-         * reflections to populate a WorldBackend.
+         * reflections to populate a ArenaModel.
          * @param root the root of the XML DOM tree for the map
          */
         
   public static void initiateMap(Element root)
 	{
-		WorldBackend wb = WorldBackend.getCurrent();
+		ArenaModel wb = ArenaModel.getCurrent();
 
 		Element properties = root.get("properties");
 		Element objects = root.get("objects");
@@ -32,7 +32,7 @@ public class WorldParser {
 			for(Element e : properties.getElements())
 			{
 				try {
-					Method m = Class.forName("org.loudouncodes.jkarel.WorldBackend").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
+					Method m = Class.forName("org.loudouncodes.jkarel.ArenaModel").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
 					m.invoke(wb, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();
@@ -58,7 +58,7 @@ public class WorldParser {
 			for(Element e : objects.getElements())
 			{
 				try {
-					Method m = Class.forName("org.loudouncodes.jkarel.WorldBackend").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
+					Method m = Class.forName("org.loudouncodes.jkarel.ArenaModel").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
 					m.invoke(wb, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();
