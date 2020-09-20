@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class Arena {
 
-
 	public static final String DEFAULT_MAP = "/default.map";
 
   public static Logger logger = Logger.getLogger("Karel Logger");
@@ -33,23 +32,23 @@ public class Arena {
 
   private static Pacing pace = Pacing.FAST;
   
-  private static WorldFrame theWorldFrame;
+  private static ArenaFrame theArenaFrame;
 
   private static List<ArenaListener> listeners = new ArrayList<ArenaListener>();
   
   
 	public static void openWorld(String mapName) {
 		closeWorld();
-		theWorldFrame = new WorldFrame(new WorldBackend(mapName));
+		theArenaFrame = new ArenaFrame(new ArenaModel(mapName));
 	}
 
-  public static WorldFrame getWorldFrame() {
-    return theWorldFrame;
+  public static ArenaFrame getArenaFrame() {
+    return theArenaFrame;
   }
 
 	public static void openDefaultWorld() {
 		closeWorld();
-		new WorldFrame(new WorldBackend());
+		new ArenaFrame(new ArenaModel());
 	}
 
   public static Pacing getPace() {
@@ -62,31 +61,31 @@ public class Arena {
   
 	public static void placeBeeper(Location l)
 	{
-		if (WorldBackend.getCurrent() == null) {
+		if (ArenaModel.getCurrent() == null) {
 			Arena.openDefaultWorld();
 		}
 
 		if (isDead())
 			return;
-		WorldBackend.getCurrent().putBeepers(l, 1);
-		WorldPanel.getCurrent().repaint();
+		ArenaModel.getCurrent().putBeepers(l, 1);
+		ArenaPanel.getCurrent().repaint();
 	}
 	
 	private static void closeWorld() {
-		if (WorldFrame.getCurrent() != null)
-			WorldFrame.getCurrent().close();
+		if (ArenaFrame.getCurrent() != null)
+			ArenaFrame.getCurrent().close();
 	}
 
 	public static void setSize(int x, int y) {
-		if (WorldBackend.getCurrent() == null)
+		if (ArenaModel.getCurrent() == null)
 			openDefaultWorld();
 
-		WorldBackend.getCurrent().setSize(x, y);
+		ArenaModel.getCurrent().setSize(x, y);
 	}
 
 	static void step() {
 
-		WorldPanel.getCurrent().repaint();
+		ArenaPanel.getCurrent().repaint();
 		pace.tick();
 	}
 
@@ -102,32 +101,32 @@ public class Arena {
   
   public static void addNorthWall(int x, int y) {
     Wall aWall = new Wall(x, y, 1, Arena.HORIZONTAL);
-    WorldBackend.getCurrent().addWall(aWall);
-		WorldPanel.getCurrent().repaint();
+    ArenaModel.getCurrent().addWall(aWall);
+		ArenaPanel.getCurrent().repaint();
   }
   
   public static void addSouthWall(int x, int y) {
     Wall aWall = new Wall(x, y-1, 1, Arena.HORIZONTAL);
-    WorldBackend.getCurrent().addWall(aWall);
-		WorldPanel.getCurrent().repaint();
+    ArenaModel.getCurrent().addWall(aWall);
+		ArenaPanel.getCurrent().repaint();
   }
   
   public static void addEastWall(int x, int y) {
     Wall aWall = new Wall(x, y, 1, Arena.VERTICAL);
-    WorldBackend.getCurrent().addWall(aWall);
-		WorldPanel.getCurrent().repaint();
+    ArenaModel.getCurrent().addWall(aWall);
+		ArenaPanel.getCurrent().repaint();
   }
   
   public static void addWestWall(int x, int y) {
     Wall aWall = new Wall(x-1, y, 1, Arena.VERTICAL);
-    WorldBackend.getCurrent().addWall(aWall);
-		WorldPanel.getCurrent().repaint();
+    ArenaModel.getCurrent().addWall(aWall);
+		ArenaPanel.getCurrent().repaint();
   }
 
   public static void addBeepers(int x, int y, int beeperCount) {
     Location l = new Location(x, y);
-    WorldBackend.getCurrent().putBeepers(l, beeperCount);
-		WorldPanel.getCurrent().repaint();
+    ArenaModel.getCurrent().putBeepers(l, beeperCount);
+		ArenaPanel.getCurrent().repaint();
   }
   
 }

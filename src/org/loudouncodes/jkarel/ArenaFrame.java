@@ -2,11 +2,11 @@ package org.loudouncodes.jkarel;
 
 import javax.swing.JFrame;
 
-public class WorldFrame extends JFrame {
+public class ArenaFrame extends JFrame {
 
-	private static WorldFrame current = null;
+	private static ArenaFrame current = null;
 
-	public WorldFrame(WorldBackend wb) {
+	public ArenaFrame(ArenaModel wb) {
 		super();
 
 		current = this;
@@ -14,18 +14,18 @@ public class WorldFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(Arena.FRAME_WIDTH, Arena.FRAME_HEIGHT);
 		setLocation(250, 250);
-		setContentPane(new WorldPanel(wb));
+		setContentPane(new ArenaPanel(wb));
 		setVisible(true);
 	}
 
 	void close() {
-		WorldBackend.getCurrent().close();
-		WorldPanel.getCurrent().close();
+		ArenaModel.getCurrent().close();
+		ArenaPanel.getCurrent().close();
 		current = null;
 		dispose();
 	}
 
-	public static WorldFrame getCurrent() {
+	public static ArenaFrame getCurrent() {
 		return current;
 	}
 }

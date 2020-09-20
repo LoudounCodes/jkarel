@@ -41,15 +41,15 @@ public class Robot extends Item {
     icons.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
     icons.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
 
-		if (WorldBackend.getCurrent() == null) {
+		if (ArenaModel.getCurrent() == null) {
 			Arena.openDefaultWorld();
 		}
 
 
 		if (internal)
-			WorldBackend.getCurrent().addRobotInternal(this);
+			ArenaModel.getCurrent().addRobotInternal(this);
 		else
-			WorldBackend.getCurrent().addRobot(this);
+			ArenaModel.getCurrent().addRobot(this);
 
 	}
 
@@ -108,7 +108,7 @@ public class Robot extends Item {
 		if (beepers != BeeperStack.INFINITY)
 			beepers--;
 
-		WorldBackend.getCurrent().putBeepers(myLocation, 1);
+		ArenaModel.getCurrent().putBeepers(myLocation, 1);
 
 		Arena.step();
 	}
@@ -117,7 +117,7 @@ public class Robot extends Item {
 		if (Arena.isDead())
 			return;
 
-		if (!WorldBackend.getCurrent().checkBeepers(myLocation)) {
+		if (!ArenaModel.getCurrent().checkBeepers(myLocation)) {
 			Arena.die("Trying to pick non-existent beepers!");
 			return;
 		}
@@ -125,7 +125,7 @@ public class Robot extends Item {
 		if (beepers != BeeperStack.INFINITY)
 			beepers++;
 
-		WorldBackend.getCurrent().putBeepers(myLocation, -1);
+		ArenaModel.getCurrent().putBeepers(myLocation, -1);
 
 		Arena.step();
 	}
@@ -151,11 +151,11 @@ public class Robot extends Item {
 	}
 
 	public boolean nextToABeeper() {
-		return WorldBackend.getCurrent().checkBeepers(myLocation);
+		return ArenaModel.getCurrent().checkBeepers(myLocation);
 	}
 
 	public boolean nextToARobot() {
-		return WorldBackend.getCurrent().isNextToARobot(this, myLocation);
+		return ArenaModel.getCurrent().isNextToARobot(this, myLocation);
 	}
 
 	public boolean facingNorth() {
@@ -180,18 +180,18 @@ public class Robot extends Item {
 		switch (dir) {
 			case NORTH:
 			case SOUTH:
-				return !WorldBackend.getCurrent()
+				return !ArenaModel.getCurrent()
 				       .checkWall(c.x, c.y, Arena.HORIZONTAL);
 			case EAST:
 			case WEST:
 			default:
-				return !WorldBackend.getCurrent()
+				return !ArenaModel.getCurrent()
 				       .checkWall(c.x, c.y, Arena.VERTICAL);
 		}
 	}
 
 	public void explode() {
-		WorldBackend.getCurrent().removeRobot(this);
+		ArenaModel.getCurrent().removeRobot(this);
 	}
 
 	private Location getWallLocation(Direction dir) {

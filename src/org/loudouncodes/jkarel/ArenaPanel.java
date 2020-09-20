@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.util.Map;
 import java.util.List;
 
-public class WorldPanel extends JPanel {
+public class ArenaPanel extends JPanel {
 
-	private static WorldPanel current = null;
+	private static ArenaPanel current = null;
 
-	private WorldBackend wb = null;
+	private ArenaModel wb = null;
 
 	private final int X_BUFFER = 40, Y_BUFFER = 40;
 	private final Color BACKGROUND = Color.white;
@@ -18,10 +18,10 @@ public class WorldPanel extends JPanel {
 	private int blockWidth, blockHeight;
 
   {
-    floor = new ImageIcon(WorldPanel.class.getResource("/icons/arena_floor.png"));
+    floor = new ImageIcon(ArenaPanel.class.getResource("/icons/arena_floor.png"));
   }
   
-	public WorldPanel(WorldBackend wb) {
+	public ArenaPanel(ArenaModel wb) {
 		super();
 
 		this.wb = wb;
@@ -140,7 +140,7 @@ public class WorldPanel extends JPanel {
 		current = null;
 	}
 
-	public static WorldPanel getCurrent() {
+	public static ArenaPanel getCurrent() {
 		return current;
 	}
 

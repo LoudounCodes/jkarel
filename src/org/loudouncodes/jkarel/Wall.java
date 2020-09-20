@@ -18,7 +18,7 @@ public class Wall extends Item {
 	private int length;
 
   {
-    wall = new ImageIcon(WorldPanel.class.getResource("/icons/arena_wall.png"));
+    wall = new ImageIcon(ArenaPanel.class.getResource("/icons/arena_wall.png"));
   }
   
 	public Wall(int x, int y) {
@@ -53,8 +53,8 @@ public class Wall extends Item {
 	public void render(Graphics g, int x, int y) {    
 		g.setColor(Color.black);
 
-		double width = WorldPanel.getCurrent().getXBlockLength();
-		double height = WorldPanel.getCurrent().getYBlockLength();
+		double width = ArenaPanel.getCurrent().getXBlockLength();
+		double height = ArenaPanel.getCurrent().getYBlockLength();
 
 		switch (style) {
 			case Arena.VERTICAL:
