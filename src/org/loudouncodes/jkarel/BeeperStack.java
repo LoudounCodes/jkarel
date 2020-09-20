@@ -43,7 +43,7 @@ public class BeeperStack extends Item {
   
 	public void render(Graphics g, int x, int y) {
     
-		g.setColor(Color.black);
+		g.setColor(Color.yellow);
 		g.fillOval(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
 
 		String text;
@@ -57,7 +57,7 @@ public class BeeperStack extends Item {
 		FontMetrics fm = g.getFontMetrics(f);
 		Rectangle2D bounds = fm.getStringBounds(text, g);
 
-		g.setColor(Color.white);
+		g.setColor(Color.red);
 		g.drawString(text, (int)(x - bounds.getWidth() / 2),
 		             (int)(y + bounds.getHeight() / 2));
 	}
