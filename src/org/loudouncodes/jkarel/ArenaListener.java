@@ -1,7 +1,5 @@
 package org.loudouncodes.jkarel;
 
-
-
 public interface ArenaListener {
 
   public void robotAdded();
