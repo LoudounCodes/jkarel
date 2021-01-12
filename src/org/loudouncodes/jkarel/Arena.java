@@ -1,7 +1,5 @@
 package org.loudouncodes.jkarel;
 
-// my goal is to rename this 'arena'
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -9,32 +7,12 @@ import java.util.logging.Logger;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 
-/*
- * Copyright (C) Andy Street 2007
- *
- * This software is licensed under the GNU Public License v3.
- * See attached file LICENSE.TXT or contact the author for more information.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of Version 3 of the GNU General Public License as
- * published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 /**
  * Arena houses most of the static constants used in object creation and
  * rendering, Karel file locations and images, and the speed at which the
  * WorldPanel updates.  The Arena.step() method is responsible for the
  * animation of the Panel.
- * @author Andy Street, alstreet@vt.edu, 2007
- * @author Craig Saperstein, cmsaperstein@gmail.com, 2010
  */
 
 public class Arena {

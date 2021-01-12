@@ -1,7 +1,7 @@
 # LoudounCodes JKarel
 
 ## Introduction:
-This code was born from the Loudoun County Public School System's use of Fairfax County's FCPSKarel conputer science curriculum.
+This code was born from the Loudoun County Public School System's use of Fairfax County's FCPSKarel computer science curriculum.
 
 The primary person forking this code (@bokmann) has been using this code for 7 years as a Teacher's Assistant at Loudoun Valley High School.
 
@@ -20,6 +20,8 @@ This version of the framework is making the code more idomatic with current Java
 ** a 'scratch' directory will also be created, with the intermediate results of compiling.
 * typing 'ant clean' will remove the scratch and out directories, returning your directory to a pristine state (except for modifications you may have made to the source).
 ## Changes made to this version:
+* Previous authors emails have been removed from each file, and their credit has been consolidated to 'contributors' within this readme.  This is both for modern conventions, and so that those authors are not bothered with questions about this version of the framework; it has changed enough so that key details would be unrecognizable to them.
+* Copyright notices have been removed from the headers of each file and consolidated into the LICENSE.TXT file, as is modern convention.
 * idioms based on C++ (like enums based on integer values) have been replaced with modern Java semantics (like Java's Enum, introduced in Java 1.5)
 * XML Parsing was moved to use the built-in Java classes rather than the external Xerces library from Apache (makes the setup easier for the begining level class)
 * Fixed the build system to be inline with larger organizational software development practices
@@ -69,7 +71,9 @@ To contribute:
 * David Bock(@bokmann)
 
 ### Previous Contributors to FCPSKarel, on which this work is based:
+This work would not be possible without the following authors. Their work served for years as the foundation of the curriculum used in a classroom in which I was TA.
 
 * Andy Street <alstreet@vt.edu> 2007 Original author of FCPS Karel. Thank you for the foundational work.
 * Daniel Johnson <2010djohnson@tjhsst.edu> Summer 2009 Major contributions before we got our grubby little hands on it.
 
+Karel the Robot is a time-tested curriculum with dozens of versions available in many languages spanning back decades. Originally developed by Richard Pattis in 1981 and used at Stanford University, a wealth of information can be found at its Wikipedia entry: https://en.wikipedia.org/wiki/Karel_(programming_language)

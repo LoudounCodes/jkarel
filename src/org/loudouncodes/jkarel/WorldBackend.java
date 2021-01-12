@@ -10,8 +10,6 @@ import java.util.*;
  * The WorldBackend stores and preforms actions on the data structures storing
  * the information. This includes Beepers, Robots, and Walls. It also provides
  * the ability to load this information from xml files.
- *
- * @author Andy Street, alstreet@vt.edu, 2007
  */
 
 public class WorldBackend {

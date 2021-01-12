@@ -10,7 +10,6 @@ import java.util.List;
  * to update their status whenever asked and then request a arena update with
  * Arena.step(). This class is intended to be subclassed to add simple
  * behaviors.
- * @author Andy Street, alstreet@vt.edu, 2007
  */
 
 public class Robot extends Item {
