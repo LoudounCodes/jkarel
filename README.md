@@ -52,8 +52,8 @@ To contribute:
 * fork this project on github.
 * make your change, ideally tracking it to an issue you have added to the repo.
 * Commits should follow the Chris Beam's "How to Write a Commit Message"
-  * https://chris.beams.io/posts/git-commit/#imperative
-  * with an overriding opinion on Rule 5.  While Git commit messages that are imperative will be accepted, this project prefers commit subject lines written by humans start with a *present tense action verb*, and answer the question, "What would this commit do if I cherry-picked it into my current code?"
+  * https://chris.beams.io/posts/git-commit/
+  * with an overriding opinion on Rule 5.  While Git commit messages that are imperative will be accepted, this project prefers commit subject lines written by humans start with a *present tense action verb* that answers the question, "What would this commit do if I cherry-picked it into my current code?"
 * make sure you add your name to the list of contributors.  While github tracks that, I hope to eventually embed attribution into the jar file manifest.
 * submit a pull request.
 
