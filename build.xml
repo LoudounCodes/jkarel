@@ -42,6 +42,7 @@
       <jar destfile="${output.dir}/jkarel-${version}.jar">
         <manifest>
           <attribute name="Class-Path" value="${manifest.classpath}"/>
+          <attribute name="Main-Class" value="org.loudouncodes.jkarel.demo.Hello"/>
         </manifest>
         <fileset dir="${build.dir}"/>
         
@@ -51,6 +52,10 @@
         
         <fileset dir="src">
           <filename name="**/*.gif"/>
+        </fileset>
+        
+        <fileset dir="src">
+          <filename name="**/*.png"/>
         </fileset>
         
         <fileset dir=".">

@@ -10,33 +10,24 @@ import java.awt.Graphics;
 
 public abstract class Item {
 
-	protected int x, y;
+  protected Location myLocation;
 
-	/**
-	 * Constructs an item with the specified x and y locations.
-	 */
 	public Item(int x, int y) {
-		this.x = x;
-		this.y = y;
+    myLocation = new Location(x, y);
 	}
 
-	/**
-	 * Returns the x location.
-	 */
+  public Location getLocation() {
+    return myLocation;
+  }
+ 
 	public int getX() {
-		return x;
+		return myLocation.getX();
 	}
 
-	/**
-	 * Returns the y location.
-	 */
 	public int getY() {
-		return y;
+		return myLocation.getY();
 	}
 
-	/**
-	 * Renders the Item.
-	 */
-	public abstract void render(Graphics g, Location c);
-
+	public abstract void render(Graphics g, int x, int y);
+  
 }

@@ -5,7 +5,7 @@
       private Robot myLED;
       public Digit(int x, int y)
       {
-         myLED = new Robot(x, y, Direction.EAST, Arena.INFINITY);
+         myLED = new Robot(x, y, Direction.EAST, BeeperStack.INFINITY);
       }
       public abstract void display();
       private void threeInARow(boolean on)
