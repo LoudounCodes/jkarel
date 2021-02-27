@@ -59,13 +59,24 @@ To contribute:
 
 ## ToDo:
 * redesign curriculum to use new classes and features.
-* Add a maze generation package based on the book "Mazes For Programmers", so that make generating algorithms can be studied in an algorithms course.
+  * While this code was licensed under the GPL, Fairfax County's original curriculum was not available under a permissible license. Therefore, we are going to go back to the source and create new curriculum aligned with the following resources:
+    * Karel the Robot: A Gentle Introduction to the Art of Programming, by Richard E. Pattis
+    * Big Java, Early Objects, 6th edition, by Cay Horstmann
+    * AP Computer Science A Course and Exam Description: (https://apcentral.collegeboard.org/pdf/ap-computer-science-a-course-and-exam-description.pdf)
+    * Oracle's Java Technology Certification Path: https://education.oracle.com/oracle-certification-path/pFamily_48
+* Add a maze generation package based on the book "Mazes For Programmers", so that maze generating algorithms can be studied in an algorithms course.
 * Design curriculum for a software architecture course.
   * example: Strategy Pattern in the Pacing Enum
   * Inversion/Refactoring of Dependency in the XML package
   * Interface for ArenaData, with a the xml library and a maze generation library as data producers.
   * more advanced robots, ala RoboCode or RTanque?
   * Curriculum using JRuby?
+* Make pluggable tile packs, similar to Micecraft, so that the arena, walls, beepers, and robots can have different looks.
+* Provide a gateway to things like IBM's RoboCode
+* Finish refactorings that are in-flight
+* Write unit tests
+* Add back javadoc worthy of beginning programmers
+* In-class, students seem to have issues with the relative directory path when opening map files. I'd like to redo this so that a bunch of maps for the new curriculum are stored as part of thejar file and defined as constants, so students can open maps without having to reference the file system at all.  It would certainly simplify the setup on systems like Nutanix Frame.
 
 ### Contributors to this version, maintained by the nonprofit LoudounCodes:
 * David Bock(@bokmann)
@@ -75,5 +86,7 @@ This work would not be possible without the following authors. Their work served
 
 * Andy Street <alstreet@vt.edu> 2007 Original author of FCPS Karel. Thank you for the foundational work.
 * Daniel Johnson <2010djohnson@tjhsst.edu> Summer 2009 Major contributions before we got our grubby little hands on it.
+* Craig Saperstein <cmsaperstein@gmail.com>
 
 Karel the Robot is a time-tested curriculum with dozens of versions available in many languages spanning back decades. Originally developed by Richard Pattis in 1981 and used at Stanford University, a wealth of information can be found at its Wikipedia entry: https://en.wikipedia.org/wiki/Karel_(programming_language)
+

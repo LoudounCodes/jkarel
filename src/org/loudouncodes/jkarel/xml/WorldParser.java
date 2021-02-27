@@ -6,30 +6,8 @@ import java.lang.reflect.*;
 
 /**
  * @author Andy Street, alstreet@vt.edu, 2007
- */
-
-/*
- * Copyright (C) Andy Street 2007
- *
- * This software is licensed under the GNU Public License v3.
- * See attached file LICENSE.TXT or contact the author for more information.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of Version 3 of the GNU General Public License as
- * published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
  * This class is responsible for taking the XML DOM tree created by the parser and using reflections
- * to populate a WorldBackend representing the map.
+ * to populate a ArenaModel representing the map.
  */
 
 public class WorldParser {
@@ -39,13 +17,13 @@ public class WorldParser {
 
 	/**
          * Takes in an Element representing the root of the XML DOM tree for a map, then uses
-         * reflections to populate a WorldBackend.
+         * reflections to populate a ArenaModel.
          * @param root the root of the XML DOM tree for the map
          */
         
-        public static void initiateMap(Element root)
+  public static void initiateMap(Element root)
 	{
-		WorldBackend wb = WorldBackend.getCurrent();
+		ArenaModel wb = ArenaModel.getCurrent();
 
 		Element properties = root.get("properties");
 		Element objects = root.get("objects");
@@ -54,7 +32,7 @@ public class WorldParser {
 			for(Element e : properties.getElements())
 			{
 				try {
-					Method m = Class.forName("org.loudouncodes.jkarel.WorldBackend").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
+					Method m = Class.forName("org.loudouncodes.jkarel.ArenaModel").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
 					m.invoke(wb, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();
@@ -80,7 +58,7 @@ public class WorldParser {
 			for(Element e : objects.getElements())
 			{
 				try {
-					Method m = Class.forName("org.loudouncodes.jkarel.WorldBackend").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
+					Method m = Class.forName("org.loudouncodes.jkarel.ArenaModel").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
 					m.invoke(wb, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();

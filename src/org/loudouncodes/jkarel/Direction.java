@@ -1,6 +1,5 @@
 package org.loudouncodes.jkarel;
 
-
 public enum Direction {
   NORTH, EAST, SOUTH, WEST;
   

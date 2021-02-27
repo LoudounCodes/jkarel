@@ -1,6 +1,5 @@
 package org.loudouncodes.jkarel;
 
-
 /**
  * Location is a basic container for two ints representing the x and y locations of some object.
  * It overrides Object's equals() and hashCode() methods so that two different Location objects
@@ -18,27 +17,48 @@ public class Location {
 		this.y = y;
 	}
 	
-        /**
-         * Generates a predictable hash code for the given x and y of the Location.
-         */
+  public int getX() {
+    return x;
+  }
+  
+  public int getY() {
+    return y;
+  }
+  
+  public void move(Direction d) {
+		switch (d) {
+			case NORTH:
+				y++;
+				break;
+			case EAST:
+				x++;
+				break;
+			case SOUTH:
+				y--;
+				break;
+			case WEST:
+				x--;
+				break;
+		}
+  }
+
 	public int hashCode()
 	{
 		return x * 1000 + y; //Possible problems on HUGE maps?
 	}
 	
-        /**
-         * Checks if the x and y of the passed Location are the same as this object's x and y.
-         */
+  public String toString() {
+    return "[" + x +", " + y +"]";
+  }
+
 	public boolean equals(Object o)
 	{
 		if(!(o instanceof Location))
 			return false;
 		
-		Location c = (Location)o;
+		Location that = (Location)o;
 		
-		if(c.x == x && c.y == y)
-			return true;
-		
-		return false;
+		return (that.x == this.x && that.y == this.y);
+
 	}
 }
