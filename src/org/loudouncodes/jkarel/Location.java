@@ -12,7 +12,7 @@ package org.loudouncodes.jkarel;
  **/
 public class Location {
 
-  private int x, y;
+  public int x, y;
 
   /**
    * The only constructor we need.
