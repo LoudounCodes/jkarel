@@ -48,7 +48,7 @@ public class Arena {
 
 	public static void openDefaultWorld() {
 		closeWorld();
-		new ArenaFrame(new ArenaModel());
+		theArenaFrame = new ArenaFrame(new ArenaModel());
 	}
 
   public static Pacing getPace() {
