@@ -53,12 +53,6 @@ public class ArenaModel {
 		Arena.step();
 	}
 
-	void addRobotInternal(Robot r) {
-		synchronized (robots) {
-			robots.add(r);
-		}
-	}
-
 	void removeRobot(Robot r) {
 		synchronized (robots) {
 			robots.remove(r);
@@ -124,7 +118,7 @@ public class ArenaModel {
     Direction direction = Direction.values()[directionVal];
 		int beepers = Integer.parseInt(a.get("beepers"));
 
-		new Robot(x, y, direction, beepers, true);
+		new Robot(x, y, direction, beepers);
 	}
 
 	public void loadProperties_defaultSize(Attributes a) {
