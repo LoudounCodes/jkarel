@@ -20,7 +20,8 @@
 
     <target name="build-src" depends="prerequisite-build">
         <javac srcdir = "${src.dir}"
-               destdir = "${build.dir}">
+               destdir = "${build.dir}"
+			   includeantruntime="false">
                
           <classpath refid = "dependencies" />
         </javac>
