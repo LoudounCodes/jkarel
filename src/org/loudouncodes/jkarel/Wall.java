@@ -14,7 +14,7 @@ public class Wall extends Item {
   
 	private final int WALL_WIDTH = 7;
 
-	private int style;
+	private int orientation;
 	private int length;
 
   {
@@ -25,20 +25,20 @@ public class Wall extends Item {
 		this(x, y, Arena.VERTICAL);
 	}
 
-	public Wall(int x, int y, int style) {
-		this(x, y, 1, style);
+	public Wall(int x, int y, int orientation) {
+		this(x, y, 1, orientation);
 	}
 
-	public Wall(int x, int y, int length, int style) {
+	public Wall(int x, int y, int length, int orientation) {
 		super(x, y);
 
 		this.length = length;
 
-		if (style == Arena.VERTICAL || style == Arena.HORIZONTAL)
-			this.style = style;
+		if (orientation == Arena.VERTICAL || orientation == Arena.HORIZONTAL)
+			this.orientation = orientation;
 		else {
-			Arena.logger.warning("Invalid wall style: " + style + "...  Using VERTICAL.");
-			this.style = Arena.VERTICAL;
+			Arena.logger.warning("Invalid wall orientation: " + orientation + "...  Using VERTICAL.");
+			this.orientation = Arena.VERTICAL;
 		}
 	}
 
@@ -47,7 +47,7 @@ public class Wall extends Item {
 	}
 
 	public int getStyle() {
-		return style;
+		return orientation;
 	}
 
 	public void render(Graphics g, int x, int y) {    
@@ -56,7 +56,7 @@ public class Wall extends Item {
 		double width = ArenaPanel.getCurrent().getXBlockLength();
 		double height = ArenaPanel.getCurrent().getYBlockLength();
 
-		switch (style) {
+		switch (orientation) {
 			case Arena.VERTICAL:
         g.fillRect((int)(x + width / 2 - (WALL_WIDTH - 1) / 2),
                    (int)(y - height * length + height / 2),
@@ -84,7 +84,7 @@ public class Wall extends Item {
 
 	public String toString() {
 		return "Wall { x : " + getX() + ", y: " + getY() +
-		       " , length: " + length + ", style: " + style + " }";
+		       " , length: " + length + ", orientation: " + orientation + " }";
 	}
 
 }
