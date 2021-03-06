@@ -6,6 +6,15 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ * As I have been refactoring the FCPS version of this code, a lot of
+ * complexity has been pushed into this class.  It will eventually
+ * be given the same treatment as the rest of the complexity and removed.
+ *
+ * Represents a back-end 'model' of the area; the locations of all the
+ * walls, beepers, and robots are stored here.  In the future, it will
+ * also be responsible for notifying ArenaListeners of ArenaEvents.
+ */
 public class ArenaModel {
 
 	private static ArenaModel current = null;
@@ -239,7 +248,7 @@ public class ArenaModel {
 
 	/**
 	 * Returns the currently running instance of ArenaModel.
-   * Ew. singleton pattern.  This won't do in the new world order...
+     * Ew. singleton pattern.  This won't do in the new world order...
 	 */
 	public static ArenaModel getCurrent() {
 		return current;
