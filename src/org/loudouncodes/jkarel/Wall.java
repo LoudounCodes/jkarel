@@ -34,7 +34,8 @@ public class Wall extends Item {
 
 		this.length = length;
 
-		if (orientation == Arena.VERTICAL || orientation == Arena.HORIZONTAL)
+		if (orientation == Arena.VERTICAL ||
+                orientation == Arena.HORIZONTAL)
 			this.orientation = orientation;
 		else {
 			Arena.logger.warning("Invalid wall orientation: " + orientation + "...  Using VERTICAL.");
