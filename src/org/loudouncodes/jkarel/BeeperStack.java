@@ -4,6 +4,18 @@ package org.loudouncodes.jkarel;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+/**
+  * A stack of beepers displayed within the arena. Only an advanced
+  * user of this library will need to concern themselves with this
+  * class.
+  *
+  * This is kind-of an unfortunate implementation of this concept
+  * for future expandability, but it makes sense as all beepers are
+  * identical... We don't need instances of a Beeper class, we only
+  * need to keep track of the count at any given location.
+  * That may change in the future if we decide to allow other types
+  * of Items...
+  */
 public class BeeperStack extends Item {
 
 	public static final int INFINITY = -2;
@@ -30,6 +42,9 @@ public class BeeperStack extends Item {
 		numBeepers = beepers;
 	}
 
+    /**
+      * @return the number of beepers represented by this stack.
+      */
 	public int getBeepers() {
 		return numBeepers;
 	}

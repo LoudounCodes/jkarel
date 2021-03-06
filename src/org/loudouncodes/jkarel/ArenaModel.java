@@ -177,12 +177,12 @@ public class ArenaModel {
 		return robots;
 	}
 
-	boolean checkWall(int x, int y, int style) {
+	boolean checkWall(int x, int y, int orientation) {
 		synchronized (walls) {
-			switch (style) {
+			switch (orientation) {
 				case Arena.HORIZONTAL:
 					for (Wall w : walls)
-						if (w.getStyle() == style)
+						if (w.getOrientation() == orientation)
 							if (w.getY() == y &&
 							                x >= w.getX() &&
 							                x < w.getX() + w.getLength())
@@ -192,7 +192,7 @@ public class ArenaModel {
 				case Arena.VERTICAL:
 				default:
 					for (Wall w : walls)
-						if (w.getStyle() == style)
+						if (w.getOrientation() == orientation)
 							if (w.getX() == x &&
 							                y >= w.getY() &&
 							                y < w.getY() + w.getLength())

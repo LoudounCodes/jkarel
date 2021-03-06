@@ -1,7 +1,11 @@
    package org.loudouncodes.jkarel;
 
-   public abstract class Digit
-   {
+   /**
+     * This class is a remnant from the library that was included in some
+     * of the LCPS-specific labs.  Our demo AlphaBot does this and more,
+     * so I think this will shortly be removed in the new world order.
+     */   
+   public abstract class Digit {
       private Robot myLED;
       public Digit(int x, int y)
       {

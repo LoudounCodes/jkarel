@@ -47,7 +47,7 @@ public class Wall extends Item {
 		return length;
 	}
 
-	public int getStyle() {
+	public int getOrientation() {
 		return orientation;
 	}
 
