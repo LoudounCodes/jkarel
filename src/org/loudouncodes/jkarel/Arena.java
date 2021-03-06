@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Arena {
 
-	public static final String DEFAULT_MAP = "/default.map";
+  public static final String DEFAULT_MAP = "/default.map";
 
   public static Logger logger = Logger.getLogger("Karel Logger");
 
@@ -19,16 +19,16 @@ public class Arena {
     logger.setLevel(Level.WARNING);
   }
   
+  public static int FRAME_WIDTH = 550;
 
-	public static int FRAME_WIDTH = 550;
+  public static int FRAME_HEIGHT = 550;
+  
+  // will be private after an enumeration refactoring  
+  public static final int VERTICAL = 1;
+  public static final int HORIZONTAL = 2;
 
-	public static int FRAME_HEIGHT = 550;
 
-	public static final int VERTICAL = 1;
-
-	public static final int HORIZONTAL = 2;
-
-	private static boolean isDead = false;
+  private static boolean isDead = false;
 
   private static Pacing pace = Pacing.FAST;
   
@@ -37,67 +37,69 @@ public class Arena {
   private static List<ArenaListener> listeners = new ArrayList<ArenaListener>();
   
   
-	public static void openWorld(String mapName) {
-		closeWorld();
-		theArenaFrame = new ArenaFrame(new ArenaModel(mapName));
-	}
-
-  public static ArenaFrame getArenaFrame() {
-    return theArenaFrame;
+  public static void openWorld(String mapName) {
+    closeWorld();
+    theArenaFrame = new ArenaFrame(new ArenaModel(mapName));
   }
 
-	public static void openDefaultWorld() {
-		closeWorld();
-		theArenaFrame = new ArenaFrame(new ArenaModel());
-	}
+  public static void openDefaultWorld() {
+    closeWorld();
+    theArenaFrame = new ArenaFrame(new ArenaModel());
+  }
 
   public static Pacing getPace() {
     return pace;
   }
 
+  public static ArenaFrame getArenaFrame() {
+    return theArenaFrame;
+  }
+  
   public static void setPace(Pacing aPace) {
     pace = aPace;
   }
   
-	public static void placeBeeper(Location l)
-	{
-		if (ArenaModel.getCurrent() == null) {
+  public static void placeBeeper(Location l) {
+    if (ArenaModel.getCurrent() == null) {
 			Arena.openDefaultWorld();
-		}
-
-		if (isDead())
-			return;
-		ArenaModel.getCurrent().putBeepers(l, 1);
-		ArenaPanel.getCurrent().repaint();
 	}
+
+	if (isDead()) {
+      return;
+    }
+    
+	ArenaModel.getCurrent().putBeepers(l, 1);
+	ArenaPanel.getCurrent().repaint();
+  }
 	
-	private static void closeWorld() {
-		if (ArenaFrame.getCurrent() != null)
-			ArenaFrame.getCurrent().close();
-	}
+  private static void closeWorld() {
+    if (ArenaFrame.getCurrent() != null) {
+      ArenaFrame.getCurrent().close();
+    }
+  }
 
-	public static void setSize(int x, int y) {
-		if (ArenaModel.getCurrent() == null)
-			openDefaultWorld();
-
-		ArenaModel.getCurrent().setSize(x, y);
-	}
-
-	static void step() {
-
-		ArenaPanel.getCurrent().repaint();
-		pace.tick();
-	}
-
-	static void die(String reason) {
-		isDead = true;
-		Arena.logger.severe(reason);
-		System.exit(0);
-	}
-
-	public static boolean isDead() {
-		return isDead;
-	}
+  public static void setSize(int x, int y) {
+  	if (ArenaModel.getCurrent() == null)
+  		openDefaultWorld();
+  
+  	ArenaModel.getCurrent().setSize(x, y);
+  }
+  
+  static void step() {
+  
+  	ArenaPanel.getCurrent().repaint();
+  	pace.tick();
+  }
+  
+  static void die(String reason) {
+  	isDead = true;
+  	Arena.logger.severe(reason);
+  	System.exit(0);
+  }
+  
+  public static boolean isDead() {
+  	return isDead;
+  }
   
   public static void addNorthWall(int x, int y) {
     Wall aWall = new Wall(x, y, 1, Arena.HORIZONTAL);
