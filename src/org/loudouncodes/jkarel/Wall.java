@@ -15,7 +15,6 @@ public class Wall extends Item {
 	private final int WALL_WIDTH = 7;
 
 	private int orientation;
-	private int length;
 
   {
     wall = new ImageIcon(ArenaPanel.class.getResource("/icons/arena_wall.png"));
@@ -26,13 +25,7 @@ public class Wall extends Item {
 	}
 
 	public Wall(int x, int y, int orientation) {
-		this(x, y, 1, orientation);
-	}
-
-	public Wall(int x, int y, int length, int orientation) {
 		super(x, y);
-
-		this.length = length;
 
 		if (orientation == Arena.VERTICAL ||
                 orientation == Arena.HORIZONTAL)
@@ -43,9 +36,6 @@ public class Wall extends Item {
 		}
 	}
 
-	public int getLength() {
-		return length;
-	}
 
 	public int getOrientation() {
 		return orientation;
@@ -60,32 +50,22 @@ public class Wall extends Item {
 		switch (orientation) {
 			case Arena.VERTICAL:
         g.fillRect((int)(x + width / 2 - (WALL_WIDTH - 1) / 2),
-                   (int)(y - height * length + height / 2),
-                   WALL_WIDTH, (int)(height * length + 1));
-        
-        // int x1 = (int)(x + width / 2 - (WALL_WIDTH - 1) / 2);
-        // int y1 = (int)(y - height * length + height / 2);
-        // int x2 = x1+12;
-        // int y2 = y1+ (int) height;
-        // g.drawImage(wall.getImage(),
-        //             x1, y1, x2, y2,
-        //             0, 0, wall.getIconWidth(), wall.getIconHeight(),
-        //             Color.WHITE, null);
-        
+                   (int)(y - height + height / 2),
+                   WALL_WIDTH, (int)(height + 1));
 				break;
         
         
 			case Arena.HORIZONTAL:
 				g.fillRect((int)(x - width / 2),
 				           (int)(y - height / 2 - (WALL_WIDTH - 1) / 2),
-				           (int)(width * length + 1), WALL_WIDTH);
+				           (int)(width + 1), WALL_WIDTH);
 				break;
 		}
 	}
 
 	public String toString() {
-		return "Wall { x : " + getX() + ", y: " + getY() +
-		       " , length: " + length + ", orientation: " + orientation + " }";
+		return "Wall { x: " + getX() + ", y: " + getY() +
+		       ", orientation: " + orientation + " }";
 	}
 
 }

@@ -191,25 +191,25 @@ public class Arena {
   }
   
   public static void addNorthWall(int x, int y) {
-    Wall aWall = new Wall(x, y, 1, Arena.HORIZONTAL);
+    Wall aWall = new Wall(x, y, Arena.HORIZONTAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
   public static void addSouthWall(int x, int y) {
-    Wall aWall = new Wall(x, y-1, 1, Arena.HORIZONTAL);
+    Wall aWall = new Wall(x, y-1, Arena.HORIZONTAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
   public static void addEastWall(int x, int y) {
-    Wall aWall = new Wall(x, y, 1, Arena.VERTICAL);
+    Wall aWall = new Wall(x, y, Arena.VERTICAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
   public static void addWestWall(int x, int y) {
-    Wall aWall = new Wall(x-1, y, 1, Arena.VERTICAL);
+    Wall aWall = new Wall(x-1, y, Arena.VERTICAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }

@@ -36,8 +36,9 @@ public class ArenaModel {
 		robots = Collections.synchronizedList(new ArrayList<Robot>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
 
-		walls.add(xAxisWall = new Wall(1, 0, width, Arena.HORIZONTAL));
-		walls.add(yAxisWall = new Wall(0, 1, height, Arena.VERTICAL));
+        //add border walls here
+		walls.add(xAxisWall = new Wall(1, 0, Arena.HORIZONTAL));
+		walls.add(yAxisWall = new Wall(0, 1, Arena.VERTICAL));
 
 		parseMap(mapName);
 	}
@@ -101,6 +102,7 @@ public class ArenaModel {
 			putBeepers(new Location(x, y), Integer.parseInt(num));
 	}
 
+    // ignoring length in the xml
 	public void addObject_wall(Attributes a) {
 		int x = Integer.parseInt(a.get("x"));
 		int y = Integer.parseInt(a.get("y"));
@@ -108,7 +110,7 @@ public class ArenaModel {
 		int style = a.get("style").equalsIgnoreCase("horizontal") ?
 		            Arena.HORIZONTAL : Arena.VERTICAL;
 
-		addWall(new Wall(x, y, length, style));
+		addWall(new Wall(x, y, style));
 	}
 
 	public void addObject_robot(Attributes a) {
@@ -177,6 +179,7 @@ public class ArenaModel {
 		return robots;
 	}
 
+    // this needs some deobfuscation.
 	boolean checkWall(int x, int y, int orientation) {
 		synchronized (walls) {
 			switch (orientation) {
@@ -185,7 +188,7 @@ public class ArenaModel {
 						if (w.getOrientation() == orientation)
 							if (w.getY() == y &&
 							                x >= w.getX() &&
-							                x < w.getX() + w.getLength())
+							                x < w.getX() + 1)
 								return true;
 
 					break;
@@ -195,7 +198,7 @@ public class ArenaModel {
 						if (w.getOrientation() == orientation)
 							if (w.getX() == x &&
 							                y >= w.getY() &&
-							                y < w.getY() + w.getLength())
+							                y < w.getY() + 1)
 								return true;
 
 					break;
@@ -218,17 +221,18 @@ public class ArenaModel {
 		}
 	}
 
+    // need to add border walls back
 	void setSize(int width, int height) {
 		if (this.width != width) {
 			this.width = width;
 			walls.remove(xAxisWall);
-			walls.add(xAxisWall = new Wall(1, 0, width, Arena.HORIZONTAL));
+			walls.add(xAxisWall = new Wall(1, 0, Arena.HORIZONTAL));
 		}
 
 		if (this.height != height) {
 			this.height = height;
 			walls.remove(yAxisWall);
-			walls.add(yAxisWall = new Wall(0, 1, height, Arena.VERTICAL));
+			walls.add(yAxisWall = new Wall(0, 1, Arena.VERTICAL));
 		}
 	}
 
