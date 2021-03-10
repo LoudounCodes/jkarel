@@ -27,20 +27,30 @@ import java.util.HashMap;
  */
 public class Robot extends Item {
 
-	private int beepers;
-	private Direction direction;
-    private HashMap<Direction,ImageIcon> icons;
+  /** The number of beepers we have in our inventory. */
+  private int beepers;
+  
+  /** The current direction the robot is facing. */
+  private Direction direction;
+  
+  /** The icons we use to draw the robot, organized by Direction. */
+  private HashMap<Direction,ImageIcon> icons;
 
     /**
      * Constructs a robot at [1, 1], facing east, with 0 beepers.
      */
-	public Robot() {
-		this(1, 1, Direction.EAST, 0);
-	}
+  public Robot() {
+    this(1, 1, Direction.EAST, 0);
+  }
 
     /**
      * Constructs a robot at a location you specify, facing the direction
      * you specify, with the number of beepers you specify.
+     * @param x the x location where this robot is constructed.
+     * @param y the y location where this robot is constructed.
+     * @param dir the Direction this robot is facing when constructed.
+     * @param beepers. The number of beepers this robot has when constructed.
+     * 
      */
 	public Robot(int x, int y, Direction dir, int beepers) {
       super(x, y);
@@ -72,17 +82,24 @@ public class Robot extends Item {
 	}
 
     /**
-     * Returns the direction this robot is facing.
-     * @return an enum indicating the direction this robot is facing.
-     */
+      * Returns the direction this robot is facing.
+      * @return an enum indicating the direction this robot is facing.
+      */
 	public Direction getDirection() {
 		return direction;
 	}
 
+  /**
+    * Returns the number of beepers this Robot is currently holding.
+    * @return the number of beepers this Robot is currently holding.
+    */
 	public int getBeepers() {
 		return beepers;
 	}
 
+  /**
+    * Moves the robot one step forward (in the direction it is facing)
+    */
 	public synchronized void move() {
 	  if (Arena.isDead())
 	  	return;
@@ -90,7 +107,6 @@ public class Robot extends Item {
 	  boolean clear = frontIsClear();
       
 	  if (!clear) {
-	  	Location c = getWallLocation(direction);
 	  	Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
 	  	return;
 	  }
@@ -100,6 +116,9 @@ public class Robot extends Item {
 	  Arena.step();
 	}
 
+  /**
+    * Turns the Robot 90 degrees to the left.
+    */
 	public void turnLeft() {
 	  if (Arena.isDead())
 	  	return;
@@ -109,6 +128,12 @@ public class Robot extends Item {
 	  Arena.step();
 	}
 
+  /**
+    * Turnd the robot 90 degrees to the right.  Note that this
+    * method is private because part of the original Karel
+    * curriculum is about creating a turnRight method by turning
+    * left 3 times.
+    */
 	private void turnRight() {
 	  if (Arena.isDead())
 	  	return;
@@ -118,6 +143,14 @@ public class Robot extends Item {
 	  Arena.step();
 	}
 
+  /**
+    * Drops a single beeper at the current location.
+    * The number of beepers this robot is holding is
+    * decreased by 1.
+    *
+    * If there are no beepers, this method will log
+    * an error and stop the program.
+    */
 	public void putBeeper() {
 	  if (Arena.isDead())
 	  	return;
@@ -134,7 +167,13 @@ public class Robot extends Item {
       
 	  Arena.step();
 	}
-
+  /**
+    * Picks a beeper up from the current location and
+    * adds it to the Robot's beeper inventory.
+    *
+    * If there are no beepers present, this method will
+    * log an error and stop the program.
+    */
 	public void pickBeeper() {
 	  if (Arena.isDead())
 	  	return;
@@ -152,50 +191,89 @@ public class Robot extends Item {
 	  Arena.step();
 	}
 
+  /**
+    * returns true if this robot has beepers in its inventory.
+    *
+    * @return true if this robot has beepers in its inventory,
+    *         false otherwise.
+    */
 	public boolean hasBeepers() {
 	  return beepers > 0 || beepers == BeeperStack.INFINITY;
 	}
 
+  /**
+    * @return boolean is the front clear of any walls?
+    */
 	public boolean frontIsClear() {
 	  return isClear(direction);
 	}
 
+  /**
+    * @return boolean is the right clear of any walls?
+    */
 	public boolean rightIsClear() {
 	  return isClear(direction.right());
 	}
 
+  /**
+    * @return boolean is the left clear of any walls?
+    */
 	public boolean leftIsClear() {
 	  return isClear(direction.left());
 	}
 
+  /**
+    * @return boolean is the back clear of any walls?
+    */
 	public boolean backIsClear() {
 	  return isClear(direction.right().right());
 	}
 
+  /**
+    * @return boolean am I next to (on top of) any beepers?
+    */
 	public boolean nextToABeeper() {
 	  return ArenaModel.getCurrent().checkBeepers(myLocation);
 	}
 
+  /**
+    * @return boolean am I next to (on top of) any robots?
+    */
 	public boolean nextToARobot() {
 	  return ArenaModel.getCurrent().isNextToARobot(this, myLocation);
 	}
 
+  /**
+    * @return boolean am I facing North?
+    */
 	public boolean facingNorth() {
 	  return direction == Direction.NORTH;
 	}
 
+  /**
+    * @return boolean am I facing South?
+    */
 	public boolean facingSouth() {
 	  return direction == Direction.SOUTH;
 	}
 
+  /**
+    * @return boolean am I facing East?
+    */
 	public boolean facingEast() {
 	  return direction == Direction.EAST;
 	}
 
+  /**
+    * @return boolean am I facing West?
+    */
 	public boolean facingWest() {
 	  return direction == Direction.WEST;
 	}
 
+  /**
+    * used internally by the xIsClear methods.
+    */
 	private boolean isClear(Direction dir) {
 	  Location c = getWallLocation(direction);
       
@@ -203,22 +281,34 @@ public class Robot extends Item {
 	  	case NORTH:
 	  	case SOUTH:
 	  		return !ArenaModel.getCurrent()
-	  		       .checkWall(c.x, c.y, Arena.HORIZONTAL);
+	  		       .checkWall(c.getX(), c.getY(), Arena.HORIZONTAL);
 	  	case EAST:
 	  	case WEST:
 	  	default:
 	  		return !ArenaModel.getCurrent()
-	  		       .checkWall(c.x, c.y, Arena.VERTICAL);
+	  		       .checkWall(c.getX(), c.getY(), Arena.VERTICAL);
 	  }
 	}
 
+  /**
+    * Removes this robot from the current arena.
+    *
+    * not as cool as it sounds. It needs an explosion or something.
+    */
 	public void explode() {
 		ArenaModel.getCurrent().removeRobot(this);
 	}
 
+
+  /**
+    * I'm unsure about this method, because the name sucks.
+    * what wall is this? The one we walked through? The one
+    * in front of us?  There can be multiple walls around the robot...
+    * which one is this and why?
+    */
 	private Location getWallLocation(Direction dir) {
 	  int xc = myLocation.getX();
-      int yc = myLocation.getY();
+    int yc = myLocation.getY();
 
 	  switch (dir) {
 	  	case NORTH: //Check in front, not behind
@@ -235,6 +325,20 @@ public class Robot extends Item {
 	  return new Location(xc, yc);
 	}
 
+  /**
+    * You will never need to call this method unless you are 
+    * working inside the jkarel library itself.  The library
+    * calls this method when the robot needs to draw itself
+    * on the screen.
+    *
+    * In advanced uses of this library, you can subclass Robot
+    * and override this method, making a robot that can draw
+    * something other than the default image.
+    *
+    * @param g the Graphics context to draw into
+    * @param x the x location where the robot should draw itself
+    * @param y the y location where the robot should draw itself 
+    */
 	public void render(Graphics g, int x, int y) {
 	  ImageIcon i = icons.get(direction);
 	  g.drawImage(i.getImage(),
@@ -242,6 +346,15 @@ public class Robot extends Item {
 	              y - i.getIconHeight() / 2, null);
 	}
 
+  /**
+    * Returns true if we are next to a robot, false otherwise.
+    * Note that 'next to' really means 'on top of' because of
+    * the way Karel graphics look and work.  This is like two
+    * robots standing next to each other on a streetcorner.
+    *
+    * @param other the other robot we are testing to see if we are next to.
+    * @return true if we are next to a robot, false otherwise.
+    */
 	public boolean nextToRobot(Robot other) {
 	  return (myLocation.equals(other.getLocation()));
 	}

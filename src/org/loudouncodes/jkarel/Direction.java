@@ -5,7 +5,17 @@ package org.loudouncodes.jkarel;
   * facing a specific direction.
   */
 public enum Direction {
-  NORTH, EAST, SOUTH, WEST;
+  /** enumeration indication a Direction facing North. */
+  NORTH, 
+    
+  /** enumeration indication a Direction facing East. */
+  EAST,
+    
+  /** enumeration indication a Direction facing South. */
+  SOUTH,
+    
+  /** enumeration indication a Direction facing West. */
+  WEST;
   
   /**
     * @return a Direction as if the current direction turned left

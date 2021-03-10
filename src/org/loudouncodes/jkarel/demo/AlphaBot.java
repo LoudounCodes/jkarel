@@ -2,6 +2,15 @@ package org.loudouncodes.jkarel.demo;
 
 import org.loudouncodes.jkarel.*;
 
+/**
+  * A subclass of Robot that knows how to draw letters and numbers.
+  *
+  * Seriously. Drop this thing in an arena with enough room and
+  * call AlphaBot#say(myMessage).  If it has enough room, it'll
+  * drop beepers and leave the message on the screen.
+  *
+  * run the jar file to see it in action.
+  */
 public class AlphaBot extends Robot {
 
   //https://github.com/dhepper/font8x8
@@ -139,11 +148,18 @@ public class AlphaBot extends Robot {
 
 
 
-  
+  /**
+    * Creates an Alphabot at [2,1], facing North, with an
+    * infinite number of beepers.
+    */
   public AlphaBot() {
-		super(2, 1, Direction.NORTH, BeeperStack.INFINITY);
+    super(2, 1, Direction.NORTH, BeeperStack.INFINITY);
   }
   
+  /**
+    * @param message the message you want this robot to leave
+    * on the floor of the arena in beepers.
+    */
   public void say(String message) {
     
     for (char letter : message.toCharArray()) {
