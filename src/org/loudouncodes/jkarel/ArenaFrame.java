@@ -59,6 +59,8 @@ public class ArenaFrame extends JFrame {
     * when constructed, we can return that instance here.  That means
     * anyone on the outside of this library has 'one stop shopping' to
     * always find the one and only instance of the ArenaFrame.
+    *
+    * @return the singleton instance of ArenaFrame.
     */
 	public static ArenaFrame getCurrent() {
 		return current;

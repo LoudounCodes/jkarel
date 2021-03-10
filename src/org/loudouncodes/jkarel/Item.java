@@ -15,18 +15,33 @@ public abstract class Item {
 
   protected Location myLocation;
 
+  /**
+    * Constructor.
+    *
+    * @param x the x location of this item in the Arena.
+    * @param y the y location of this item in the Arena.
+    */
   public Item(int x, int y) {
     myLocation = new Location(x, y);
   }
 
+  /**
+    * @return the location created by the x and y passed into the constructor.
+    */
   public Location getLocation() {
     return myLocation;
   }
  
+  /**
+    * @return the x value passed into the constructor.
+    */
   public int getX() {
     return myLocation.getX();
   }
 
+  /**
+    * @return the y value passed into the constructor.
+    */
   public int getY() {
   	return myLocation.getY();
   }

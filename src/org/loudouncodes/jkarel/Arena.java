@@ -68,6 +68,8 @@ public class Arena {
     *
     * If the name is within the maps folder in the jar file, it will open
     * that file.
+    *
+    * @param mapName the name of the map to open.
     */
   public static void openWorld(String mapName) {
     closeWorld();
@@ -88,7 +90,7 @@ public class Arena {
     *
     * @see org.loudouncodes.jkarel.Pacing
     *
-    * @return an enumberation defined in Pacing
+    * @return an enumeration defined in Pacing
     */
   public static Pacing getPace() {
     return pace;
@@ -99,6 +101,7 @@ public class Arena {
     * the current pace setting with this method.
     *
     * @see org.loudouncodes.jkarel.Pacing
+    * @param aPace the pace enumeration we are setting this Arena to.
     */
   public static void setPace(Pacing aPace) {
     pace = aPace;
@@ -117,21 +120,6 @@ public class Arena {
     */
   public static ArenaFrame getArenaFrame() {
     return theArenaFrame;
-  }
-  
-
-  
-  public static void placeBeeper(Location l) {
-    if (ArenaModel.getCurrent() == null) {
-			Arena.openDefaultWorld();
-	  }
-
-	  if (isDead()) {
-      return;
-    }
-    
-	  ArenaModel.getCurrent().putBeepers(l, 1);
-	  ArenaPanel.getCurrent().repaint();
   }
 	
   
@@ -190,34 +178,77 @@ public class Arena {
   	return isDead;
   }
   
+  /**
+    * adds a wall into the Arena north of the location specified by [x,y]
+    *
+    * @param x the x coordinate of the location where we are adding the wall.
+    * @param y the y coordinate of the location where we are adding the wall,
+    */
   public static void addNorthWall(int x, int y) {
     Wall aWall = new Wall(x, y, Arena.HORIZONTAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
+  /**
+    * adds a wall into the Arena south of the location specified by [x,y]
+    *
+    * @param x the x coordinate of the location where we are adding the wall.
+    * @param y the y coordinate of the location where we are adding the wall,
+    */
   public static void addSouthWall(int x, int y) {
     Wall aWall = new Wall(x, y-1, Arena.HORIZONTAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
+  /**
+    * adds a wall into the Arena east of the location specified by [x,y]
+    *
+    * @param x the x coordinate of the location where we are adding the wall.
+    * @param y the y coordinate of the location where we are adding the wall,
+    */
   public static void addEastWall(int x, int y) {
     Wall aWall = new Wall(x, y, Arena.VERTICAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
+  /**
+    * adds a wall into the Arena west of the location specified by [x,y]
+    *
+    * @param x the x coordinate of the location where we are adding the wall.
+    * @param y the y coordinate of the location where we are adding the wall,
+    */
   public static void addWestWall(int x, int y) {
     Wall aWall = new Wall(x-1, y, Arena.VERTICAL);
     ArenaModel.getCurrent().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
 
+  /**
+    * adds beepers to the arena at the location specified by [x,y]
+    *
+    * @param x the x coordinate of the location where we are adding beepers.
+    * @param y the y coordinate of the location where we are adding beepers.
+    * @param beeperCount the number of beepers we are adding.
+    */
   public static void addBeepers(int x, int y, int beeperCount) {
     Location l = new Location(x, y);
     ArenaModel.getCurrent().putBeepers(l, beeperCount);
 		ArenaPanel.getCurrent().repaint();
   }
+  
+  /**
+    * adds a single beeper to the arena at the location specified by [x,y]
+    *
+    * @param x the x coordinate of the location where we are adding beepers.
+    * @param y the y coordinate of the location where we are adding beepers.
+    */
+  public static void addBeeper(int x, int y) {
+    addBeepers(x, y, 1);
+  }
+  
+  
   
 }

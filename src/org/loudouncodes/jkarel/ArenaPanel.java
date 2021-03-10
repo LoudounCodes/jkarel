@@ -18,16 +18,21 @@ public class ArenaPanel extends JPanel {
   /** variable for implementing the Singleton pattern. */
 	private static ArenaPanel current = null;
 
+  /** the model passed in at construction. */
 	private ArenaModel model = null;
 
 	private final int X_BUFFER = 40;
   private final int Y_BUFFER = 40;
-  
-	private final Color BACKGROUND = Color.white;
-
 	private int blockWidth;
   private int blockHeight;
+  
+  
+  /** the background color when drawing the panel. */
+	private final Color BACKGROUND = Color.white;
 
+
+
+  /** the ImageIcon used to draw the floor of the Arena. */
   private ImageIcon floor;
   {
     floor = new ImageIcon(ArenaPanel.class.getResource("/icons/arena_floor.png"));
