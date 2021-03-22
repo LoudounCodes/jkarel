@@ -181,14 +181,27 @@ public class ArenaPanel extends JPanel {
 		}
 	}
 
+	private void renderGenericItems(Graphics g) {
+		List<Item> items = model.getItems();
+		synchronized (items) {
+			for (Item i : items) {
+				i.render(g,
+                 convertToXPixel(i.getLocation().getX()),
+                 convertToYPixel(i.getLocation().getY()));
+			}
+		}
+	}
+
+
 	private void renderScene(Graphics g) {
 		blockWidth = (int)getXBlockLength();
 		blockHeight = (int)getYBlockLength();
 
-    renderFloor(g);
+        renderFloor(g);
 		renderBeepers(g);
 		renderRobots(g);
 		renderWalls(g);
+        renderGenericItems(g);
 	}
 
 

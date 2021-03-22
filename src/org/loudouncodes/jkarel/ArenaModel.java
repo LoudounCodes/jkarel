@@ -26,7 +26,15 @@ public class ArenaModel {
 	private Map<Location, BeeperStack> beepers;
 	private List<Robot> robots;
 	private List<Wall> walls;
-
+    
+    // The FCPS design here is horrible. I want to add some generic
+    // user-created subclasses of items and have them 'do the right thing',
+    // but it makes the design awkward because we have other arrays for
+    // specific kinds of items (above).  We sould fix this someday with
+    // better design.
+	private List<Item> genericItems;
+    
+    
 	private int width = 10;
 	private int height = 10;
 
@@ -39,6 +47,7 @@ public class ArenaModel {
 		                                      BeeperStack > ());
 		robots = Collections.synchronizedList(new ArrayList<Robot>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
+		genericItems = Collections.synchronizedList(new ArrayList<Item>());
 
         //add border walls here
 		walls.add(xAxisWall = new Wall(1, 0, Arena.HORIZONTAL));
@@ -53,18 +62,10 @@ public class ArenaModel {
 		this(null);
 	}
 
-    // getters
-	Map<Location, BeeperStack> getBeepers() {
-		return beepers;
-	}
 
-	List<Wall> getWalls() {
-		return walls;
-	}
 
-	List<Robot> getRobots() {
-		return robots;
-	}
+
+
     
 	public Location getSize() {
 		return new Location(width, height);
@@ -86,8 +87,10 @@ public class ArenaModel {
 	}
     
     
-    
-    
+// accessors for dealing with robots    
+	List<Robot> getRobots() {
+		return robots;
+	}   
 	void addRobot(Robot r) {
 		synchronized (robots) {
 			robots.add(r);
@@ -102,6 +105,11 @@ public class ArenaModel {
 		Arena.step();
 	}
 
+// accessors for dealing with beepers
+	Map<Location, BeeperStack> getBeepers() {
+		return beepers;
+	}
+    
 	public void putBeepers(Location l, int num) {
 		if (num == BeeperStack.INFINITY) {
 			synchronized (beepers) {
@@ -126,17 +134,74 @@ public class ArenaModel {
 		}
 	}
 
+
+	boolean checkBeepers(Location l) {
+		return beepers.get(l) != null;
+	}
+    
+    
+    
+    
+// accessors for dealing with walls    
 	public void addWall(Wall w) {
 		synchronized (walls) {
 			walls.add(w);
 		}
 	}
 
-
-
-	boolean checkBeepers(Location l) {
-		return beepers.get(l) != null;
+	List<Wall> getWalls() {
+		return walls;
 	}
+
+    // this needs some deobfuscation.
+	boolean checkWall(int x, int y, int orientation) {
+		synchronized (walls) {
+			switch (orientation) {
+				case Arena.HORIZONTAL:
+					for (Wall w : walls)
+						if (w.getOrientation() == orientation)
+							if (w.getY() == y &&
+							                x >= w.getX() &&
+							                x < w.getX() + 1)
+								return true;
+					break;
+				case Arena.VERTICAL:
+				default:
+					for (Wall w : walls)
+						if (w.getOrientation() == orientation)
+							if (w.getX() == x &&
+							                y >= w.getY() &&
+							                y < w.getY() + 1)
+								return true;
+
+					break;
+			}
+		}
+		return false;
+	}
+    
+    
+    
+// accessors for dealing with generic items    
+    
+    public void addItem(Item i) {
+		synchronized (genericItems) {
+			genericItems.add(i);
+		}
+    }
+    
+    List<Item> getItems() {
+        return genericItems;
+    }
+    
+    public void removeItem(Item i) {
+		synchronized (genericItems) {
+			genericItems.remove(i);
+		}  
+    }
+
+
+
 
 	boolean isNextToARobot(Robot r, Location l) {
 		synchronized (robots) {
@@ -163,33 +228,6 @@ public class ArenaModel {
 		}
 	}
 
-    // this needs some deobfuscation.
-	boolean checkWall(int x, int y, int orientation) {
-		synchronized (walls) {
-			switch (orientation) {
-				case Arena.HORIZONTAL:
-					for (Wall w : walls)
-						if (w.getOrientation() == orientation)
-							if (w.getY() == y &&
-							                x >= w.getX() &&
-							                x < w.getX() + 1)
-								return true;
-
-					break;
-				case Arena.VERTICAL:
-				default:
-					for (Wall w : walls)
-						if (w.getOrientation() == orientation)
-							if (w.getX() == x &&
-							                y >= w.getY() &&
-							                y < w.getY() + 1)
-								return true;
-
-					break;
-			}
-		}
-		return false;
-	}
 
 
 
