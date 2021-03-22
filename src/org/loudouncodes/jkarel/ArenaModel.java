@@ -149,8 +149,8 @@ public class ArenaModel {
 		}
 	}
 
-	List<Wall> getWalls() {
-		return walls;
+	public List<Wall> getWalls() {
+		return Collections.unmodifiableList(walls);
 	}
 
     // this needs some deobfuscation.
@@ -190,8 +190,8 @@ public class ArenaModel {
 		}
     }
     
-    List<Item> getItems() {
-        return genericItems;
+    public List<Item> getItems() {
+        return Collections.unmodifiableList(genericItems);
     }
     
     public void removeItem(Item i) {
