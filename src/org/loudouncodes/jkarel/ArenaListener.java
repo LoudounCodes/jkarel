@@ -7,13 +7,20 @@ package org.loudouncodes.jkarel;
  */
 public interface ArenaListener {
 
-  public void robotAdded();
-  public void wallAdded();
-  public void wallRemoved();
-  public void beeperAdded();
-  public void beeperPickedUp();
-  public void beeperDropped();
-  public void robotMoved();
-  public void wallHit();
+  public boolean robotAdded(Robot r);
+  public boolean robotRemoved(Robot r);
+  public boolean robotMoved(Robot r);
+  
+  public boolean wallHit(Wall w);
+  
+  public boolean wallAdded(Wall w);
+  public boolean wallRemoved(Wall w);
+  
+  public boolean beeperAdded(BeeperStack bs);
+  public boolean beeperPickedUp(BeeperStack bs);
+  public boolean beeperDropped(BeeperStack bs);
+  
+  public boolean userItemAdded(Item i);
+  public boolean userItemDropped(Item i);
   
 }
