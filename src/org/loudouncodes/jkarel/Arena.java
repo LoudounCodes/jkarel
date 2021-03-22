@@ -142,7 +142,7 @@ public class Arena {
     */
   public static void setSize(int x, int y) {
   	if (ArenaModel.getCurrent() == null)
-  		openDefaultWorld();
+  		die("You must open a world before setting the size.");
   
   	ArenaModel.getCurrent().setSize(x, y);
   }
