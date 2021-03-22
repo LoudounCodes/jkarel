@@ -188,6 +188,7 @@ public class ArenaModel {
 		synchronized (genericItems) {
 			genericItems.add(i);
 		}
+		Arena.step();
     }
     
     public List<Item> getItems() {
@@ -197,7 +198,8 @@ public class ArenaModel {
     public void removeItem(Item i) {
 		synchronized (genericItems) {
 			genericItems.remove(i);
-		}  
+		}
+		Arena.step();
     }
 
 
