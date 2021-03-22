@@ -47,6 +47,24 @@ public abstract class Item {
   }
   
   /**
+    * Updates the location of this item.
+    *
+    * This is protected so that your subclass can call it, but
+    * so it doesn't become an abusable thing by other code.
+    * You can always choose to make this public in your own
+    * subclass if necessary.
+    *
+    * @param x the new x location of this item in the Arena.
+    * @param y the new y location of this item in the Arena.
+    */
+  protected void updatePosition(int x, int y) {
+      myLocation = new Location(x, y);
+  }
+  
+  
+  
+  
+  /**
    * Since Items are in an arena, we know they will need to draw themselves.
    * But since 'Item' is an abstract idea, we don't know what it will look
    * like yet.  We represent this in object-oriented programming with this
