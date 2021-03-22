@@ -32,7 +32,7 @@ public class ArenaModel {
     // but it makes the design awkward because we have other arrays for
     // specific kinds of items (above).  We sould fix this someday with
     // better design.
-	private List<Item> genericItems;
+	private List<Item> userItems;
     
     
 	private int width = 10;
@@ -47,7 +47,7 @@ public class ArenaModel {
 		                                      BeeperStack > ());
 		robots = Collections.synchronizedList(new ArrayList<Robot>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
-		genericItems = Collections.synchronizedList(new ArrayList<Item>());
+		userItems = Collections.synchronizedList(new ArrayList<Item>());
 
         //add border walls here
 		walls.add(xAxisWall = new Wall(1, 0, Arena.HORIZONTAL));
@@ -184,20 +184,20 @@ public class ArenaModel {
     
 // accessors for dealing with generic items    
     
-    public void addItem(Item i) {
-		synchronized (genericItems) {
-			genericItems.add(i);
+    public void addUserItem(Item i) {
+		synchronized (userItems) {
+			userItems.add(i);
 		}
 		Arena.step();
     }
     
-    public List<Item> getItems() {
-        return Collections.unmodifiableList(genericItems);
+    public List<Item> getUserItems() {
+        return Collections.unmodifiableList(userItems);
     }
     
-    public void removeItem(Item i) {
-		synchronized (genericItems) {
-			genericItems.remove(i);
+    public void removeUserItem(Item i) {
+		synchronized (userItems) {
+			userItems.remove(i);
 		}
 		Arena.step();
     }

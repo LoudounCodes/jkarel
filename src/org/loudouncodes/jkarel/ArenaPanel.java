@@ -181,8 +181,8 @@ public class ArenaPanel extends JPanel {
 		}
 	}
 
-	private void renderGenericItems(Graphics g) {
-		List<Item> items = model.getItems();
+	private void renderUserItems(Graphics g) {
+		List<Item> items = model.getUserItems();
 		synchronized (items) {
 			for (Item i : items) {
 				i.render(g,
@@ -201,7 +201,7 @@ public class ArenaPanel extends JPanel {
 		renderBeepers(g);
 		renderRobots(g);
 		renderWalls(g);
-        renderGenericItems(g);
+        renderUserItems(g);
 	}
 
 
