@@ -11,7 +11,7 @@ public interface ArenaListener {
   public boolean robotRemoved(Robot r);
   public boolean robotMoved(Robot r);
   
-  public boolean wallHit(Wall w);
+  public boolean wallCollision(Wall w, Robot r);
   
   public boolean wallAdded(Wall w);
   public boolean wallRemoved(Wall w);
@@ -22,5 +22,4 @@ public interface ArenaListener {
   
   public boolean userItemAdded(Item i);
   public boolean userItemDropped(Item i);
-  
 }
