@@ -34,7 +34,7 @@ public class ArenaModel {
     // better design.
 	private List<Item> userItems;
     
-    private static List<ArenaListener> listeners = new ArrayList<ArenaListener>();
+    private List<ArenaListener> listeners = new ArrayList<ArenaListener>();
     
     
     
@@ -67,8 +67,13 @@ public class ArenaModel {
 
 
 
+    public void addListener(ArenaListener l) {
+        listeners.add(l);
+    }
 
-
+    public void removeListener(ArenaListener l) {
+        listeners.remove(l);
+    }
     
 	public Location getSize() {
 		return new Location(width, height);
