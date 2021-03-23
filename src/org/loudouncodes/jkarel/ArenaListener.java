@@ -9,20 +9,20 @@ public interface ArenaListener {
 
   // be careful with this robot reference. The constructor
   // has not yet returned when you are called.
-  public void robotAdded(Robot r);
+  default void robotAdded(Robot r){};
   
-  public void robotRemoved(Robot r);
-  public void robotMoved(Robot r);
+  default void robotRemoved(Robot r){};
+  default void robotMoved(Robot r){};
   
-  public void wallCollision(Wall w, Robot r);
+  default void wallCollision(Wall w, Robot r){};
   
-  public void wallAdded(Wall w);
-  public void wallRemoved(Wall w);
+  default void wallAdded(Wall w){};
+  default void wallRemoved(Wall w){};
   
-  public void beeperAdded(BeeperStack bs);
-  public void beeperPickedUp(BeeperStack bs);
-  public void beeperDropped(BeeperStack bs);
+  default void beeperAdded(BeeperStack bs){};
+  default void beeperPickedUp(BeeperStack bs){};
+  default void beeperDropped(BeeperStack bs){};
   
-  public void userItemAdded(Item i);
-  public void userItemDropped(Item i);
+  default void userItemAdded(Item i){};
+  default void userItemDropped(Item i){};
 }
