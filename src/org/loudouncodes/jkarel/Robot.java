@@ -30,8 +30,11 @@ public class Robot extends Item {
   /** The number of beepers we have in our inventory. */
   private int beepers;
   
-  /** The current direction the robot is facing. */
-  private Direction direction;
+  /** The current direction the robot is facing. This is protected
+    * so that in a future OO design class, students can learn a
+    * better implementation of turnRight().
+    */
+  protected Direction direction;
   
   /** The icons we use to draw the robot, organized by Direction. */
   private HashMap<Direction,ImageIcon> icons;
@@ -67,23 +70,37 @@ public class Robot extends Item {
 	    this.beepers = beepers;
 	  }
 
-      icons = new HashMap<Direction,ImageIcon>();
+      icons = initializeIcons();
       
       // in the near future, we will make this so one icon is needed, and the rest are
       // generated via rotation.
       // icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/karel.png")));
-      icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
-      icons.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
-      icons.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
-      icons.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
-
+      
 	  if (ArenaModel.getCurrent() == null) {
 	  	Arena.openDefaultWorld();
 	  }
-      
 	  	ArenaModel.getCurrent().addRobot(this);
 	}
 
+    /**
+     * Subclasses that know what they are doing can override this method
+     * in order to change the way robots draw themselves in the arena.
+     *
+     * @return a hashmap with Directions as the key and icons as the value.
+     */
+    protected HashMap<Direction,ImageIcon> initializeIcons() {
+        HashMap<Direction,ImageIcon> i = new HashMap<Direction,ImageIcon>();
+        
+        i.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
+        i.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
+        i.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
+        i.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
+        
+        return i;
+    }
+    
+    
+    
     /**
       * Returns the direction this robot is facing.
       * @return an enum indicating the direction this robot is facing.
