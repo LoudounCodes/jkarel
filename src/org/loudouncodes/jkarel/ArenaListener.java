@@ -7,19 +7,22 @@ package org.loudouncodes.jkarel;
  */
 public interface ArenaListener {
 
-  public boolean robotAdded(Robot r);
-  public boolean robotRemoved(Robot r);
-  public boolean robotMoved(Robot r);
+  // be careful with this robot reference. The constructor
+  // has not yet returned when you are called.
+  public void robotAdded(Robot r);
   
-  public boolean wallCollision(Wall w, Robot r);
+  public void robotRemoved(Robot r);
+  public void robotMoved(Robot r);
   
-  public boolean wallAdded(Wall w);
-  public boolean wallRemoved(Wall w);
+  public void wallCollision(Wall w, Robot r);
   
-  public boolean beeperAdded(BeeperStack bs);
-  public boolean beeperPickedUp(BeeperStack bs);
-  public boolean beeperDropped(BeeperStack bs);
+  public void wallAdded(Wall w);
+  public void wallRemoved(Wall w);
   
-  public boolean userItemAdded(Item i);
-  public boolean userItemDropped(Item i);
+  public void beeperAdded(BeeperStack bs);
+  public void beeperPickedUp(BeeperStack bs);
+  public void beeperDropped(BeeperStack bs);
+  
+  public void userItemAdded(Item i);
+  public void userItemDropped(Item i);
 }

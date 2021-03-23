@@ -46,6 +46,9 @@ public class Robot extends Item {
     /**
      * Constructs a robot at a location you specify, facing the direction
      * you specify, with the number of beepers you specify.
+     * 
+     * Design note - this constructor does too much.
+     *
      * @param x the x location where this robot is constructed.
      * @param y the y location where this robot is constructed.
      * @param dir the Direction this robot is facing when constructed.
@@ -104,14 +107,14 @@ public class Robot extends Item {
 	  if (Arena.isDead())
 	  	return;
       
-	  boolean clear = frontIsClear();
-      
-	  if (!clear) {
+	  if (!frontIsClear()) {
 	  	Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
 	  	return;
 	  }
       
 	  myLocation.move(direction);
+      
+      ArenaModel.getCurrent().notifyMoved(this);
       
 	  Arena.step();
 	}

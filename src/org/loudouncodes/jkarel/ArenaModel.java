@@ -34,6 +34,9 @@ public class ArenaModel {
     // better design.
 	private List<Item> userItems;
     
+    private static List<ArenaListener> listeners = new ArrayList<ArenaListener>();
+    
+    
     
 	private int width = 10;
 	private int height = 10;
@@ -90,11 +93,15 @@ public class ArenaModel {
 // accessors for dealing with robots    
 	List<Robot> getRobots() {
 		return robots;
-	}   
+	}
+    
 	void addRobot(Robot r) {
 		synchronized (robots) {
 			robots.add(r);
 		}
+        
+        for (ArenaListener l:listeners) { l.robotAdded(r); }
+        
 		Arena.step();
 	}
 
@@ -102,9 +109,15 @@ public class ArenaModel {
 		synchronized (robots) {
 			robots.remove(r);
 		}
+        
+        for (ArenaListener l:listeners) { l.robotRemoved(r); }
+        
 		Arena.step();
 	}
 
+    void notifyMoved(Robot r) {
+        for (ArenaListener l:listeners) { l.robotMoved(r); }
+    }
 // accessors for dealing with beepers
 	Map<Location, BeeperStack> getBeepers() {
 		return beepers;

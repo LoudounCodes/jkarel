@@ -59,9 +59,6 @@ public class Arena {
   private static boolean isDead = false;
   private static Pacing pace = Pacing.FAST;
   private static ArenaFrame theArenaFrame;
-
-  // move this to the ArenaModel
-  private static List<ArenaListener> listeners = new ArrayList<ArenaListener>();
   
   /**
     * Opens a world with a name and location you provide.
