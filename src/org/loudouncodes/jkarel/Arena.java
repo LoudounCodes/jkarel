@@ -55,8 +55,6 @@ public class Arena {
   public static final int VERTICAL = 1;
   public static final int HORIZONTAL = 2;
 
-
-  private static boolean isDead = false;
   private static Pacing pace = Pacing.FAST;
   private static ArenaFrame theArenaFrame;
   
@@ -161,18 +159,8 @@ public class Arena {
     * @param reason the reason you killed the program.
     */
   static void die(String reason) {
-  	isDead = true;
   	Arena.logger.severe(reason);
   	System.exit(0);
-  }
-  
-  /**
-    * lets you ask if this Arena is dead.
-    *
-    @return true if Arena.die() has been called, false otherwise.
-    */
-  public static boolean isDead() {
-  	return isDead;
   }
   
   /**

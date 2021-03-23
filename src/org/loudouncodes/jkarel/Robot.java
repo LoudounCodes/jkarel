@@ -120,10 +120,7 @@ public class Robot extends Item {
   /**
     * Moves the robot one step forward (in the direction it is facing)
     */
-	public synchronized void move() {
-	  if (Arena.isDead())
-	  	return;
-      
+	public synchronized void move() {      
 	  if (!frontIsClear()) {
 	  	Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
 	  	return;
@@ -139,10 +136,7 @@ public class Robot extends Item {
   /**
     * Turns the Robot 90 degrees to the left.
     */
-	public void turnLeft() {
-	  if (Arena.isDead())
-	  	return;
-      
+	public void turnLeft() {      
 	  direction = direction.left();
       
 	  Arena.step();
@@ -155,9 +149,6 @@ public class Robot extends Item {
     * left 3 times.
     */
 	private void turnRight() {
-	  if (Arena.isDead())
-	  	return;
-      
 	  direction = direction.right();
       
 	  Arena.step();
@@ -172,9 +163,6 @@ public class Robot extends Item {
     * an error and stop the program.
     */
 	public void putBeeper() {
-	  if (Arena.isDead())
-	  	return;
-      
 	  if (beepers < 1 && beepers != BeeperStack.INFINITY) {
 	  	Arena.die("Trying to put non-existent beepers!");
 	  	return;
@@ -196,9 +184,6 @@ public class Robot extends Item {
     * log an error and stop the program.
     */
 	public void pickBeeper() {
-	  if (Arena.isDead())
-	  	return;
-      
 	  if (!ArenaModel.getCurrent().checkBeepers(myLocation)) {
 	  	Arena.die("Trying to pick non-existent beepers!");
 	  	return;
