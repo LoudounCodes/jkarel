@@ -165,7 +165,18 @@ public class ArenaModel {
 		synchronized (walls) {
 			walls.add(w);
 		}
+        for (ArenaListener l:listeners) { l.wallAdded(w); }
+        
 	}
+
+	public void removeWall(Wall w) {
+		synchronized (walls) {
+			walls.remove(w);
+		}
+        for (ArenaListener l:listeners) { l.wallRemoved(w); }
+        
+	}
+
 
 	public List<Wall> getWalls() {
 		return Collections.unmodifiableList(walls);

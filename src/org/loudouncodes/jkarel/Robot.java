@@ -187,6 +187,7 @@ public class Robot extends Item {
       
 	  Arena.step();
 	}
+    
   /**
     * Picks a beeper up from the current location and
     * adds it to the Robot's beeper inventory.
