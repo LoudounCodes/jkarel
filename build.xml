@@ -43,7 +43,13 @@
         </javac>
     </target>
     
-    <target name="build-test" />
+    <target name="build-test" depends="build-src">
+        <javac srcdir="${test.dir}"
+               destdir="${build.dir}"
+               classpathref="test.classpath"
+               includeantruntime="false"/>
+        
+    </target>
     
     <pathconvert property="manifest.classpath" pathsep=" ">
       <path refid="dependencies"/>
@@ -56,7 +62,7 @@
     </pathconvert>
     
     
-    <target name="build-jar" depends="build-src">
+    <target name="build-jar" depends="build-src, build-test">
       <jar destfile="${output.dir}/jkarel-${version}.jar">
         <manifest>
           <attribute name="Class-Path" value="${manifest.classpath}"/>
