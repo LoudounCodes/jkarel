@@ -2,7 +2,7 @@
     <property name = "src.dir" value = "src"/>
     <property name = "main.dir" value = "src/main"/>
     <property name = "test.dir" value = "src/test"/>
-    <property name = "build.dir" value = "scratch"/>
+    <property name = "build.dir" value = "build"/>
     <property name = "output.dir" value = "out"/>
     <property name = "lib.dir" value = "lib"/>
     <property name = "version" value = "1.0.0"/>
@@ -11,16 +11,21 @@
        <fileset dir = "lib">
           <include name = "*.jar"/>
        </fileset>
-     </path>
+    </path>
      
-     <fail message="Ant 1.10.4+ is required!">
-         <condition>
-             <not>
-                 <antversion atleast="1.10.4"/>
-             </not>
-         </condition>
-     </fail>
-     
+    <fail message="Ant 1.10.4+ is required!">
+        <condition>
+            <not>
+                <antversion atleast="1.10.4"/>
+            </not>
+        </condition>
+    </fail>
+    
+    <path id="test.classpath">
+        <pathelement path="${build.dir}/test"/>
+        <pathelement path="${build.dir}/main"/>
+        <fileset dir="lib" includes="*.jar" />
+    </path>
      
     <target name="prerequisite-build">
       <mkdir dir="${build.dir}"/>
