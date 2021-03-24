@@ -1,5 +1,7 @@
 <project name="jkarel" default="build-all" basedir=".">
     <property name = "src.dir" value = "src"/>
+    <property name = "main.dir" value = "src/main"/>
+    <property name = "test.dir" value = "src/test"/>
     <property name = "build.dir" value = "scratch"/>
     <property name = "output.dir" value = "out"/>
     <property name = "lib.dir" value = "lib"/>
@@ -10,7 +12,16 @@
           <include name = "*.jar"/>
        </fileset>
      </path>
-
+     
+     <fail message="Ant 1.10.4+ is required!">
+         <condition>
+             <not>
+                 <antversion atleast="1.10.4"/>
+             </not>
+         </condition>
+     </fail>
+     
+     
     <target name="prerequisite-build">
       <mkdir dir="${build.dir}"/>
       <mkdir dir="${output.dir}"/>
@@ -19,7 +30,7 @@
     <target name="build-all" depends="build-jar, build-docs"/>
 
     <target name="build-src" depends="prerequisite-build">
-        <javac srcdir = "${src.dir}"
+        <javac srcdir = "${main.dir}"
                destdir = "${build.dir}"
 			   includeantruntime="false">
                
@@ -27,6 +38,7 @@
         </javac>
     </target>
     
+    <target name="build-test" />
     
     <pathconvert property="manifest.classpath" pathsep=" ">
       <path refid="dependencies"/>
@@ -47,15 +59,15 @@
         </manifest>
         <fileset dir="${build.dir}"/>
         
-        <fileset dir="src">
+        <fileset dir="${main.dir}">
           <filename name="**/*.map"/>
         </fileset>
         
-        <fileset dir="src">
+        <fileset dir="${main.dir}">
           <filename name="**/*.gif"/>
         </fileset>
         
-        <fileset dir="src">
+        <fileset dir="${main.dir}">
           <filename name="**/*.png"/>
         </fileset>
         
@@ -83,7 +95,7 @@
     </target>
     
     <target name="build-docs">
-        <javadoc sourcepath="src"
+        <javadoc sourcepath="${main.dir}"
                  destdir="${output.dir}/docs"
                  packagenames="org.loudouncodes.*" >
                  
