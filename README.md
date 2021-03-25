@@ -55,6 +55,13 @@ To contribute:
 * make sure you add your name to the list of contributors.  While github tracks that, I hope to eventually embed attribution into the jar file manifest.
 * submit a pull request.
 
+## Unit Tests:
+With the commit that includes this comment, this build has now integrated JUnit4. There are many unit tests to write.
+
+JUnit 5 was available at the time this was added to the project, but getting it to integrate with ant was troublesome. JUnit 5 introduces an entirely new way to write unit tests, and the JUnit 4 was more in-style with the way Java is taught with this library.  These two facts made it an easy choice to use JUnit 4 at this time.
+
+* https://github.com/junit-team/junit4
+
 ## ToDo:
 * redesign curriculum to use new classes and features.
   * While this code was licensed under the GPL, Fairfax County's original curriculum was not available under a permissible license. Therefore, we are going to go back to the source and create new curriculum aligned with the following resources:

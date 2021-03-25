@@ -1,11 +1,17 @@
 <project name="jkarel" default="build-all" basedir=".">
     <property name = "src.dir" value = "src"/>
-    <property name = "main.dir" value = "src/main"/>
-    <property name = "test.dir" value = "src/test"/>
+    <property name = "src.main.dir" value = "src/main"/>
+    <property name = "src.test.dir" value = "src/test"/>
     <property name = "build.dir" value = "build"/>
     <property name = "output.dir" value = "out"/>
     <property name = "lib.dir" value = "lib"/>
     <property name = "version" value = "1.0.0"/>
+    
+    <path id="runtime.path">
+        <fileset dir = "lib">
+           <include name = "*.jar"/>
+        </fileset>
+    </path>
     
     <path id = "dependencies">
        <fileset dir = "lib">
@@ -22,9 +28,10 @@
     </fail>
     
     <path id="test.classpath">
-        <pathelement path="${build.dir}/test"/>
-        <pathelement path="${build.dir}/main"/>
-        <fileset dir="lib" includes="*.jar" />
+        <pathelement path="${build.dir}"/>
+        <fileset dir = "lib">
+           <include name = "*.jar"/>
+        </fileset>
     </path>
      
     <target name="prerequisite-build">
@@ -32,10 +39,10 @@
       <mkdir dir="${output.dir}"/>
     </target>
     
-    <target name="build-all" depends="build-jar, build-docs"/>
+    <target name="build-all" depends=" test, build-jar, build-docs"/>
 
     <target name="build-src" depends="prerequisite-build">
-        <javac srcdir = "${main.dir}"
+        <javac srcdir = "${src.main.dir}"
                destdir = "${build.dir}"
 			   includeantruntime="false">
                
@@ -44,7 +51,7 @@
     </target>
     
     <target name="build-test" depends="build-src">
-        <javac srcdir="${test.dir}"
+        <javac srcdir="${src.test.dir}"
                destdir="${build.dir}"
                classpathref="test.classpath"
                includeantruntime="false"/>
@@ -61,7 +68,6 @@
       </mapper>
     </pathconvert>
     
-    
     <target name="build-jar" depends="build-src, build-test">
       <jar destfile="${output.dir}/jkarel-${version}.jar">
         <manifest>
@@ -70,15 +76,15 @@
         </manifest>
         <fileset dir="${build.dir}"/>
         
-        <fileset dir="${main.dir}">
+        <fileset dir="${src.main.dir}">
           <filename name="**/*.map"/>
         </fileset>
         
-        <fileset dir="${main.dir}">
+        <fileset dir="${src.main.dir}">
           <filename name="**/*.gif"/>
         </fileset>
         
-        <fileset dir="${main.dir}">
+        <fileset dir="${src.main.dir}">
           <filename name="**/*.png"/>
         </fileset>
         
@@ -86,7 +92,6 @@
           <filename name="lib/*.jar"/>
         </fileset>
         
-
         <fileset dir=".">
           <filename name="README"/>
         </fileset>
@@ -99,14 +104,27 @@
         
       </jar>
     </target>
-    
+
+    <target name="test" depends="build-src, build-test">
+        <junit printsummary="on" haltonfailure="yes" fork="true">
+            <classpath>
+              <path refid="test.classpath"/>
+              <pathelement location="${test.build.dir}"/>
+            </classpath>
+            <formatter type="brief" usefile="false" />
+            <batchtest>
+                <fileset dir="${src.test.dir}" includes="**/*Tests.java" />
+            </batchtest>
+        </junit>
+      </target>
+
     <target name="clean">
       <delete dir="${build.dir}"/>
       <delete dir="${output.dir}"/>
     </target>
     
     <target name="build-docs">
-        <javadoc sourcepath="${main.dir}"
+        <javadoc sourcepath="${src.main.dir}"
                  destdir="${output.dir}/docs"
                  packagenames="org.loudouncodes.*" >
                  
