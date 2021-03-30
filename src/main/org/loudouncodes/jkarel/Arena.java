@@ -58,7 +58,8 @@ public class Arena {
   private static Pacing pace = Pacing.FAST;
   private static ArenaFrame theArenaFrame;
   
-  private static ArenaModel model;
+  /** no longer a singleton, we need to hold onto a reference. */
+  protected static ArenaModel model;
   
 
   public static ArenaModel getModel() {
