@@ -42,7 +42,6 @@ public class ArenaFrame extends JFrame {
     * called when a user clicks the 'close' button in the window titlebar.
     */
 	protected void close() {
-		ArenaModel.getCurrent().close();
 		ArenaPanel.getCurrent().close();
 		current = null;
 		dispose();

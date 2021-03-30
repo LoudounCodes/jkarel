@@ -21,9 +21,8 @@ public class WorldParser {
          * @param root the root of the XML DOM tree for the map
          */
         
-  public static void initiateMap(Element root)
+  public static void initiateMap(ArenaModel model, Element root)
 	{
-		ArenaModel wb = ArenaModel.getCurrent();
 
 		Element properties = root.get("properties");
 		Element objects = root.get("objects");
@@ -33,7 +32,7 @@ public class WorldParser {
 			{
 				try {
 					Method m = Class.forName("org.loudouncodes.jkarel.ArenaModel").getMethod(propPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
-					m.invoke(wb, new Object[] { e.getAttributes() });
+					m.invoke(model, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();
 					throw e1;
@@ -59,7 +58,7 @@ public class WorldParser {
 			{
 				try {
 					Method m = Class.forName("org.loudouncodes.jkarel.ArenaModel").getMethod(objPrepend + e.getName() , new Class[] { Class.forName("org.loudouncodes.jkarel.xml.Attributes") });
-					m.invoke(wb, new Object[] { e.getAttributes() });
+					m.invoke(model, new Object[] { e.getAttributes() });
 				} catch (SecurityException e1) {
 					e1.printStackTrace();
 					throw e1;

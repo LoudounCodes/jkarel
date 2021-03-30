@@ -58,6 +58,13 @@ public class Arena {
   private static Pacing pace = Pacing.FAST;
   private static ArenaFrame theArenaFrame;
   
+  private static ArenaModel model;
+  
+
+  public static ArenaModel getModel() {
+      return model;
+  }
+  
   /**
     * Opens a world with a name and location you provide.
     *
@@ -68,7 +75,8 @@ public class Arena {
     */
   public static void openWorld(String mapName) {
     closeWorld();
-    theArenaFrame = new ArenaFrame(new ArenaModel(mapName));
+    model = new ArenaModel(mapName);
+    theArenaFrame = new ArenaFrame(model);
   }
 
   /**
@@ -76,7 +84,8 @@ public class Arena {
     */
   public static void openDefaultWorld() {
     closeWorld();
-    theArenaFrame = new ArenaFrame(new ArenaModel());
+    model = new ArenaModel();
+    theArenaFrame = new ArenaFrame(model);
   }
 
   /**
@@ -136,10 +145,10 @@ public class Arena {
     * @param y the number of lanes in this world.
     */
   public static void setSize(int x, int y) {
-  	if (ArenaModel.getCurrent() == null)
+  	if (getModel() == null)
   		die("You must open a world before setting the size.");
   
-  	ArenaModel.getCurrent().setSize(x, y);
+  	getModel().setSize(x, y);
   }
   
   /**
@@ -171,7 +180,7 @@ public class Arena {
     */
   public static void addNorthWall(int x, int y) {
     Wall aWall = new Wall(x, y, Arena.HORIZONTAL);
-    ArenaModel.getCurrent().addWall(aWall);
+    getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
@@ -183,7 +192,7 @@ public class Arena {
     */
   public static void addSouthWall(int x, int y) {
     Wall aWall = new Wall(x, y-1, Arena.HORIZONTAL);
-    ArenaModel.getCurrent().addWall(aWall);
+    getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
@@ -195,7 +204,7 @@ public class Arena {
     */
   public static void addEastWall(int x, int y) {
     Wall aWall = new Wall(x, y, Arena.VERTICAL);
-    ArenaModel.getCurrent().addWall(aWall);
+    getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
   
@@ -207,7 +216,7 @@ public class Arena {
     */
   public static void addWestWall(int x, int y) {
     Wall aWall = new Wall(x-1, y, Arena.VERTICAL);
-    ArenaModel.getCurrent().addWall(aWall);
+    getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
   }
 
@@ -220,7 +229,7 @@ public class Arena {
     */
   public static void addBeepers(int x, int y, int beeperCount) {
     Location l = new Location(x, y);
-    ArenaModel.getCurrent().putBeepers(l, beeperCount);
+    getModel().putBeepers(l, beeperCount);
 		ArenaPanel.getCurrent().repaint();
   }
   

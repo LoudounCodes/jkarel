@@ -39,6 +39,8 @@ public class Robot extends Item {
   /** The icons we use to draw the robot, organized by Direction. */
   private HashMap<Direction,ImageIcon> icons;
 
+  private ArenaModel containingModel;
+  
     /**
      * Constructs a robot at [1, 1], facing east, with 0 beepers.
      */
@@ -75,11 +77,7 @@ public class Robot extends Item {
       // in the near future, we will make this so one icon is needed, and the rest are
       // generated via rotation.
       // icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/karel.png")));
-      
-	  if (ArenaModel.getCurrent() == null) {
-	  	Arena.openDefaultWorld();
-	  }
-	  	ArenaModel.getCurrent().addRobot(this);
+	  Arena.getModel().addRobot(this);
 	}
 
     /**
@@ -128,7 +126,7 @@ public class Robot extends Item {
       
 	  myLocation.move(direction);
       
-      ArenaModel.getCurrent().notifyMoved(this);
+      Arena.getModel().notifyMoved(this);
       
 	  Arena.step();
 	}
@@ -171,7 +169,7 @@ public class Robot extends Item {
 	  if (beepers != BeeperStack.INFINITY)
 	  	beepers--;
       
-	  ArenaModel.getCurrent().putBeepers(myLocation, 1);
+	  Arena.getModel().putBeepers(myLocation, 1);
       
 	  Arena.step();
 	}
@@ -184,7 +182,7 @@ public class Robot extends Item {
     * log an error and stop the program.
     */
 	public void pickBeeper() {
-	  if (!ArenaModel.getCurrent().checkBeepers(myLocation)) {
+	  if (!Arena.getModel().checkBeepers(myLocation)) {
 	  	Arena.die("Trying to pick non-existent beepers!");
 	  	return;
 	  }
@@ -192,7 +190,7 @@ public class Robot extends Item {
 	  if (beepers != BeeperStack.INFINITY)
 	  	beepers++;
       
-	  ArenaModel.getCurrent().putBeepers(myLocation, -1);
+	  Arena.getModel().putBeepers(myLocation, -1);
       
 	  Arena.step();
 	}
@@ -239,14 +237,14 @@ public class Robot extends Item {
     * @return boolean am I next to (on top of) any beepers?
     */
 	public boolean nextToABeeper() {
-	  return ArenaModel.getCurrent().checkBeepers(myLocation);
+	  return Arena.getModel().checkBeepers(myLocation);
 	}
 
   /**
     * @return boolean am I next to (on top of) any robots?
     */
 	public boolean nextToARobot() {
-	  return ArenaModel.getCurrent().isNextToARobot(this, myLocation);
+	  return Arena.getModel().isNextToARobot(this, myLocation);
 	}
 
   /**
@@ -286,12 +284,12 @@ public class Robot extends Item {
 	  switch (dir) {
 	  	case NORTH:
 	  	case SOUTH:
-	  		return !ArenaModel.getCurrent()
+	  		return !Arena.getModel()
 	  		       .checkWall(c.getX(), c.getY(), Arena.HORIZONTAL);
 	  	case EAST:
 	  	case WEST:
 	  	default:
-	  		return !ArenaModel.getCurrent()
+	  		return !Arena.getModel()
 	  		       .checkWall(c.getX(), c.getY(), Arena.VERTICAL);
 	  }
 	}
@@ -302,7 +300,7 @@ public class Robot extends Item {
     * not as cool as it sounds. It needs an explosion or something.
     */
 	public void explode() {
-		ArenaModel.getCurrent().removeRobot(this);
+		Arena.getModel().removeRobot(this);
 	}
 
 

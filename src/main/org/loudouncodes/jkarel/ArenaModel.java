@@ -20,9 +20,6 @@ import java.util.*;
  */
 public class ArenaModel {
 
-    /** singletons all the way down the stack. This is ugly. */
-	private static ArenaModel current = null;
-
 	private Map<Location, BeeperStack> beepers;
 	private List<Robot> robots;
 	private List<Wall> walls;
@@ -44,7 +41,6 @@ public class ArenaModel {
 	private Wall xAxisWall = null, yAxisWall = null;
 
 	public ArenaModel(String mapName) {
-		current = this;
 
 		beepers = Collections.synchronizedMap(new HashMap < Location,
 		                                      BeeperStack > ());
@@ -65,8 +61,6 @@ public class ArenaModel {
 		this(null);
 	}
 
-
-
     public void addListener(ArenaListener l) {
         listeners.add(l);
     }
@@ -78,22 +72,6 @@ public class ArenaModel {
 	public Location getSize() {
 		return new Location(width, height);
 	}
-
-	/**
-	 * Returns the currently running instance of ArenaModel.
-     * Ew. singleton pattern.  This won't do in the new world order...
-	 */
-	public static ArenaModel getCurrent() {
-		return current;
-	}
-    
-    /**
-      * cleans up our singleton reference when the model is no longer needed.
-      */
-	void close() {
-		current = null;
-	}
-    
     
 // accessors for dealing with robots    
 	List<Robot> getRobots() {
@@ -297,20 +275,19 @@ public class ArenaModel {
 		new Robot(x, y, direction, beepers);
 	}
 
-	public void loadProperties_defaultSize(Attributes a) {
-		int w = Integer.parseInt(a.get("width"));
-		int h = Integer.parseInt(a.get("height"));
-
-		Arena.setSize(w, h);
-	}
+    public void loadProperties_defaultSize(Attributes a) {
+        width = Integer.parseInt(a.get("width"));
+        height = Integer.parseInt(a.get("height"));
+    }
 
 	void parseMap(String mapName) {
 		Element e = new XMLParser().parse(getInputStreamForMap(mapName));
-		WorldParser.initiateMap(e);
+		WorldParser.initiateMap(this, e);
 	}
 
 	private InputStream getInputStreamForMap(String fileName) {	
       InputStream mapSource = null;
+      System.out.println(fileName);
       try {
 			if (fileName == null)
 				throw new FileNotFoundException();
