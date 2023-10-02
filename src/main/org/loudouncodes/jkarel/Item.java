@@ -43,7 +43,7 @@ public abstract class Item {
     * @return the y value passed into the constructor.
     */
   public int getY() {
-  	return myLocation.getY();
+    return myLocation.getY();
   }
   
   /**

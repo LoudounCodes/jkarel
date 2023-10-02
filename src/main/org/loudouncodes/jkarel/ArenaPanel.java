@@ -16,19 +16,19 @@ import java.util.List;
 public class ArenaPanel extends JPanel {
 
   /** variable for implementing the Singleton pattern. */
-	private static ArenaPanel current = null;
+  private static ArenaPanel current = null;
 
   /** the model passed in at construction. */
-	private ArenaModel model = null;
+  private ArenaModel model = null;
 
-	private final int X_BUFFER = 40;
+  private final int X_BUFFER = 40;
   private final int Y_BUFFER = 40;
-	private int blockWidth;
+  private int blockWidth;
   private int blockHeight;
   
   
   /** the background color when drawing the panel. */
-	private final Color BACKGROUND = Color.white;
+  private final Color BACKGROUND = Color.white;
 
 
 
@@ -47,22 +47,22 @@ public class ArenaPanel extends JPanel {
     * @param model the ArenaModel that holds the data this class is
     *              responsible for drawing.
     */
-	protected ArenaPanel(ArenaModel model) {
-		super();
+  protected ArenaPanel(ArenaModel model) {
+    super();
 
-		this.model = model;
-		current = this;
+    this.model = model;
+    current = this;
 
-		setBackground(BACKGROUND);
-	}
+    setBackground(BACKGROUND);
+  }
 
   /**
     * Called when the JFrame is closed, this is our chance
     * to clean up our singleton reference.
     */
-	void close() {
-		current = null;
-	}
+  void close() {
+    current = null;
+  }
 
   /**
     * As this implements the Singleton pattern (a design pattern) you
@@ -71,46 +71,46 @@ public class ArenaPanel extends JPanel {
     *
     * @return the current ArenaPanel singleton.
     */
-	public static ArenaPanel getCurrent() {
-		return current;
-	}
+  public static ArenaPanel getCurrent() {
+    return current;
+  }
 
 
-	public int convertToXPixel(int xLocation) {
-		Dimension panelSize = getSize(); //In pixels
-		Location worldSize = model.getSize(); //In Cartesian locations
-		int width = panelSize.width;
+  public int convertToXPixel(int xLocation) {
+    Dimension panelSize = getSize(); //In pixels
+    Location worldSize = model.getSize(); //In Cartesian locations
+    int width = panelSize.width;
 
-		int x = (int)((width - 2 * X_BUFFER) *
-		               (xLocation * 1.0 / worldSize.getX())) +
-		         X_BUFFER - blockWidth / 2;
-		return x;
-	}
+    int x = (int)((width - 2 * X_BUFFER) *
+                   (xLocation * 1.0 / worldSize.getX())) +
+             X_BUFFER - blockWidth / 2;
+    return x;
+  }
   
-	public int convertToYPixel(int yLocation) {
-		Dimension panelSize = getSize(); //In pixels
-		Location worldSize = model.getSize(); //In Cartesian locations
-		int height = panelSize.height;
+  public int convertToYPixel(int yLocation) {
+    Dimension panelSize = getSize(); //In pixels
+    Location worldSize = model.getSize(); //In Cartesian locations
+    int height = panelSize.height;
 
-		int y = (int)((height - 2 * Y_BUFFER) *
-		               ((worldSize.getY() - yLocation) * 1.0 / worldSize.getY())) +
-		         Y_BUFFER + blockHeight / 2;
-		return y;
-	}
+    int y = (int)((height - 2 * Y_BUFFER) *
+                   ((worldSize.getY() - yLocation) * 1.0 / worldSize.getY())) +
+             Y_BUFFER + blockHeight / 2;
+    return y;
+  }
 
-	public boolean isVisible(Location c) {
-		return !(c.getX() > getSize().width || c.getY() > getSize().height || c.getY() < 0 || c.getY() < 0);
-	}
+  public boolean isVisible(Location c) {
+    return !(c.getX() > getSize().width || c.getY() > getSize().height || c.getY() < 0 || c.getY() < 0);
+  }
 
-	protected double getXBlockLength() {
-		return ((getSize().getWidth() - 2 * X_BUFFER)
-		        * (1.0 / model.getSize().getX()));
-	}
+  protected double getXBlockLength() {
+    return ((getSize().getWidth() - 2 * X_BUFFER)
+            * (1.0 / model.getSize().getX()));
+  }
 
-	protected double getYBlockLength() {
-		return ((getSize().getHeight() - 2 * Y_BUFFER)
-		        * (1.0 / model.getSize().getY()));
-	}
+  protected double getYBlockLength() {
+    return ((getSize().getHeight() - 2 * Y_BUFFER)
+            * (1.0 / model.getSize().getY()));
+  }
 
 
 
@@ -124,14 +124,14 @@ public class ArenaPanel extends JPanel {
     *
     * @param g the graphics context we need to draw into.
     */
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		renderScene(g);
-	}
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    renderScene(g);
+  }
   
   
   private void renderFloor(Graphics g) {
-		Location worldSize = model.getSize();
+    Location worldSize = model.getSize();
 
     for (int i = 0; i <= worldSize.getX(); i++) {
       for (int j = 0; j <= worldSize.getY(); j++) {
@@ -148,61 +148,61 @@ public class ArenaPanel extends JPanel {
   }
 
 
-	private void renderBeepers(Graphics g) {
-		Map<Location, BeeperStack> beepers = model.getBeepers();
-		synchronized (beepers) {
-			for (BeeperStack b : beepers.values()) {
-				b.render(g,
+  private void renderBeepers(Graphics g) {
+    Map<Location, BeeperStack> beepers = model.getBeepers();
+    synchronized (beepers) {
+      for (BeeperStack b : beepers.values()) {
+        b.render(g,
                  convertToXPixel(b.getLocation().getX()),
                  convertToYPixel(b.getLocation().getY()));
-			}
-		}
-	}
+      }
+    }
+  }
 
-	private void renderWalls(Graphics g) {
-		List<Wall> walls = model.getWalls();
-		synchronized (walls) {
-			for (Wall w : walls) {
-				w.render(g,
+  private void renderWalls(Graphics g) {
+    List<Wall> walls = model.getWalls();
+    synchronized (walls) {
+      for (Wall w : walls) {
+        w.render(g,
                  convertToXPixel(w.getLocation().getX()),
                  convertToYPixel(w.getLocation().getY()));
-			}
-		}
-	}
+      }
+    }
+  }
 
-	private void renderRobots(Graphics g) {
-		List<Robot> robots = model.getRobots();
-		synchronized (robots) {
-			for (Robot r : robots) {
-				r.render(g,
+  private void renderRobots(Graphics g) {
+    List<Robot> robots = model.getRobots();
+    synchronized (robots) {
+      for (Robot r : robots) {
+        r.render(g,
                  convertToXPixel(r.getLocation().getX()),
                  convertToYPixel(r.getLocation().getY()));
-			}
-		}
-	}
+      }
+    }
+  }
 
-	private void renderUserItems(Graphics g) {
-		List<Item> items = model.getUserItems();
-		synchronized (items) {
-			for (Item i : items) {
-				i.render(g,
+  private void renderUserItems(Graphics g) {
+    List<Item> items = model.getUserItems();
+    synchronized (items) {
+      for (Item i : items) {
+        i.render(g,
                  convertToXPixel(i.getLocation().getX()),
                  convertToYPixel(i.getLocation().getY()));
-			}
-		}
-	}
+      }
+    }
+  }
 
 
-	private void renderScene(Graphics g) {
-		blockWidth = (int)getXBlockLength();
-		blockHeight = (int)getYBlockLength();
+  private void renderScene(Graphics g) {
+    blockWidth = (int)getXBlockLength();
+    blockHeight = (int)getYBlockLength();
 
         renderFloor(g);
-		renderBeepers(g);
-		renderRobots(g);
-		renderWalls(g);
+    renderBeepers(g);
+    renderRobots(g);
+    renderWalls(g);
         renderUserItems(g);
-	}
+  }
 
 
 

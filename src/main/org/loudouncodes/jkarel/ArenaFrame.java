@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 public class ArenaFrame extends JFrame {
 
   /** internal reference for the Singleton pattern.*/
-	private static ArenaFrame current = null;
+  private static ArenaFrame current = null;
 
   /**
     * The constructor takes the ArenaModel which contains the
@@ -26,26 +26,26 @@ public class ArenaFrame extends JFrame {
     *
     * @param model an ArenaModel containing arena data.
     */
-	protected ArenaFrame(ArenaModel model) {
-		super();
+  protected ArenaFrame(ArenaModel model) {
+    super();
 
-		current = this;
+    current = this;
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(Arena.FRAME_WIDTH, Arena.FRAME_HEIGHT);
-		setLocation(250, 250);
-		setContentPane(new ArenaPanel(model));
-		setVisible(true);
-	}
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setSize(Arena.FRAME_WIDTH, Arena.FRAME_HEIGHT);
+    setLocation(250, 250);
+    setContentPane(new ArenaPanel(model));
+    setVisible(true);
+  }
 
   /**
     * called when a user clicks the 'close' button in the window titlebar.
     */
-	protected void close() {
-		ArenaPanel.getCurrent().close();
-		current = null;
-		dispose();
-	}
+  protected void close() {
+    ArenaPanel.getCurrent().close();
+    current = null;
+    dispose();
+  }
 
   /**
     * ArenaFrame is a <i>singleton</i>, which is a design pattern
@@ -61,7 +61,7 @@ public class ArenaFrame extends JFrame {
     *
     * @return the singleton instance of ArenaFrame.
     */
-	public static ArenaFrame getCurrent() {
-		return current;
-	}
+  public static ArenaFrame getCurrent() {
+    return current;
+  }
 }

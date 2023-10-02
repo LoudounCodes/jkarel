@@ -45,168 +45,168 @@ import org.xml.sax.ext.*;
 
 public class Element
 {
-	static final long serialVersionUID = 0L;
+  static final long serialVersionUID = 0L;
 
-	String name = null;
-	ArrayList subObjects = null;
-	ArrayList<Element> elements = null;
-	Attributes attrs = null;
-	
-	/**
-	 * The defualt constructor used by the XMLParser.
-	 * @param nameTag the name of the tag
-	 * @param a the attributes associated with the element
-	 */
-	public Element(String nameTag, Attributes a)
-	{
-		name = nameTag;
-		attrs = a;
-		
-		subObjects = new ArrayList();
-		elements = new ArrayList<Element>();
-	}
-	
-	/**
-	 * The defualt constructor.
-	 * @param nameTag the name of the tag
-	 */
-	public Element(String nameTag)
-	{
-		this(nameTag, new Attributes());
-	}
-	
-	/**
-	 * The defualt constructor used by the XMLParser.
-	 * @param nameTag the name of the tag
-	 * @param a the attributes associated with the element
-	 */
-	public Element(Element parent, String nameTag, Attributes a)
-	{
-		this(nameTag, a);
-		
-		parent.addElement(this);
-	}
-	
-	/**
-	 * The defualt constructor.
-	 * @param nameTag the name of the tag
-	 * @param parent the parent element
-	 */
-	public Element(Element parent, String nameTag)
-	{
-		this(parent, nameTag, new Attributes());
-	}
-	
-	public void addText(Object o)
-	{
-		String s = o.toString();
-		
-		int size = subObjects.size();
-		if(size != 0)
-		{
-			if(subObjects.get(size - 1) instanceof String)
-				s = (String)(subObjects.remove(size - 1)) + s;
-		}
-		
-		subObjects.add(s);
-	}
-	
-	/**
-	 * Adds a child Element to the Element.
-	 * @param element the Element to add
-	 */
-	public void addElement(Element element)
-	{
-		subObjects.add(element);
-		elements.add(element);
-	}
-	
-	/**
-	 * Returns an ArrayList of the subobjects [Strings and Elements] within the element.
-	 */
-	public ArrayList getSubObjects()
-	{
-		return subObjects;
-	}
-	
-	/**
-	 * Returns an ArrayList just the sub-Elements of this Element
-	 * @return the child Elements of this Element
-	 */
-	public ArrayList<Element> getElements()
-	{
-		return elements;
-	}
-	
-	/**
-	 * Returns the name of the tag.
-	 */
-	public String getName()
-	{
-		return name;
-	}
-	
-	/**
-	 * Returns the atributes associated with the element.
-	 */
-	public Attributes getAttributes()
-	{
-		return attrs;
-	}
-	
-	/**
-	 * Searches the subelements of this element for an XMLElement with the specified tag name.
-	 * @param name the name to search for
-	 * @return the first matching element or null if there are no matches
-	 */
-	public Element get(String name)
-	{
-		for(Element e : elements)
-			if(e.getName().equals(name))
-				return e;
-		
-		return null;
-	}
-	
-	/**
-	 * Returns an ArrayList&gt;Element&lt; of all the elements that match the given name
-	 * @return a possibly empty ArrayList$gt;Element$lt; of matches
-	 */
-	public ArrayList<Element> getElements(String name)
-	{
-		ArrayList<Element> res = new ArrayList<Element>();
-		
-		for(Element e : elements)
-			if(e.getName().equals(name))
-				res.add(e);
-		
-		return res;
-	}
-	
-	public String text()
-	{
-		if(subObjects.size() == 1)
-			if(subObjects.get(0) instanceof String)
-				return (String)(subObjects.get(0));
-		
-		return null;
-	}
-	
-	public String toString()
-	{
-		String s = "<" + name;
-		
-		for(int i = 0; i < attrs.getLength(); i++)
-			s += " " + attrs.getLocalName(i) + "=\"" + attrs.getValue(i) + "\"";
-		
-		if(subObjects.size() == 0)
-			return s + " />";
-		else
-			s += ">";
-		
-		for(Object o : subObjects)
-			s += o.toString();
-		
-		return s + "</" + name + ">";
-	}
+  String name = null;
+  ArrayList subObjects = null;
+  ArrayList<Element> elements = null;
+  Attributes attrs = null;
+  
+  /**
+   * The defualt constructor used by the XMLParser.
+   * @param nameTag the name of the tag
+   * @param a the attributes associated with the element
+   */
+  public Element(String nameTag, Attributes a)
+  {
+    name = nameTag;
+    attrs = a;
+    
+    subObjects = new ArrayList();
+    elements = new ArrayList<Element>();
+  }
+  
+  /**
+   * The defualt constructor.
+   * @param nameTag the name of the tag
+   */
+  public Element(String nameTag)
+  {
+    this(nameTag, new Attributes());
+  }
+  
+  /**
+   * The defualt constructor used by the XMLParser.
+   * @param nameTag the name of the tag
+   * @param a the attributes associated with the element
+   */
+  public Element(Element parent, String nameTag, Attributes a)
+  {
+    this(nameTag, a);
+    
+    parent.addElement(this);
+  }
+  
+  /**
+   * The defualt constructor.
+   * @param nameTag the name of the tag
+   * @param parent the parent element
+   */
+  public Element(Element parent, String nameTag)
+  {
+    this(parent, nameTag, new Attributes());
+  }
+  
+  public void addText(Object o)
+  {
+    String s = o.toString();
+    
+    int size = subObjects.size();
+    if(size != 0)
+    {
+      if(subObjects.get(size - 1) instanceof String)
+        s = (String)(subObjects.remove(size - 1)) + s;
+    }
+    
+    subObjects.add(s);
+  }
+  
+  /**
+   * Adds a child Element to the Element.
+   * @param element the Element to add
+   */
+  public void addElement(Element element)
+  {
+    subObjects.add(element);
+    elements.add(element);
+  }
+  
+  /**
+   * Returns an ArrayList of the subobjects [Strings and Elements] within the element.
+   */
+  public ArrayList getSubObjects()
+  {
+    return subObjects;
+  }
+  
+  /**
+   * Returns an ArrayList just the sub-Elements of this Element
+   * @return the child Elements of this Element
+   */
+  public ArrayList<Element> getElements()
+  {
+    return elements;
+  }
+  
+  /**
+   * Returns the name of the tag.
+   */
+  public String getName()
+  {
+    return name;
+  }
+  
+  /**
+   * Returns the atributes associated with the element.
+   */
+  public Attributes getAttributes()
+  {
+    return attrs;
+  }
+  
+  /**
+   * Searches the subelements of this element for an XMLElement with the specified tag name.
+   * @param name the name to search for
+   * @return the first matching element or null if there are no matches
+   */
+  public Element get(String name)
+  {
+    for(Element e : elements)
+      if(e.getName().equals(name))
+        return e;
+    
+    return null;
+  }
+  
+  /**
+   * Returns an ArrayList&gt;Element&lt; of all the elements that match the given name
+   * @return a possibly empty ArrayList$gt;Element$lt; of matches
+   */
+  public ArrayList<Element> getElements(String name)
+  {
+    ArrayList<Element> res = new ArrayList<Element>();
+    
+    for(Element e : elements)
+      if(e.getName().equals(name))
+        res.add(e);
+    
+    return res;
+  }
+  
+  public String text()
+  {
+    if(subObjects.size() == 1)
+      if(subObjects.get(0) instanceof String)
+        return (String)(subObjects.get(0));
+    
+    return null;
+  }
+  
+  public String toString()
+  {
+    String s = "<" + name;
+    
+    for(int i = 0; i < attrs.getLength(); i++)
+      s += " " + attrs.getLocalName(i) + "=\"" + attrs.getValue(i) + "\"";
+    
+    if(subObjects.size() == 0)
+      return s + " />";
+    else
+      s += ">";
+    
+    for(Object o : subObjects)
+      s += o.toString();
+    
+    return s + "</" + name + ">";
+  }
 }

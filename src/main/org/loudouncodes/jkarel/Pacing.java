@@ -35,12 +35,12 @@ public enum Pacing {
   SLOW {
     @Override
     void tick() {
-  		try {
-  			Thread.sleep(600);
-  		}
-  		catch (InterruptedException e) {
-  			e.printStackTrace();
-  		}
+      try {
+        Thread.sleep(600);
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   },
  
@@ -51,12 +51,12 @@ public enum Pacing {
   MEDIUM { 
     @Override
     void tick() {
-  		try {
-  			Thread.sleep(400);
-  		}
-  		catch (InterruptedException e) {
-  			e.printStackTrace();
-  		}
+      try {
+        Thread.sleep(400);
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   }, 
 
@@ -67,12 +67,12 @@ public enum Pacing {
   FAST {
     @Override
     void tick() {
-  		try {
-  			Thread.sleep(200);
-  		}
-  		catch (InterruptedException e) {
-  			e.printStackTrace();
-  		}
+      try {
+        Thread.sleep(200);
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   }, 
  
@@ -83,12 +83,12 @@ public enum Pacing {
   LUDICRUS {
     @Override
     void tick() {
-  		try {
-  			Thread.sleep(5);
-  		}
-  		catch (InterruptedException e) {
-  			e.printStackTrace();
-  		}
+      try {
+        Thread.sleep(5);
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   };
   
