@@ -7,6 +7,7 @@ import org.loudouncodes.jkarel.xml.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.awt.Color;
 
 /**
  * <p>Represents a back-end 'model' of the area; the locations of all the
@@ -130,7 +131,12 @@ public class ArenaModel {
 		}
 	}
 
-
+  // lets set a color for the dropped beeper...
+	public void putBeepers(Location l, int num, Color c) {
+    putBeepers(l, num);
+    beepers.get(l).setColor(c);
+  }
+  
 	boolean checkBeepers(Location l) {
 		return beepers.get(l) != null;
 	}

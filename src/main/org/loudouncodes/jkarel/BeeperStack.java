@@ -29,6 +29,8 @@ public class BeeperStack extends Item {
 	private final int RADIUS = 12;
 
 	private int numBeepers = 1;
+  
+  private Color myColor = Color.YELLOW;
 
 	public BeeperStack(int x, int y, int beepers) {
 		super(x, y);
@@ -56,9 +58,17 @@ public class BeeperStack extends Item {
 		return beeperFont;
 	}
   
+  public void setColor(Color c) {
+    myColor = c;
+  }
+  
+  public Color getColor() {
+    return myColor;
+  }
+  
 	public void render(Graphics g, int x, int y) {
     
-		g.setColor(Color.yellow);
+		g.setColor(myColor);
 		g.fillOval(x - RADIUS, y - RADIUS, RADIUS * 2, RADIUS * 2);
 
 		String text;

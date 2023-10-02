@@ -27,6 +27,8 @@ public class Location {
   }
 
   /**
+   * Returns the x coordinate for this location.
+   *
    * @return the x value of this location.
    */
   public int getX() {

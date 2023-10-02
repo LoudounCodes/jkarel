@@ -41,6 +41,7 @@ public class Robot extends Item {
 
   private ArenaModel containingModel;
   
+  private Color myColor = Color.YELLOW;
     /**
      * Constructs a robot at [1, 1], facing east, with 0 beepers.
      */
@@ -169,11 +170,19 @@ public class Robot extends Item {
 	  if (beepers != BeeperStack.INFINITY)
 	  	beepers--;
       
-	  Arena.getModel().putBeepers(myLocation, 1);
+	  Arena.getModel().putBeepers(myLocation, 1, myColor);
       
 	  Arena.step();
 	}
-    
+  
+  public void setColor(Color c) {
+    myColor = c;
+  }
+  
+  public Color getColor() {
+    return myColor;
+  }
+  
   /**
     * Picks a beeper up from the current location and
     * adds it to the Robot's beeper inventory.
@@ -346,8 +355,8 @@ public class Robot extends Item {
 	public void render(Graphics g, int x, int y) {
 	  ImageIcon i = icons.get(direction);
 	  g.drawImage(i.getImage(),
-              x - i.getIconWidth() / 2,
-	              y - i.getIconHeight() / 2, null);
+            x - i.getIconWidth() / 2,
+	          y - i.getIconHeight() / 2, null);
 	}
 
   /**
