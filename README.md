@@ -76,7 +76,7 @@ JUnit 5 was available at the time this was added to the project, but getting it 
   * Interface for ArenaData, with a the xml library and a maze generation library as data producers.
   * more advanced robots, ala RoboCode or RTanque?
   * Curriculum using JRuby?
-* Make pluggable tile packs, similar to Micecraft, so that the arena, walls, beepers, and robots can have different looks.
+* Make pluggable tile packs, similar to Minecraft, so that the arena, walls, beepers, and robots can have different looks.
 * Provide a gateway to things like IBM's RoboCode
 * Finish refactorings that are in-flight
 * Write unit tests
