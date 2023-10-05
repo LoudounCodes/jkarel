@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.List;
 import java.util.HashMap;
+import java.awt.image.BufferedImage;
+
 
 /**
  * One of the main concepts implemented by this Library.
@@ -37,7 +39,7 @@ public class Robot extends Item {
   protected Direction direction;
   
   /** The icons we use to draw the robot, organized by Direction. */
-  private HashMap<Direction,ImageIcon> icons;
+  private HashMap<Direction, BufferedImage> icons;
 
   private ArenaModel containingModel;
   
@@ -73,11 +75,8 @@ public class Robot extends Item {
       this.beepers = beepers;
     }
 
-      icons = initializeIcons();
+      initializeIcons();
       
-      // in the near future, we will make this so one icon is needed, and the rest are
-      // generated via rotation.
-      // icons.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/karel.png")));
     Arena.getModel().addRobot(this);
   }
 
@@ -87,15 +86,12 @@ public class Robot extends Item {
      *
      * @return a hashmap with Directions as the key and icons as the value.
      */
-    protected HashMap<Direction,ImageIcon> initializeIcons() {
-        HashMap<Direction,ImageIcon> i = new HashMap<Direction,ImageIcon>();
+    protected void initializeIcons() {
+        HashMap<Direction, BufferedImage> images = new HashMap<Direction, BufferedImage>();
         
-        i.put(Direction.NORTH, new ImageIcon(Robot.class.getResource("/icons/kareln.gif")));
-        i.put(Direction.EAST, new ImageIcon(Robot.class.getResource("/icons/karele.gif")));
-        i.put(Direction.SOUTH, new ImageIcon(Robot.class.getResource("/icons/karels.gif")));
-        i.put(Direction.WEST, new ImageIcon(Robot.class.getResource("/icons/karelw.gif")));
-        
-        return i;
+        ImageIcon base =  new ImageIcon(Robot.class.getResource("/icons/kareln.gif"));
+
+        icons = ImageUtils.setupImages(base, myColor);
     }
     
     
@@ -177,6 +173,8 @@ public class Robot extends Item {
   
   public void setColor(Color c) {
     myColor = c;
+    initializeIcons();
+    
   }
   
   public Color getColor() {
@@ -353,10 +351,10 @@ public class Robot extends Item {
     * @param y the y location where the robot should draw itself 
     */
   public void render(Graphics g, int x, int y) {
-    ImageIcon i = icons.get(direction);
-    g.drawImage(i.getImage(),
-            x - i.getIconWidth() / 2,
-            y - i.getIconHeight() / 2, null);
+    BufferedImage i = icons.get(direction);
+    g.drawImage(i,
+                x - i.getWidth() / 2,
+                y - i.getHeight() / 2, null);
   }
 
   /**
