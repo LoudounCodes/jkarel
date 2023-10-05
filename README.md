@@ -1,7 +1,7 @@
 # LoudounCodes JKarel
 
 ## Introduction:
-This code was born from the Loudoun County Public School System's use of Fairfax County's FCPSKarel conputer science curriculum.
+This code was born from the Loudoun County Public School System's use of Fairfax County's FCPSKarel computer science curriculum.
 
 The primary person forking this code (@bokmann) has been using this code for 7 years as a Teacher's Assistant at Loudoun Valley High School.
 
