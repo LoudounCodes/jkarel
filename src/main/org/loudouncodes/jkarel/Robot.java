@@ -84,7 +84,7 @@ public class Robot extends Item {
      * Subclasses that know what they are doing can override this method
      * in order to change the way robots draw themselves in the arena.
      *
-     * @return a hashmap with Directions as the key and icons as the value.
+     * return a hashmap with Directions as the key and icons as the value.
      */
     protected void initializeIcons() {
         HashMap<Direction, BufferedImage> images = new HashMap<Direction, BufferedImage>();

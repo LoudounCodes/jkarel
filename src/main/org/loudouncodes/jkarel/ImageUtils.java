@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
   *   - Replace a 'default' color with the color provided (so robots
   *     can have colors)
   *   - rotate the icon to make EAST, SOUTH, and WEST versions
-  *   - return an HashMap of these icons.
+  *   - return an HashMap of these images.
   */
  
 public class ImageUtils {
