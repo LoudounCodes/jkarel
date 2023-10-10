@@ -42,9 +42,10 @@
     <target name="build-all" depends=" test, build-jar, build-docs"/>
 
     <target name="build-src" depends="prerequisite-build">
-        <javac srcdir = "${src.main.dir}"
+        <javac release="18"
+               srcdir = "${src.main.dir}"
                destdir = "${build.dir}"
-			   includeantruntime="false">
+			         includeantruntime = "false">
                
           <classpath refid = "dependencies" />
         </javac>
