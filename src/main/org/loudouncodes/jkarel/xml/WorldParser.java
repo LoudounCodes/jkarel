@@ -5,9 +5,10 @@ import org.loudouncodes.jkarel.*;
 import java.lang.reflect.*;
 
 /**
- * @author Andy Street, alstreet@vt.edu, 2007
  * This class is responsible for taking the XML DOM tree created by the parser and using reflections
  * to populate a ArenaModel representing the map.
+ *
+ * @author Andy Street, alstreet@vt.edu, 2007
  */
 
 public class WorldParser {

@@ -3,10 +3,10 @@ package org.loudouncodes.jkarel.xml;
 import org.xml.sax.ext.Attributes2Impl;
 
 /**
- * @author Andy Street, alstreet@vt.edu, 2007
-
  * A simple extension of the sax Attributes2Impl that shortens the name and attributes to be added and
  * removed in a HashMap-like manner.
+ *
+ * @author Andy Street, alstreet@vt.edu, 2007
  */
 
 public class Attributes extends Attributes2Impl {
