@@ -174,7 +174,7 @@ public class Robot extends Item {
   public void setColor(Color c) {
     myColor = c;
     initializeIcons();
-    
+    Arena.step();
   }
   
   public Color getColor() {

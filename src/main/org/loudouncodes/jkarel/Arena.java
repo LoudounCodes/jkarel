@@ -183,6 +183,7 @@ public class Arena {
 		Wall aWall = new Wall(x, y, Arena.HORIZONTAL);
 		getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
+    Arena.step();
 	}
 	
 	/**
@@ -195,6 +196,7 @@ public class Arena {
 		Wall aWall = new Wall(x, y-1, Arena.HORIZONTAL);
 		getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
+    Arena.step();
 	}
 	
 	/**
@@ -207,6 +209,7 @@ public class Arena {
 		Wall aWall = new Wall(x, y, Arena.VERTICAL);
 		getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
+    Arena.step();
 	}
 	
 	/**
@@ -219,6 +222,7 @@ public class Arena {
 		Wall aWall = new Wall(x-1, y, Arena.VERTICAL);
 		getModel().addWall(aWall);
 		ArenaPanel.getCurrent().repaint();
+    Arena.step();
 	}
 
 	/**
@@ -232,6 +236,7 @@ public class Arena {
 		Location l = new Location(x, y);
 		getModel().putBeepers(l, beeperCount);
 		ArenaPanel.getCurrent().repaint();
+    Arena.step();
 	}
 	
 	/**
