@@ -2,6 +2,7 @@ import org.loudouncodes.jkarel.Arena;
 import org.loudouncodes.jkarel.Robot;
 import org.loudouncodes.jkarel.Direction;
 import org.loudouncodes.jkarel.BeeperStack;
+import org.loudouncodes.jkarel.Pacing;
 import java.awt.Color;
   
   
@@ -11,6 +12,8 @@ public class Lab00 {
     Arena.openDefaultWorld();
     
     Robot karel = new Robot();
+    
+    Arena.setPace(Pacing.STEP);
     
     for (int i = 0; i <= 3; i++) {
       karel.move();
