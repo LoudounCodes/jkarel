@@ -62,13 +62,13 @@ public class ArenaModel {
     this(null);
   }
 
-    public void addListener(ArenaListener l) {
-        listeners.add(l);
-    }
+  public void addListener(ArenaListener l) {
+    listeners.add(l);
+  }
 
-    public void removeListener(ArenaListener l) {
-        listeners.remove(l);
-    }
+  public void removeListener(ArenaListener l) {
+    listeners.remove(l);
+  }
     
   public Location getSize() {
     return new Location(width, height);
