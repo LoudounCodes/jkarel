@@ -2,6 +2,7 @@
     <property name = "src.dir" value = "src"/>
     <property name = "src.main.dir" value = "src/main"/>
     <property name = "src.test.dir" value = "src/test"/>
+    <property name = "src.map.dir" value = "src/maps"/>
     <property name = "build.dir" value = "build"/>
     <property name = "output.dir" value = "out"/>
     <property name = "lib.dir" value = "lib"/>
@@ -78,6 +79,10 @@
         <fileset dir="${build.dir}"/>
         
         <fileset dir="${src.main.dir}">
+          <filename name="**/*.map"/>
+        </fileset>
+        
+        <fileset dir="${src.map.dir}">
           <filename name="**/*.map"/>
         </fileset>
         
