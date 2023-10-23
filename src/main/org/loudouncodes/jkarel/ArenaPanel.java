@@ -197,11 +197,13 @@ public class ArenaPanel extends JPanel {
     blockWidth = (int)getXBlockLength();
     blockHeight = (int)getYBlockLength();
 
-        renderFloor(g);
-    renderBeepers(g);
-    renderRobots(g);
-    renderWalls(g);
-        renderUserItems(g);
+    if (ArenaPanel.getCurrent() != null ) {
+      renderFloor(g);
+      renderBeepers(g);
+      renderRobots(g);
+      renderWalls(g);
+      renderUserItems(g);
+    }
   }
 
 
