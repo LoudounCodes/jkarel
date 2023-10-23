@@ -30,5 +30,7 @@ rodney.putBeeper
 rodney.move;
 rodney.setColor(Color::GREEN);
 rodney.putBeeper();
+rodney.move;
+rodney.setColor(Color::RED);
 rodney.putBeeper();
 rodney.move;

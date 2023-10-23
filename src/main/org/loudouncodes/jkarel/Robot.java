@@ -89,7 +89,7 @@ public class Robot extends Item {
     protected void initializeIcons() {
         HashMap<Direction, BufferedImage> images = new HashMap<Direction, BufferedImage>();
         
-        ImageIcon base =  new ImageIcon(Robot.class.getResource("/icons/kareln.gif"));
+        ImageIcon base =  new ImageIcon(Robot.class.getResource("/icons/karel.png"));
 
         icons = ImageUtils.setupImages(base, myColor);
     }

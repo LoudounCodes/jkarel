@@ -13,7 +13,7 @@ public class Lab00 {
     
     Robot karel = new Robot();
     
-    Arena.setPace(Pacing.STEP);
+    //Arena.setPace(Pacing.STEP);
     
     for (int i = 0; i <= 3; i++) {
       karel.move();
