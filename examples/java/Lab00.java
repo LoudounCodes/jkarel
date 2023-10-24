@@ -9,11 +9,14 @@ import java.awt.Color;
 public class Lab00 {
   
   public static void main(String[] args) {
-    Arena.openDefaultWorld();
+    Arena.openDefaultWorld();    
+    Arena.loadMap("/first.map");
     
-    Robot karel = new Robot();
+//    Arena.setPace(Pacing.STEP);
     
-    //Arena.setPace(Pacing.STEP);
+    
+    Robot karel = new Robot(1, 5, Direction.EAST, 0);
+    
     
     for (int i = 0; i <= 3; i++) {
       karel.move();
@@ -26,8 +29,7 @@ public class Lab00 {
     Arena.addWestWall(5,5);
     Arena.addBeepers(5,5,5);
       
-      
-    Robot rodney = new Robot(1, 2, Direction.EAST, BeeperStack.INFINITY);
+    Robot rodney = new Robot(1, 6, Direction.EAST, BeeperStack.INFINITY);
 
     rodney.putBeeper();
     rodney.move();
