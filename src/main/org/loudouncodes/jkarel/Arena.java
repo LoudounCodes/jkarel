@@ -63,7 +63,7 @@ public class Arena {
 	
 
 	public static ArenaModel getModel() {
-			return model;
+		return model;
 	}
 	
 	/**
@@ -158,10 +158,9 @@ public class Arena {
 	}
 	
 	/**
-		* When called, this animates the Arena one frame forward.
+		* Animates the Arena one frame forward.
 		*/
 	static void step() {
-	
 		ArenaPanel.getCurrent().repaint();
 		pace.tick();
 	}

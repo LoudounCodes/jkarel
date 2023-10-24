@@ -24,18 +24,17 @@ public class ArenaModel {
   private Map<Location, BeeperStack> beepers;
   private List<Robot> robots;
   private List<Wall> walls;
-    
+
   // The FCPS design here is horrible. I want to add some generic
   // user-created subclasses of items and have them 'do the right thing',
   // but it makes the design awkward because we have other arrays for
   // specific kinds of items (above).  We sould fix this someday with
   // better design.
   private List<Item> userItems;
-    
+
   private List<ArenaListener> listeners = new ArrayList<ArenaListener>();
-    
-    
-    
+
+
   private int width = 10;
   private int height = 10;
 
@@ -43,8 +42,7 @@ public class ArenaModel {
 
   public ArenaModel(String mapName) {
 
-    beepers = Collections.synchronizedMap(new HashMap < Location,
-                                          BeeperStack > ());
+    beepers = Collections.synchronizedMap(new HashMap<Location,BeeperStack> ());
     robots = Collections.synchronizedList(new ArrayList<Robot>());
     walls = Collections.synchronizedList(new ArrayList<Wall>());
     userItems = Collections.synchronizedList(new ArrayList<Item>());
@@ -52,10 +50,6 @@ public class ArenaModel {
     //add border walls here
     walls.add(xAxisWall = new Wall(1, 0, Arena.HORIZONTAL));
     walls.add(yAxisWall = new Wall(0, 1, Arena.VERTICAL));
-
-    // arenamodel needs to be a true model object. parsing xml
-    // is not the responsibility of a model, especially in a constructor.
-    //parseMap(mapName);
   }
 
   public ArenaModel() {
@@ -74,7 +68,7 @@ public class ArenaModel {
     return new Location(width, height);
   }
     
-// accessors for dealing with robots    
+  // accessors for dealing with robots    
   List<Robot> getRobots() {
     return robots;
   }
@@ -84,7 +78,7 @@ public class ArenaModel {
       robots.add(r);
     }
         
-        for (ArenaListener l:listeners) { l.robotAdded(r); }
+    for (ArenaListener l:listeners) { l.robotAdded(r); }
         
     Arena.step();
   }
@@ -94,15 +88,15 @@ public class ArenaModel {
       robots.remove(r);
     }
         
-        for (ArenaListener l:listeners) { l.robotRemoved(r); }
+    for (ArenaListener l:listeners) { l.robotRemoved(r); }
         
     Arena.step();
   }
 
-    void notifyMoved(Robot r) {
-        for (ArenaListener l:listeners) { l.robotMoved(r); }
-    }
-// accessors for dealing with beepers
+  void notifyMoved(Robot r) {
+    for (ArenaListener l:listeners) { l.robotMoved(r); }
+  }
+  // accessors for dealing with beepers
   Map<Location, BeeperStack> getBeepers() {
     return beepers;
   }
@@ -140,25 +134,20 @@ public class ArenaModel {
   boolean checkBeepers(Location l) {
     return beepers.get(l) != null;
   }
-    
-    
-    
-    
-// accessors for dealing with walls    
+
+  // accessors for dealing with walls    
   public void addWall(Wall w) {
     synchronized (walls) {
       walls.add(w);
     }
-        for (ArenaListener l:listeners) { l.wallAdded(w); }
-        
+    for (ArenaListener l:listeners) { l.wallAdded(w); }    
   }
 
   public void removeWall(Wall w) {
     synchronized (walls) {
       walls.remove(w);
     }
-        for (ArenaListener l:listeners) { l.wallRemoved(w); }
-        
+    for (ArenaListener l:listeners) { l.wallRemoved(w); }    
   }
 
 
@@ -166,7 +155,7 @@ public class ArenaModel {
     return Collections.unmodifiableList(walls);
   }
 
-    // this needs some deobfuscation.
+  // this needs some deobfuscation.
   boolean checkWall(int x, int y, int orientation) {
     synchronized (walls) {
       switch (orientation) {
@@ -192,31 +181,26 @@ public class ArenaModel {
     }
     return false;
   }
+
+  // accessors for dealing with generic items    
     
-    
-    
-// accessors for dealing with generic items    
-    
-    public void addUserItem(Item i) {
+  public void addUserItem(Item i) {
     synchronized (userItems) {
       userItems.add(i);
     }
     Arena.step();
-    }
+  }
     
-    public List<Item> getUserItems() {
-        return Collections.unmodifiableList(userItems);
-    }
+  public List<Item> getUserItems() {
+    return Collections.unmodifiableList(userItems);
+  }
     
-    public void removeUserItem(Item i) {
+  public void removeUserItem(Item i) {
     synchronized (userItems) {
       userItems.remove(i);
     }
     Arena.step();
-    }
-
-
-
+  }
 
   boolean isNextToARobot(Robot r, Location l) {
     synchronized (robots) {
@@ -228,7 +212,7 @@ public class ArenaModel {
     }
   }
 
-    // need to add border walls back
+  // need to add border walls back
   void setSize(int width, int height) {
     if (this.width != width) {
       this.width = width;
@@ -247,7 +231,7 @@ public class ArenaModel {
 
 
 
-    // stuff having to do with xml parsing
+  // stuff having to do with xml parsing
 
   public void addObject_beeper(Attributes a) {
     int x = Integer.parseInt(a.get("x"));
@@ -260,7 +244,7 @@ public class ArenaModel {
       putBeepers(new Location(x, y), Integer.parseInt(num));
   }
 
-    // ignoring length in the xml
+  // ignoring length in the xml
   public void addObject_wall(Attributes a) {
     int x = Integer.parseInt(a.get("x"));
     int y = Integer.parseInt(a.get("y"));
@@ -281,10 +265,10 @@ public class ArenaModel {
     new Robot(x, y, direction, beepers);
   }
 
-    public void loadProperties_defaultSize(Attributes a) {
-        width = Integer.parseInt(a.get("width"));
-        height = Integer.parseInt(a.get("height"));
-    }
+  public void loadProperties_defaultSize(Attributes a) {
+    width = Integer.parseInt(a.get("width"));
+    height = Integer.parseInt(a.get("height"));
+  }
 
   protected void parseMap(String mapName) {
     Element e = new XMLParser().parse(getInputStreamForMap(mapName));
