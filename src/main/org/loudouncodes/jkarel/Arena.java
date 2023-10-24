@@ -89,6 +89,11 @@ public class Arena {
 		theArenaFrame = new ArenaFrame(model);
 	}
 
+  public static void loadMap(String mapName) {
+    model.parseMap(mapName);
+  }
+  
+  
 	/**
 		* The Arena can be animated at different Paces; you can get
 		* the current pace setting with this method.

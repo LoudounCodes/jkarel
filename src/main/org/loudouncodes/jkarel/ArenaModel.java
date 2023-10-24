@@ -25,14 +25,14 @@ public class ArenaModel {
   private List<Robot> robots;
   private List<Wall> walls;
     
-    // The FCPS design here is horrible. I want to add some generic
-    // user-created subclasses of items and have them 'do the right thing',
-    // but it makes the design awkward because we have other arrays for
-    // specific kinds of items (above).  We sould fix this someday with
-    // better design.
+  // The FCPS design here is horrible. I want to add some generic
+  // user-created subclasses of items and have them 'do the right thing',
+  // but it makes the design awkward because we have other arrays for
+  // specific kinds of items (above).  We sould fix this someday with
+  // better design.
   private List<Item> userItems;
     
-    private List<ArenaListener> listeners = new ArrayList<ArenaListener>();
+  private List<ArenaListener> listeners = new ArrayList<ArenaListener>();
     
     
     
@@ -49,13 +49,13 @@ public class ArenaModel {
     walls = Collections.synchronizedList(new ArrayList<Wall>());
     userItems = Collections.synchronizedList(new ArrayList<Item>());
 
-        //add border walls here
+    //add border walls here
     walls.add(xAxisWall = new Wall(1, 0, Arena.HORIZONTAL));
     walls.add(yAxisWall = new Wall(0, 1, Arena.VERTICAL));
 
-        // arenamodel needs to be a true model object. parsing xml
-        // is not the responsibility of a model, especially in a constructor.
-    parseMap(mapName);
+    // arenamodel needs to be a true model object. parsing xml
+    // is not the responsibility of a model, especially in a constructor.
+    //parseMap(mapName);
   }
 
   public ArenaModel() {
@@ -286,7 +286,7 @@ public class ArenaModel {
         height = Integer.parseInt(a.get("height"));
     }
 
-  void parseMap(String mapName) {
+  protected void parseMap(String mapName) {
     Element e = new XMLParser().parse(getInputStreamForMap(mapName));
     WorldParser.initiateMap(this, e);
   }
