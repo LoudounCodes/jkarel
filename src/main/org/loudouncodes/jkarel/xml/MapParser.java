@@ -11,7 +11,7 @@ import java.lang.reflect.*;
  * @author Andy Street, alstreet@vt.edu, 2007
  */
 
-public class WorldParser {
+public class MapParser {
 
   private static String propPrepend = "loadProperties_";
   private static String objPrepend = "addObject_";

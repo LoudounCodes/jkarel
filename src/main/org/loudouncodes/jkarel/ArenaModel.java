@@ -272,7 +272,7 @@ public class ArenaModel {
 
   protected void parseMap(String mapName) {
     Element e = new XMLParser().parse(getInputStreamForMap(mapName));
-    WorldParser.initiateMap(this, e);
+    MapParser.initiateMap(this, e);
   }
 
   private InputStream getInputStreamForMap(String fileName) { 
