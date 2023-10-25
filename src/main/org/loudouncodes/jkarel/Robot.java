@@ -129,6 +129,23 @@ public class Robot extends Item {
   }
 
   /**
+    * Moves the robot one step backward (from the direction it is facing)
+    */
+  protected synchronized void backUp() {      
+    if (!backIsClear()) {
+      Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
+      return;
+    }
+      
+    myLocation.move(direction.behind());
+      
+      Arena.getModel().notifyMoved(this);
+      
+    Arena.step();
+  }
+  
+  
+  /**
     * Turns the Robot 90 degrees to the left.
     */
   public void turnLeft() {      

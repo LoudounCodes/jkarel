@@ -18,17 +18,24 @@ public enum Direction {
   WEST;
   
   /**
-    * @return a Direction as if the current direction turned left
+    * @return the Direction -90 degrees from this direction
     */
   public Direction left() {
     return values()[(ordinal() - 1  + values().length) % values().length];
   }
   
   /**  
-    * @return a Direction as if the current direction turned right
+    * @return the Direction 90 degrees from this direction
     */
   public Direction right() {
     return values()[(ordinal() + 1) % values().length];
+  }
+  
+  /**  
+    * @return the Direction 180 degrees from this direction.
+    */
+  public Direction behind() {
+    return values()[(ordinal() + 2) % values().length];
   }
 }
      
