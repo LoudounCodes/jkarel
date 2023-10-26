@@ -90,6 +90,7 @@ public class Arena {
 	}
 
   public static void loadMap(String mapName) {
+    model.clearMap();
     model.parseMap(mapName);
   }
   

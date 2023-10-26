@@ -270,6 +270,13 @@ public class ArenaModel {
     height = Integer.parseInt(a.get("height"));
   }
 
+  protected void clearMap() {
+    beepers = Collections.synchronizedMap(new HashMap<Location,BeeperStack> ());
+    walls = Collections.synchronizedList(new ArrayList<Wall>());
+    userItems = Collections.synchronizedList(new ArrayList<Item>());
+  }
+  
+  
   protected void parseMap(String mapName) {
     Element e = new XMLParser().parse(getInputStreamForMap(mapName));
     MapParser.initiateMap(this, e);

@@ -25,4 +25,6 @@ public interface ArenaListener {
   
   default void userItemAdded(Item i){};
   default void userItemDropped(Item i){};
+  
+  default void mapLoaded(String mapName) {};
 }
