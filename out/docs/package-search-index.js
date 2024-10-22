@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.loudouncodes.jkarel"},{"l":"org.loudouncodes.jkarel.demo"},{"l":"org.loudouncodes.jkarel.xml"}];updateSearchResults();
