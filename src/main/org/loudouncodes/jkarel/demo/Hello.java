@@ -19,7 +19,7 @@ public class Hello {
     * @param args not used.
     */
   public static void main(String[] args) {
-    Arena.openWorld("/org/loudouncodes/jkarel/demo/hello.map");
+    Arena.loadMap("/org/loudouncodes/jkarel/demo/hello.map");
   Arena.getArenaFrame().setSize(1024, 250);
     Arena.setPace(Pacing.LUDICRUS);
 

@@ -284,7 +284,6 @@ public class ArenaModel {
 
   private InputStream getInputStreamForMap(String fileName) { 
       InputStream mapSource = null;
-      System.out.println(fileName);
       try {
       if (fileName == null)
         throw new FileNotFoundException();

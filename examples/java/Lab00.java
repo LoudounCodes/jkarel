@@ -9,10 +9,9 @@ import java.awt.Color;
 public class Lab00 {
   
   public static void main(String[] args) {
-    Arena.openDefaultWorld();    
     Arena.loadMap("/first.map");
     
-//    Arena.setPace(Pacing.STEP);
+    Arena.setPace(Pacing.SLOW);
     
     
     Robot karel = new Robot(1, 5, Direction.EAST, 0);
@@ -28,7 +27,10 @@ public class Lab00 {
     Arena.addEastWall(5,5);
     Arena.addWestWall(5,5);
     Arena.addBeepers(5,5,5);
-      
+    
+    Arena.loadMap("/school.map");
+    
+    
     Robot rodney = new Robot(1, 6, Direction.EAST, BeeperStack.INFINITY);
 
     rodney.putBeeper();

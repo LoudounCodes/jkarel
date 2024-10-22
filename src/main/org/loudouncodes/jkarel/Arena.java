@@ -62,6 +62,11 @@ public class Arena {
 	protected static ArenaModel model;
 	
 
+  static {
+		model = new ArenaModel();
+		theArenaFrame = new ArenaFrame(model);
+  }
+  
 	public static ArenaModel getModel() {
 		return model;
 	}
@@ -74,20 +79,19 @@ public class Arena {
 		*
 		* @param mapName the name of the map to open.
 		*/
-	public static void openWorld(String mapName) {
-		closeWorld();
-		model = new ArenaModel(mapName);
-		theArenaFrame = new ArenaFrame(model);
-	}
+//	public static void openWorld(String mapName) {
+	//	closeWorld();
+	//	model = new ArenaModel(mapName);
+	//	theArenaFrame = new ArenaFrame(model);
+	//}
 
 	/**
 		* Opens the default world, 10x10 with no walls or beepers.
 		*/
-	public static void openDefaultWorld() {
+	public static void openDefaultMap() {
 		closeWorld();
-		model = new ArenaModel();
-		theArenaFrame = new ArenaFrame(model);
 	}
+
 
   public static void loadMap(String mapName) {
     model.clearMap();
