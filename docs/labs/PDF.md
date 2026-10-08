@@ -16,8 +16,8 @@ macOS and uses PDF standard Helvetica otherwise. The rendered PDF is committed
 alongside its source material for review and printing.
 
 The logo is copied unchanged from Bock's personal Dropbox:
-`2-areas/loudouncodes/2-areas/Marketing/logos/versioned_formatted_logos/for_small_repro_brighter_more.png`.
-It is the existing 2000 × 2000 version prepared for small reproduction. The
+`2-areas/loudouncodes/2-areas/Marketing/logos/master_logo.png`.
+It is the selected master artwork, copied unchanged. The
 Dropbox original remains untouched.
 
 Validation: eight pages; body text and both complete Java listings inspected after
