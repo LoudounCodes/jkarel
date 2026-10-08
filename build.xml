@@ -107,7 +107,10 @@
           <exclude name="**/__pycache__/**"/>
         </fileset>
         <fileset dir=".">
-          <filename name="LICENSE.TXT"/>
+          <include name="LICENSE.TXT"/>
+          <include name="NON-ENDORSEMENT.TXT"/>
+          <include name="LICENSING.md"/>
+          <include name="CURRICULUM-LICENSE.TXT"/>
         </fileset>
         <fileset dir=".">
           <include name="src/**/*.java"/>
@@ -120,23 +123,32 @@
     </target>
 
     <!-- Optional classroom distribution; the existing build-all stays unchanged. -->
-    <target name="build-starters" depends="build-src">
+    <target name="build-starters" depends="build-src, build-docs">
       <mkdir dir="${output.dir}/classroom"/>
       <jar destfile="${output.dir}/classroom/jkarel.jar">
         <fileset dir="${build.dir}" includes="org/loudouncodes/**/*.class"
                  excludes="**/*Tests*.class"/>
         <fileset dir="${src.main.dir}" includes="**/*.map,**/*.gif,**/*.png"/>
         <fileset dir="${src.map.dir}" includes="**/*.map"/>
-        <fileset dir="." includes="LICENSE.TXT"/>
+        <fileset dir="." includes="LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
       </jar>
       <copy todir="${output.dir}/starter-labs" overwrite="true">
         <fileset dir="examples/starters" includes="**/*.java,**/*.gpj,**/*.md,**/*.map"/>
       </copy>
       <copy file="docs/labs/LoudounCodes-Karel-Extension-Labs.pdf"
             todir="${output.dir}/starter-labs"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs"/>
+      <copy todir="${output.dir}/starter-labs">
+        <fileset dir="." includes="LICENSING.md,CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/javadoc" overwrite="true">
+        <fileset dir="${output.dir}/docs"/>
+      </copy>
       <!-- Include corresponding source and the unchanged Ant build for GPL reuse. -->
       <copy todir="${output.dir}/starter-labs/library-source">
-        <fileset dir="." includes="src/**,lib/*.jar,build.xml,README.md,LICENSE.TXT"/>
+        <fileset dir="." includes="src/**,lib/*.jar,build.xml,README.md,LICENSE.TXT,NON-ENDORSEMENT.TXT,LICENSING.md,CURRICULUM-LICENSE.TXT"/>
       </copy>
       <copy file="${output.dir}/classroom/jkarel.jar"
             todir="${output.dir}/starter-labs/00-meet-jkarel"/>
@@ -168,6 +180,36 @@
       <copy file="${output.dir}/classroom/jkarel.jar"
             todir="${output.dir}/starter-labs/09-describe-a-map"/>
       <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/09-describe-a-map"/>
+      <copy todir="${output.dir}/starter-labs/00-meet-jkarel">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/01-team-trails">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/02-event-scoreboard">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/03-build-a-room">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/04-predict-with-pacing">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/05-directions-and-retreat">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/06-change-levels">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/07-draw-your-own-items">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/08-robot-lettering">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
+      <copy todir="${output.dir}/starter-labs/09-describe-a-map">
+        <fileset dir="." includes="CURRICULUM-LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+      </copy>
       <zip destfile="${output.dir}/LoudounCodes-Karel-Starter-Labs.zip"
            basedir="${output.dir}" includes="starter-labs/**"
            excludes="**/*.class,**/*.gpb,**/*.gpw,**/.DS_Store,starter-labs/library-source/build/**,starter-labs/library-source/out/**"/>
@@ -195,11 +237,14 @@
     
     <target name="build-docs">
         <javadoc sourcepath="${src.main.dir}"
-                 destdir="${output.dir}/docs"
+                 destdir="${output.dir}/docs" source="18" failonerror="true"
                  packagenames="org.loudouncodes.*" >
                  
           <classpath refid = "dependencies" />
         </javadoc>
+        <copy todir="${output.dir}/docs">
+          <fileset dir="." includes="LICENSE.TXT,NON-ENDORSEMENT.TXT"/>
+        </copy>
     </target>
 
 </project>

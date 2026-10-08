@@ -27,5 +27,8 @@ The corresponding lesson is `09-describe-a-map.md` in the curriculum packet.
 The complete `DescribeAMap.java` listing in the packet appendix is a reference.
 Keep your edits in this starter folder; the complete example is separate.
 
-The included GPL-3.0 license covers the library and original lesson materials.
+This lesson text is © 2026 Bock / LoudounCodes, licensed under CC BY 4.0
+(see CURRICULUM-LICENSE.TXT). Give credit and identify changes; credit does not
+imply endorsement. The library and Java code remain GPLv3 (LICENSE.TXT), with
+NON-ENDORSEMENT.TXT applying to Bock's software contributions.
 Library source: https://github.com/LoudounCodes/jkarel

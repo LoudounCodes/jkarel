@@ -1,3 +1,4 @@
+# GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 require '../../out/jkarel-1.0.0.jar'
 
 java_import 'org.loudouncodes.jkarel.Arena'

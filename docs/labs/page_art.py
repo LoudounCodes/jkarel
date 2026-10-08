@@ -1,3 +1,4 @@
+# GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 """Original outline illustrations for the packet's page subjects (vector artwork)."""
 from reportlab.lib import colors
 

@@ -78,3 +78,11 @@ java -cp build/illustration-capture:out/classroom/jkarel.jar \
 Capture requires a graphical Java session. These commands use the macOS/Linux
 classpath separator; use `;` on Windows. Re-render the PDF after capture, then
 run `ant build-starters` again to update the classroom archive.
+
+## Licensing
+
+The cover and teacher references identify CC BY 4.0 for original lesson text and
+illustrations, with credit to Bock / LoudounCodes. Java code and arena screenshots
+remain GPLv3; the logo is excluded from the CC BY grant. The full scope and
+suggested attribution are in [LICENSING.md](../../LICENSING.md). Both Ant
+distributions include the applicable license texts and non-endorsement notice.

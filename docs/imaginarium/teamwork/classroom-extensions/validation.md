@@ -171,3 +171,159 @@ full JAR and classroom ZIP contain the current PDF. Only document/rendering
 sources changed; Java code, Java 18 target, and Ant workflow are unchanged.
 Proof remains single-author automated checks and local visual inspection;
 classroom human acceptance is pending. No push or publication occurred.
+
+## Reader-facing production notes
+
+Removed source-verification narrative, feature-history audit anchors, and
+branding/illustration production notes from the reader packet. Useful teacher
+citations remain; internal verification belongs in project documentation.
+
+## All ten native jGRASP projects and Windows portability
+
+2026-10-08: Extracted the classroom ZIP into a fresh repository-local folder with
+spaces in its path. Launched jGRASP 2.0.6_18 separately for each lesson with its
+own isolated settings directory. Used Project → Open, File → Open, Build → Compile,
+and Build → Run in the actual Swing editor. Each native project tree recognized
+its own source file; each editor compilation created its class file without
+manually changing the classpath; each Run I/O console showed the expected starter
+result. Inspected all ten captured editor views. Programs were stopped with
+Build → End after capture. The starters retain their TODOs.
+
+| Project | Native open / compile / run | Observed starter result |
+| --- | --- | --- |
+| 00-meet-jkarel | Passed | Inventory: 2 |
+| 01-team-trails | Passed | Red inventory: 5, Blue inventory: 5 |
+| 02-event-scoreboard | Passed | Final: Red 0, Blue 0, moves 0 |
+| 03-build-a-room | Passed | Player [4, 3], inventory 0 |
+| 04-predict-with-pacing | Passed | [4, 4] NORTH |
+| 05-directions-and-retreat | Passed | Scout [3, 4] NORTH |
+| 06-change-levels | Passed | Same player: [3, 2], inventory 1; new wall blocks front: false |
+| 07-draw-your-own-items | Passed | Reached the goal at [4, 2] |
+| 08-robot-lettering | Passed | Infinite inventory: true |
+| 09-describe-a-map | Passed | Player [4, 2], inventory 0 |
+
+Native GUI evidence is local under `build/jgrasp-check`: numbered screenshots and
+logs, `all-projects.json`, and isolated settings/extracted folders. The reproducible
+Swing driver is `scripts/VerifyJGraspProjects.java`. Its arguments are settings
+directory, project, source, screenshot, and the JDK bin directory. Compile it with
+Java 17+; run it with the installed jGRASP JAR on the classpath. It captures evidence
+rather than declaring a pass solely from launch success; inspect project membership
+and the Run I/O result.
+
+jGRASP itself ran on Oracle Java 17.0.1; the compiler/runtime were the local
+Homebrew JDK 27. Automated starter/reference compilation separately targets
+Java 18. The packaged library classes were checked for class versions no higher
+than Java 18 (62); older package metadata classes are compatible too.
+
+Windows portability checks now run in `scripts/verify_starters.py`: ZIP paths are
+relative, names are legal on Windows, reserved device names and case-insensitive
+collisions are rejected, project files retain LF serialization, and compile/run
+classpath entries point exactly to the sibling `jkarel.jar`. The longest archived
+name is 83 characters (121 under a representative Windows Downloads directory).
+All ten starters and all ten complete references compile and run after extraction
+to a path containing spaces; local map lookup is checked. Windows Extract All /
+Project Open / Compile / Run instructions are included in the starter README.
+
+This is native macOS editor proof plus automated portability checks. The available
+local VMs are Linux; no Windows VM/device execution is claimed. Actual Windows
+classroom Java/jGRASP execution and STEP Enter interaction remain pending.
+No project serialization changes were necessary; the original Ant build, Java 18
+target, directory layout, and teaching API are preserved. No push or publication.
+
+## Complete classroom distribution contents
+
+`ant build-starters` now depends on the existing Javadoc target, includes the
+generated documentation at `starter-labs/javadoc`, and places the runtime JAR
+and license at the distribution root as well as beside each lab project. The
+root README introduces the library/curriculum, lists the package contents, links
+to GitHub, and links locally to the PDF, Javadoc index, JAR, and license. Ten
+independent shells, maps, Windows instructions, and corresponding source remain.
+The default Ant target and Java 18 class target are preserved. Javadoc uses source
+18 and fails the build on errors; existing missing-description warnings remain.
+
+`ant build-starters` and a fresh build using
+`ant -Doutput.dir=build/distribution-check build-starters` both passed. The
+archive verifier passed against both output directories after ZIP extraction to
+paths containing spaces. It checks root README links/GitHub URL, exact PDF and
+JAR copies, all 21 public API type pages, and local page/resource links across
+38 Javadoc HTML pages, in addition to Windows archive checks and compilation/run
+of every starter and complete reference. The optional `--output-dir` argument
+supports checking a fresh distribution without moving the canonical download.
+
+The unchanged default `ant` workflow also passed with 14 JUnit tests and zero
+failures/errors/skips. Student project files and Java source were unchanged, so
+the prior native jGRASP checks still apply. Single-author local build/packaging
+proof; actual Windows classroom execution and interactive STEP input remain
+pending. No push or publication occurred.
+
+## Licensing direction check
+
+2026-10-08T21:44:34.260466+00:00: Are we doing the right thing right now?
+Yes: finish the authorized CC BY curriculum/GPL code split and rebuild the existing
+classroom artifacts. Use established license texts and Ant packaging; no new
+build structure or publication. Only final packaging verification remains.
+
+## Curriculum attribution and non-endorsement
+
+Bock authorized CC BY 4.0 for original lesson prose and illustrations, keeping
+GPLv3 for the library and Java code. LICENSING.md defines this split, excludes
+arena screenshot components and the logo from the CC grant, and supplies a
+Bock / LoudounCodes attribution example. NON-ENDORSEMENT.TXT adds the GPLv3
+section 7(d) publicity term only for Bock-authored software contributions;
+upstream notices and the existing GPL text are unchanged. Source comments refer
+to the scoped notice without changing executable Java behavior.
+
+Official references: https://creativecommons.org/licenses/by/4.0/legalcode.txt
+and https://opensource.org/license/gpl-3.0 (section 7). The CC legal text is
+included unchanged as CURRICULUM-LICENSE.TXT. SHA-256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
+
+The PDF cover and teacher references, repository README, and all ten standalone
+lab READMEs identify the applicable licenses. Ant includes full notices at the
+ZIP root and in library-source, both notices in runtime JARs and offline Javadoc,
+and both license texts plus the scoped additional term in every lab folder.
+The full development JAR includes all four licensing documents and the exact PDF.
+
+Final default Ant build passed all 14 JUnit tests with no failures, errors, or
+skips. Canonical and fresh-output starter builds passed. The archive verifier
+passed against both ZIPs after extraction to paths with spaces, including all
+ten starter and completed-reference compilations/runs, Java 18 bytecode limits,
+Windows filename/path checks, exact notice copies, and all local links across
+38 Javadoc pages documenting 21 public API types. The PDF remains 42 pages with
+three intentional blanks and ten two-page lessons starting recto; cover, teacher
+references, and a continued source listing inspected. Updated PDF opened locally.
+
+Proof remains single-author local build/packaging verification; the earlier native
+macOS jGRASP results still apply to unchanged project files and executable code.
+Actual Windows classroom execution and interactive STEP input remain pending.
+No push or publication occurred.
+
+## Authorized prose and history rollback
+
+Bock requested a rollback because rejected rewrites could mislead future agents
+browsing history. Restored the introduction and every lesson verbatim from the
+last accepted illustrated/duplex packet. The Arena, Pacing, and mental-model
+argument is again together in the introduction. Removed the separate comparison
+section and its navigation/rendering support. Later reader-packet production-note
+removals, licenses, native jGRASP proof, Windows instructions, Javadoc, README,
+JAR packaging, and source notices are preserved.
+
+Byte comparisons confirm the introduction and ten lessons match the earlier
+accepted tree. Code, scripts, examples, starter projects, build.xml, repository
+README, license files, and dependencies match the later licensed distribution.
+Restored prose is reused rather than rewritten. Obsolete comparison/rewrite
+validation claims are removed from the current progress record.
+
+The rendered PDF is 42 pages with three intentional blanks, ten two-page lessons
+starting recto, and the original illustrations. Inspected the restored full-page
+introduction and teacher/license page. Default Ant build passed all 14 tests;
+starter packaging and relocated-ZIP checks passed for all ten starter and completed
+reference programs. Both JAR and ZIP contain the exact restored PDF, and the
+removed comparison is absent from the development JAR. Notice copies and all
+local Javadoc links passed the existing verifier.
+
+The unpublished follow-up work is consolidated onto the accepted packet commit,
+excluding the rejected prose rewrites from the normal branch history. No remote
+history is changed and no push/publication occurs. Proof remains single-author
+local build, packaging, and visual verification, supplemented by the preserved
+native macOS jGRASP results. Actual Windows classroom execution and interactive
+STEP acceptance remain pending.

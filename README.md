@@ -38,6 +38,14 @@ actions now throw an exception so jGRASP can identify the failing line. Register
 observers through `Arena.addListener` and remove them through `Arena.removeListener`.
 Callbacks are synchronous; keep game control in your main loop.
 
+## Licensing
+
+Original curriculum text and illustrations are © 2026 Bock / LoudounCodes,
+licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+The library and Java code remain [GPLv3](LICENSE.TXT), with
+[non-endorsement terms](NON-ENDORSEMENT.TXT) for Bock's contributions.
+See [Licensing and attribution](LICENSING.md) for the scope and attribution example.
+
 ## Changes made to this version:
 * idioms based on C++ (like enums based on integer values) have been replaced with modern Java semantics (like Java's Enum, introduced in Java 1.5)
 * XML Parsing was moved to use the built-in Java classes rather than the external Xerces library from Apache (makes the setup easier for the begining level class)

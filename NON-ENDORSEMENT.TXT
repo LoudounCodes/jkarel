@@ -1,0 +1,13 @@
+GPLv3 additional term under section 7(d)
+
+This term applies only to software contributions authored by Bock, as identified
+by author notices or this repository's history. It does not change the terms for
+material authored by upstream copyright holders.
+
+The names Bock and LoudounCodes may not be used for publicity purposes to endorse
+or promote products derived from those contributions without specific prior
+written permission. Factual attribution and statements describing the origin of
+those contributions are permitted.
+
+These contributions otherwise remain under the GNU General Public License,
+version 3. See LICENSE.TXT for the complete license.

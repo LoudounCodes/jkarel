@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 
 require 'rexml/document'
 include REXML

@@ -1,3 +1,4 @@
+// GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 import java.awt.Color;
 import org.loudouncodes.jkarel.*;
 

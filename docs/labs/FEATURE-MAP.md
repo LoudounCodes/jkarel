@@ -1,8 +1,7 @@
 # Feature coverage and teaching boundaries
 
-The sequence is written from the implementation and repository history, rather
-than inferring capabilities from unfinished Javadoc. These are original exercises.
-The program sources form the reproducible examples; no Fairfax worksheet is adapted.
+Use this guide to choose a lesson for a project or connect a feature to the Java
+concepts it introduces.
 
 | Feature or change | Lesson | Actual teaching surface |
 | --- | --- | --- |
@@ -18,39 +17,16 @@ The program sources form the reproducible examples; no Fairfax worksheet is adap
 | Letter-drawing robot and infinite supply ownership | 8 | demo.AlphaBot.say; BeeperStack.INFINITY; ASCII and layout limits |
 | A data-source interface for future maps | 9 | MapDataSource descriptor; explicit student-written installation adapter |
 
-Orientation teaches the vocabulary without claiming the old and new APIs are
-source-compatible or that fluent naming means method chaining. Robot meeting
-sensors, ordinary subclassing, and game loops are supporting concepts; not every
-inherited operation is labeled as a new feature.
+## Teaching notes
 
-The event lesson covers movement and pickup scoring. Its experiments cover drops
-and unregistering; other lessons exercise map-load events and custom-item removal.
-ArenaListener documents its remaining callbacks, constructor timing, and lack of
-turn/color notifications. Do not invent a timer or keyboard event API for these labs.
+Begin with Lesson 0, then choose the features a student's project needs. Familiar robot actions, sensors, subclassing, and game loops remain
+part of the working vocabulary.
 
-The map-data interface is declared but not integrated into the XML loader. Lesson 9
-is explicitly an advanced design exercise; its adapter lives in the example code.
-The existing JRuby experiments, Ant/JUnit packaging, XML internals, and Swing frame
-access are teacher/developer tools outside this Java/jGRASP student sequence.
-Digit is a legacy class, not a new feature; the lettering lesson uses AlphaBot.
+The event lesson introduces movement and pickup scoring, then explores drops
+and unregistering. Later lessons use map-load events and custom-item removal.
+Callbacks run synchronously; students should keep game loops outside listeners.
+The library does not provide timer or keyboard-input events.
 
-## Implementation and history anchors
-
-The root README records the Fairfax/Loudoun lineage. API facts were checked in
-`src/main/org/loudouncodes/jkarel`, including Arena, Robot, Direction, Pacing,
-ArenaModel, ArenaListener, Item, MapDataSource, and `demo/AlphaBot.java`.
-The early API comparison was checked against commit `12e7e0f`'s Display and Robot.
-Useful provenance points in this repository's history:
-
-- `a0df5a8`: Direction enum; `369f0cf`: Location naming; `8247185`: Arena naming.
-- `5feb72b`: pacing; `ed94517`: robot rendering; `8a8dc3e`: generated walls/beepers.
-- `524f07d`: lettering robot; `71bde07`: infinity moves to BeeperStack.
-- `8a81d21`, `ea2f68f`, `f041915`: listener introduction, events, default methods.
-- `40e9092`, `a784563`: custom items and protected repositioning.
-- `be5152e`: MapDataSource declaration; `7de0d9f`: robot/beeper colors.
-- `3f6969e`: protected backup; `f2e09d8`: runtime map reload.
-- `5e07f3e`: classroom correctness repairs and completed callbacks.
-
-These anchors establish provenance within the supplied code repository. They are
-not claims that a change originated nowhere else. The jGRASP setup references,
-license, and reuse notes appear in the main lesson README and PDF teacher notes.
+Lesson 9 is an advanced design exercise. The MapDataSource interface describes a
+map, but the XML loader does not consume it directly. Students write an adapter
+in their example program and use it with two implementations.

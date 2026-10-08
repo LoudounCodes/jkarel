@@ -1,3 +1,4 @@
+// GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 import org.loudouncodes.jkarel.*;
 
 public class PaceProbe {

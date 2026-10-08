@@ -1,3 +1,4 @@
+// GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 package org.loudouncodes.jkarel;
 
 // breaks an important design rule with knowledge of a sub-package.

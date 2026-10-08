@@ -1,3 +1,4 @@
+# GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 """Original vector lesson figures and unmodified captures of the Java examples."""
 from pathlib import Path
 from reportlab.graphics.shapes import Drawing, Rect, Line, String, Polygon, Circle, Image

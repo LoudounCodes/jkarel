@@ -1,3 +1,4 @@
+// GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 // Student starter: complete the TODOs for this lesson.
 import java.util.ArrayList;
 import java.util.HashMap;

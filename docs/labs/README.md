@@ -7,7 +7,7 @@ Build the classroom archive with `ant build-starters`; each lab includes a local
 library JAR, a jGRASP project, and focused TODOs. The appendix listings are the
 complete reference examples.
 
-These original lessons are for students who have finished their Karel sequence
+These lessons are for students who have finished their Karel sequence
 and are building a game, maze, simulation, or artwork. Start with the orientation,
 then choose the features your project needs. Each lesson includes a working example,
 predictions, experiments, and a demonstration of what you learned. Most fit one
@@ -24,8 +24,7 @@ class period; the interface-design lesson can take longer.
 8. [Robot lettering: AlphaBot and infinite supplies](08-robot-lettering.md)
 9. [Describe a map: the MapDataSource design seam](09-describe-a-map.md)
 
-Lessons 1 and 2 are the original two project extensions; the later lessons go deeper
-into individual capabilities. [Feature coverage](FEATURE-MAP.md) connects each
+[Feature coverage](FEATURE-MAP.md) connects each
 lesson to its actual API and distinguishes a working feature from a design exercise.
 Each lesson includes a captioned diagram or arena view. The PDF uses black body text, sparse green accents, no page header or filled panels,
 and the selected LoudounCodes logo on a separate cover page.
@@ -73,17 +72,19 @@ pickup scores and the final eight-move count in the second. Check STEP interacti
 console and check the map files from the student working folder. Java installation and
 visual display are classroom checks, separate from the automated Ant tests.
 
-## Sources and reuse
+## References and license
 
-The exercises and example programs were written for this repository; they do not
-adapt the restricted Fairfax worksheets. The library's Fairfax/Loudoun ancestry
-remains documented in the root README. These files use the repository's existing
-[GPL version 3 license](../../LICENSE.TXT); no separate curriculum license is
-introduced by these labs. A broader curriculum publication can make that choice
-explicitly later.
+Lesson text and original illustrations: © 2026 Bock / LoudounCodes,
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You may share and adapt
+them with credit, a license link, and an indication of changes. Credit does not
+imply endorsement.
 
-The jGRASP setup instructions are independently written from the official
-[jGRASP installation tutorial, chapter 1, PATH/CLASSPATH section](https://jgrasp.org/tutorials187/01_Installing.pdf)
-and [project tutorial, chapter 7](https://www.jgrasp.org/tutorials187/07_Projects.pdf),
-version 1.8.7 (2009), accessed 2026-10-08. These are citations for setup facts;
-no tutorial text or figures are reproduced. Menus may vary with classroom version.
+The library and Java examples remain [GPLv3](../../LICENSE.TXT). Arena screenshots
+follow the library's license; the LoudounCodes logo is excluded from the CC BY
+grant. See the [licensing guide](../../LICENSING.md) for details.
+
+For jGRASP setup, see the official
+[installation tutorial, chapter 1: PATH/CLASSPATH](https://jgrasp.org/tutorials187/01_Installing.pdf)
+and [project tutorial, chapter 7](https://www.jgrasp.org/tutorials187/07_Projects.pdf).
+These references describe version 1.8.7 (2009); menus may vary with the version
+installed in your classroom.

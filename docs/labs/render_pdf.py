@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# GPLv3; see LICENSE.TXT and NON-ENDORSEMENT.TXT for Bock contributions.
 """Render the original Markdown labs and Java examples as a branded handout.
 
 Run from any directory: uv run --with reportlab==4.4.10 docs/labs/render_pdf.py
@@ -72,6 +73,9 @@ def inline(nodes):
         elif kind == 'Code': result.append('<font name="Courier" size="9">' + escape(value[1]) + '</font>')
         elif kind in ('Strong', 'Emph'): result.append(('<b>' if kind == 'Strong' else '<i>') + inline(value) + ('</b>' if kind == 'Strong' else '</i>'))
         elif kind == 'Link':
+            if value[2][0] == '../../LICENSING.md':
+                result.append('licensing guide (LICENSING.md in the classroom ZIP)')
+                continue
             url = links.get(value[2][0], value[2][0])
             result.append('<link href="' + escape(url, quote=True) + '" color="#27733b">' + inline(value[1]) + '</link>')
         elif kind == 'Quoted': result.append('“' + inline(value[1]) + '”')
@@ -126,6 +130,9 @@ def blocks(nodes, anchor=None):
             heading = inline(value[2])
             if value[0] == 1 and anchor:
                 heading = '<a name="' + anchor + '"/>' + heading
+            if anchor == 'featuremap' and heading == 'Teaching notes':
+                result += [PageBreak(), Paragraph(heading, h1)]
+                continue
             continuation = {
                 'lab1': 'Exercises', 'lab3': 'Exercises',
                 'lab5': 'Exercises', 'lab6': 'Experiments',
@@ -226,6 +233,11 @@ story = [Topic('cover'), Spacer(1, 45),
          Paragraph('LoudounCodes', h2),
          Paragraph('Java 18 · jGRASP', body),
          Paragraph('Classroom review edition · October 2026', small),
+         Spacer(1, 16),
+         Paragraph('© 2026 Bock / LoudounCodes. Lesson text and original illustrations: '
+                   '<link href="https://creativecommons.org/licenses/by/4.0/" color="#27733b">CC BY 4.0</link>. '
+                   'Java code and arena screenshots: GPLv3. Logo excluded from CC BY. '
+                   'Attribution does not imply endorsement.', small),
          NextPageTemplate('opening'), PageBreak(), Recto(), Topic('introduction')]
 introduction = blocks(parse(HERE/'WHAT-IS-THIS.md'))
 intro_body = ParagraphStyle('IntroductionBody', parent=body, leading=12.5, spaceAfter=5)
@@ -281,11 +293,6 @@ for filename in ['stage-one.map', 'stage-two.map']:
     story.append(Preformatted((ROOT/'examples/maps'/filename).read_text().rstrip(), code))
 story += [PageBreak(), Recto(), Topic('teacher'), Paragraph('Teacher notes and sources', h1)]
 story += blocks(setup[split:])
-story.append(Paragraph('Brand asset: the selected master_logo.png from the personal Dropbox '
-                       'Marketing/logos collection, copied unchanged. The artwork is retained in the repository; '
-                       'the PDF places it on the cover; lesson pages use only limited spot color.', small))
-story.append(Paragraph('Illustrations: original vector diagrams and topic-specific robot line art; arena views captured from the included Java examples. '
-                       'Screenshots preserve the actual appearance. Diagram timing and layouts are schematic.', small))
 story += [PageBreak()]
 story += [Recto(), Topic('featuremap')]
 story += blocks(parse(HERE/'FEATURE-MAP.md'), 'featuremap')

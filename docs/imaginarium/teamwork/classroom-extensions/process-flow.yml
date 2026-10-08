@@ -16,7 +16,11 @@ traunche:
   - Produce a print-friendly PDF with limited spot color.
   - Add topic-specific small illustrations throughout and recto lesson starts for duplex printing.
   - Integrate explanatory diagrams and actual example views into the lesson pages.
+  - Open, compile, and run all ten packaged projects through native jGRASP; check Windows archive portability.
+  - License original lesson prose and illustrations under CC BY 4.0; retain GPLv3 code with scoped non-endorsement terms for Bock contributions.
+  - Include all lab shells, the PDF, generated Javadoc, a root runtime JAR, and a descriptive GitHub-linked README in the ZIP.
   - Package a runnable jGRASP starter folder for each lesson, with focused student TODOs.
+  - Restore the prose from before the comparison rewrite and consolidate unpublished follow-up work into a clean history.
   non_goals:
   - Change build tools, public teaching abstractions, or directory layout.
   - Replace the XML parser or introduce a new model architecture.
@@ -43,11 +47,11 @@ traunche:
   recovery_ledger: []
   accepted_deferrals: []
   unresolved_risks:
-  - Classroom Java installation and actual jGRASP execution await human verification.
+  - Windows classroom Java/jGRASP execution and interactive STEP input await human verification.
   findings: []
   remediation_items: []
   closeout:
     state: complete
-    summary: Classroom repairs and ten feature lessons implemented. The illustrated 42-page duplex PDF includes 37 topic-specific small vector illustrations, three marked blank versos, ten two-page lessons starting recto, one captioned figure per lesson, actual example views, a dedicated cover, full-page introduction explaining API mental models, outlined capability/concept sidebars, and commented appendix sources; render and Java 18 compilation checked. Ten runnable student starter projects and an Ant-built classroom archive added; ZIP relocation, local-JAR compilation, starter/reference execution, and native jGRASP compile/run checked. Classroom acceptance remains pending.
+    summary: Restored the introduction and ten lessons verbatim from the accepted illustrated packet, removed the rejected separate comparison and broad prose rewrites, and consolidated unpublished follow-up work into clean branch history. The 42-page duplex PDF, illustrations, three blank versos, and ten two-page recto lessons are preserved. Later licensing, source notices, native jGRASP proof, Windows portability instructions, root README/JAR, generated Javadoc, and complete student ZIP remain. All 14 Ant tests, ten starter/reference compilations and runs, relocated archive checks, notice copies, documentation links, and exact packaged PDF copies passed. Single-author local verification; actual Windows classroom and interactive STEP acceptance remain pending. No push or publication.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-08T19:58:00Z'
+updated_at: '2026-10-08T22:07:54Z'
