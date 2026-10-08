@@ -11,8 +11,7 @@ import java.awt.Color;
 
 /**
  * <p>Represents a back-end 'model' of the area; the locations of all the
- * walls, beepers, and robots are stored here.  In the future, it will
- * also be responsible for notifying ArenaListeners of ArenaEvents.</p>
+ * walls, beepers, and robots are stored here.  It also notifies ArenaListeners when actions occur.</p>
  *
  * <p>As I have been refactoring the FCPS version of this code, a lot of
  * complexity has been pushed into this class.  It will eventually
@@ -32,7 +31,7 @@ public class ArenaModel {
   // better design.
   private List<Item> userItems;
 
-  private List<ArenaListener> listeners = new ArrayList<ArenaListener>();
+  private List<ArenaListener> listeners = new java.util.concurrent.CopyOnWriteArrayList<ArenaListener>();
 
 
   private int width = 10;
@@ -57,7 +56,7 @@ public class ArenaModel {
   }
 
   public void addListener(ArenaListener l) {
-    listeners.add(l);
+    listeners.add(Objects.requireNonNull(l, "listener"));
   }
 
   public void removeListener(ArenaListener l) {
@@ -85,7 +84,7 @@ public class ArenaModel {
 
   void removeRobot(Robot r) {
     synchronized (robots) {
-      robots.remove(r);
+      if (!robots.remove(r)) return;
     }
         
     for (ArenaListener l:listeners) { l.robotRemoved(r); }
@@ -101,36 +100,50 @@ public class ArenaModel {
     return beepers;
   }
     
+  /** Add or remove beepers, preserving the color of a remaining stack. */
   public void putBeepers(Location l, int num) {
-    if (num == BeeperStack.INFINITY) {
-      synchronized (beepers) {
-        beepers.put(l, new BeeperStack(l.getX(), l.getY(), num));
-      }
-      return;
-    }
+    putBeepersInternal(l, num, null);
+  }
+
+  private void putBeepersInternal(Location l, int num, Color color) {
+    BeeperStack stack;
     synchronized (beepers) {
-      int oldBeepers = 0;
-
-      BeeperStack b;
-      if ((b = beepers.get(l)) != null)
-        oldBeepers = b.getBeepers();
-
-      if (oldBeepers == BeeperStack.INFINITY)
-        return;
-
-      if (oldBeepers + num < 1)
-        beepers.remove(l);
+      BeeperStack old = beepers.get(l);
+      int count = old == null ? 0 : old.getBeepers();
+      if (num == BeeperStack.INFINITY || count == BeeperStack.INFINITY)
+        count = BeeperStack.INFINITY;
       else
-        beepers.put(l, new BeeperStack(l.getX(), l.getY(), num + oldBeepers));
+        count = Math.addExact(count, num);
+      if (count != BeeperStack.INFINITY && count < 1) {
+        beepers.remove(l);
+        return;
+      }
+      stack = new BeeperStack(l.getX(), l.getY(), count);
+      stack.setColor(color != null ? color : old != null ? old.getColor() : Color.YELLOW);
+      // Robot locations move. A map key must keep its original coordinates.
+      beepers.put(new Location(l.getX(), l.getY()), stack);
     }
+    if (num > 0 || num == BeeperStack.INFINITY)
+      for (ArenaListener listener : listeners) listener.beeperAdded(stack);
   }
 
-  // lets set a color for the dropped beeper...
-  public void putBeepers(Location l, int num, Color c) {
-    putBeepers(l, num);
-    beepers.get(l).setColor(c);
+  protected void notifyPutBeeper(Robot r) {
+    for (ArenaListener l : listeners) l.beeperDropped(r);
   }
-  
+
+  protected void notifyPickedBeeper(Robot r) {
+    for (ArenaListener l : listeners) l.beeperPickedUp(r);
+  }
+
+  void notifyWallCollision(Wall wall, Robot robot) {
+    for (ArenaListener l : listeners) l.wallCollision(wall, robot);
+  }
+
+  /** Add beepers and color the entire stack; the latest colored drop wins. */
+  public void putBeepers(Location l, int num, Color c) {
+    putBeepersInternal(l, num, Objects.requireNonNull(c, "color"));
+  }
+
   boolean checkBeepers(Location l) {
     return beepers.get(l) != null;
   }
@@ -145,41 +158,29 @@ public class ArenaModel {
 
   public void removeWall(Wall w) {
     synchronized (walls) {
-      walls.remove(w);
+      if (!walls.remove(w)) return;
     }
     for (ArenaListener l:listeners) { l.wallRemoved(w); }    
   }
 
 
   public List<Wall> getWalls() {
-    return Collections.unmodifiableList(walls);
+    synchronized (walls) {
+      return Collections.unmodifiableList(new ArrayList<Wall>(walls));
+    }
   }
 
-  // this needs some deobfuscation.
   boolean checkWall(int x, int y, int orientation) {
-    synchronized (walls) {
-      switch (orientation) {
-        case Arena.HORIZONTAL:
-          for (Wall w : walls)
-            if (w.getOrientation() == orientation)
-              if (w.getY() == y &&
-                              x >= w.getX() &&
-                              x < w.getX() + 1)
-                return true;
-          break;
-        case Arena.VERTICAL:
-        default:
-          for (Wall w : walls)
-            if (w.getOrientation() == orientation)
-              if (w.getX() == x &&
-                              y >= w.getY() &&
-                              y < w.getY() + 1)
-                return true;
+    return findWall(x, y, orientation) != null;
+  }
 
-          break;
-      }
+  Wall findWall(int x, int y, int orientation) {
+    synchronized (walls) {
+      for (Wall wall : walls)
+        if (wall.getOrientation() == orientation && wall.getX() == x && wall.getY() == y)
+          return wall;
     }
-    return false;
+    return null;
   }
 
   // accessors for dealing with generic items    
@@ -188,17 +189,21 @@ public class ArenaModel {
     synchronized (userItems) {
       userItems.add(i);
     }
+    for (ArenaListener listener : listeners) listener.userItemAdded(i);
     Arena.step();
   }
     
   public List<Item> getUserItems() {
-    return Collections.unmodifiableList(userItems);
+    synchronized (userItems) {
+      return Collections.unmodifiableList(new ArrayList<Item>(userItems));
+    }
   }
     
   public void removeUserItem(Item i) {
     synchronized (userItems) {
-      userItems.remove(i);
+      if (!userItems.remove(i)) return;
     }
+    for (ArenaListener listener : listeners) listener.userItemDropped(i);
     Arena.step();
   }
 
@@ -244,7 +249,7 @@ public class ArenaModel {
       putBeepers(new Location(x, y), Integer.parseInt(num));
   }
 
-  // ignoring length in the xml
+  // Map walls are expanded into the same unit segments used by the public API.
   public void addObject_wall(Attributes a) {
     int x = Integer.parseInt(a.get("x"));
     int y = Integer.parseInt(a.get("y"));
@@ -252,7 +257,9 @@ public class ArenaModel {
     int style = a.get("style").equalsIgnoreCase("horizontal") ?
                 Arena.HORIZONTAL : Arena.VERTICAL;
 
-    addWall(new Wall(x, y, style));
+    for (int segment = 0; segment < length; segment++)
+      addWall(new Wall(x + (style == Arena.HORIZONTAL ? segment : 0),
+                       y + (style == Arena.VERTICAL ? segment : 0), style));
   }
 
   public void addObject_robot(Attributes a) {
@@ -278,8 +285,14 @@ public class ArenaModel {
   
   
   protected void parseMap(String mapName) {
-    Element e = new XMLParser().parse(getInputStreamForMap(mapName));
-    MapParser.initiateMap(this, e);
+    try (InputStream source = getInputStreamForMap(mapName)) {
+      Element e = new XMLParser().parse(source);
+      if (e == null) throw new IllegalArgumentException("Invalid map: " + mapName);
+      MapParser.initiateMap(this, e);
+    } catch (IOException e) {
+      throw new IllegalStateException("Could not read map: " + mapName, e);
+    }
+    for (ArenaListener listener : listeners) listener.mapLoaded(mapName);
   }
 
   private InputStream getInputStreamForMap(String fileName) { 
@@ -305,7 +318,7 @@ public class ArenaModel {
       }
       catch (Exception g) {
         Arena.logger.severe("Default map file not found!  Aborting...");
-        System.exit(1);
+        throw new IllegalStateException("Default map file not found", g);
       }
     }
 

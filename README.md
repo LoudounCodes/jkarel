@@ -11,14 +11,31 @@ This version of the framework is making the code more idomatic with current Java
 
 ## Building:
 ### Prerequisites:
-* a modern version of Java, available from a bash-like shell.
-* a modern version of ant, available from a bash-like shell.
+* JDK 18 or later, available from a bash-like shell.
+* Ant 1.10.4 or later, available from a bash-like shell.
 ### Build Steps:
 * download this code either by cloneing via git+ssh or downloading an uncompressing the zip file, above.
 * from a command line at the root of the project, type 'ant'.
-** a jar file and javadoc will appear is if by magic in an 'out' directory.
-** a 'scratch' directory will also be created, with the intermediate results of compiling.
-* typing 'ant clean' will remove the scratch and out directories, returning your directory to a pristine state (except for modifications you may have made to the source).
+  * The JAR and Javadoc appear in `out`.
+  * Intermediate compiled classes appear in `build`.
+* typing 'ant clean' will remove the build and out directories, returning your directory to a pristine state (except for modifications you may have made to the source).
+## Creative projects in jGRASP
+
+The Ant build and package layout remain unchanged. Use JDK 18+ and Ant 1.10.4+.
+`ant` runs the regression tests and produces `out/jkarel-1.0.0.jar` and `out/docs`.
+`ant clean` removes `build` and `out`.
+
+Start with the [classroom setup and two extension labs](docs/labs/README.md):
+[Team trails](docs/labs/01-team-trails.md) teaches colors and programmatic walls;
+[Event scoreboard](docs/labs/02-event-scoreboard.md) teaches event listeners.
+Runnable examples live alongside the existing Java examples.
+
+This classroom pass repairs directional sensors, stationary beeper storage,
+stack colors, map wall lengths, and existing event notifications. Invalid robot
+actions now throw an exception so jGRASP can identify the failing line. Register
+observers through `Arena.addListener` and remove them through `Arena.removeListener`.
+Callbacks are synchronous; keep game control in your main loop.
+
 ## Changes made to this version:
 * idioms based on C++ (like enums based on integer values) have been replaced with modern Java semantics (like Java's Enum, introduced in Java 1.5)
 * XML Parsing was moved to use the built-in Java classes rather than the external Xerces library from Apache (makes the setup easier for the begining level class)

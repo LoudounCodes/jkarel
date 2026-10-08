@@ -53,7 +53,7 @@
     </target>
     
     <target name="build-test" depends="build-src">
-        <javac srcdir="${src.test.dir}"
+        <javac release="18" srcdir="${src.test.dir}"
                destdir="${build.dir}"
                classpathref="test.classpath"
                includeantruntime="false"/>
@@ -76,7 +76,7 @@
           <attribute name="Class-Path" value="${manifest.classpath}"/>
           <attribute name="Main-Class" value="org.loudouncodes.jkarel.demo.Hello"/>
         </manifest>
-        <fileset dir="${build.dir}"/>
+        <fileset dir="${build.dir}" excludes="**/*Tests*.class"/>
         
         <fileset dir="${src.main.dir}">
           <filename name="**/*.map"/>
@@ -99,13 +99,17 @@
         </fileset>
         
         <fileset dir=".">
-          <filename name="README"/>
+          <filename name="README.md"/>
+        </fileset>
+        <fileset dir=".">
+          <include name="docs/labs/**"/>
         </fileset>
         <fileset dir=".">
           <filename name="LICENSE.TXT"/>
         </fileset>
         <fileset dir=".">
-          <filename name="**/*.java"/>
+          <include name="src/**/*.java"/>
+          <include name="examples/**/*.java"/>
         </fileset>
         
       </jar>
@@ -113,9 +117,11 @@
 
     <target name="test" depends="build-src, build-test">
         <junit printsummary="on" haltonfailure="yes" fork="true">
+            <sysproperty key="java.awt.headless" value="true"/>
             <classpath>
               <path refid="test.classpath"/>
-              <pathelement location="${test.build.dir}"/>
+              <pathelement location="${src.main.dir}"/>
+              <pathelement location="${src.map.dir}"/>
             </classpath>
             <formatter type="brief" usefile="false" />
             <batchtest>

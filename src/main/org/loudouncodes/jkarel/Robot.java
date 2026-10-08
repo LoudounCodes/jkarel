@@ -65,7 +65,7 @@ public class Robot extends Item {
      */
   public Robot(int x, int y, Direction dir, int beepers) {
       super(x, y);
-    direction = dir;
+    direction = java.util.Objects.requireNonNull(dir, "direction");
       
     if (beepers < 0 && beepers != BeeperStack.INFINITY) {
       Arena.logger.warning("Invalid amount of beepers: "
@@ -117,6 +117,7 @@ public class Robot extends Item {
     */
   public synchronized void move() {      
     if (!frontIsClear()) {
+      notifyWallCollision(direction);
       Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
       return;
     }
@@ -133,7 +134,8 @@ public class Robot extends Item {
     */
   protected synchronized void backUp() {      
     if (!backIsClear()) {
-      Arena.die("Tried to walk " + direction + " through a wall at " + myLocation);
+      notifyWallCollision(direction.behind());
+      Arena.die("Tried to walk " + direction.behind() + " through a wall at " + myLocation);
       return;
     }
       
@@ -184,12 +186,12 @@ public class Robot extends Item {
       beepers--;
       
     Arena.getModel().putBeepers(myLocation, 1, myColor);
-      
+    Arena.getModel().notifyPutBeeper(this);
     Arena.step();
   }
   
   public void setColor(Color c) {
-    myColor = c;
+    myColor = java.util.Objects.requireNonNull(c, "color");
     initializeIcons();
     Arena.step();
   }
@@ -215,7 +217,7 @@ public class Robot extends Item {
       beepers++;
       
     Arena.getModel().putBeepers(myLocation, -1);
-      
+    Arena.getModel().notifyPickedBeeper(this);
     Arena.step();
   }
 
@@ -299,11 +301,19 @@ public class Robot extends Item {
     return direction == Direction.WEST;
   }
 
+  private void notifyWallCollision(Direction dir) {
+    Location location = getWallLocation(dir);
+    int orientation = (dir == Direction.NORTH || dir == Direction.SOUTH)
+        ? Arena.HORIZONTAL : Arena.VERTICAL;
+    Wall wall = Arena.getModel().findWall(location.getX(), location.getY(), orientation);
+    Arena.getModel().notifyWallCollision(wall, this);
+  }
+
   /**
     * used internally by the xIsClear methods.
     */
   private boolean isClear(Direction dir) {
-    Location c = getWallLocation(direction);
+    Location c = getWallLocation(dir);
       
     switch (dir) {
       case NORTH:

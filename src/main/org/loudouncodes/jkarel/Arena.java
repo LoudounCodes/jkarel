@@ -64,38 +64,37 @@ public class Arena {
 
   static {
 		model = new ArenaModel();
-		theArenaFrame = new ArenaFrame(model);
+		if (!GraphicsEnvironment.isHeadless()) {
+			theArenaFrame = new ArenaFrame(model);
+		}
   }
   
 	public static ArenaModel getModel() {
 		return model;
 	}
 	
-	/**
-		* Opens a world with a name and location you provide.
-		*
-		* If the name is within the maps folder in the jar file, it will open
-		* that file.
-		*
-		* @param mapName the name of the map to open.
-		*/
-//	public static void openWorld(String mapName) {
-	//	closeWorld();
-	//	model = new ArenaModel(mapName);
-	//	theArenaFrame = new ArenaFrame(model);
-	//}
+  /** Register an observer; callbacks run on the thread performing the action. */
+  public static void addListener(ArenaListener listener) {
+    model.addListener(listener);
+  }
+
+  /** Stop sending callbacks to this observer. */
+  public static void removeListener(ArenaListener listener) {
+    model.removeListener(listener);
+  }
 
 	/**
 		* Opens the default world, 10x10 with no walls or beepers.
 		*/
 	public static void openDefaultMap() {
-		closeWorld();
+		loadMap(DEFAULT_MAP);
 	}
 
 
   public static void loadMap(String mapName) {
     model.clearMap();
     model.parseMap(mapName);
+    step();
   }
   
   
@@ -166,20 +165,19 @@ public class Arena {
 		* Animates the Arena one frame forward.
 		*/
 	static void step() {
-		ArenaPanel.getCurrent().repaint();
-		pace.tick();
+		if (ArenaPanel.getCurrent() != null) ArenaPanel.getCurrent().repaint();
+		if (!GraphicsEnvironment.isHeadless()) pace.tick();
 	}
 	
 	/**
-		* If, for some reason, you need the program to end, call this
-		* method.	 It will be marked as dead, all animations will stop,
-		* and the reason you provided will be sent to the logger.
+		* Reports an invalid robot action with an exception so the editor
+		* can show the failing line. The failed action does not change the robot.
 		*
 		* @param reason the reason you killed the program.
 		*/
 	static void die(String reason) {
 		Arena.logger.severe(reason);
-		System.exit(0);
+		throw new IllegalStateException(reason);
 	}
 	
 	/**
@@ -191,7 +189,6 @@ public class Arena {
 	public static void addNorthWall(int x, int y) {
 		Wall aWall = new Wall(x, y, Arena.HORIZONTAL);
 		getModel().addWall(aWall);
-		ArenaPanel.getCurrent().repaint();
     Arena.step();
 	}
 	
@@ -204,7 +201,6 @@ public class Arena {
 	public static void addSouthWall(int x, int y) {
 		Wall aWall = new Wall(x, y-1, Arena.HORIZONTAL);
 		getModel().addWall(aWall);
-		ArenaPanel.getCurrent().repaint();
     Arena.step();
 	}
 	
@@ -217,7 +213,6 @@ public class Arena {
 	public static void addEastWall(int x, int y) {
 		Wall aWall = new Wall(x, y, Arena.VERTICAL);
 		getModel().addWall(aWall);
-		ArenaPanel.getCurrent().repaint();
     Arena.step();
 	}
 	
@@ -230,7 +225,6 @@ public class Arena {
 	public static void addWestWall(int x, int y) {
 		Wall aWall = new Wall(x-1, y, Arena.VERTICAL);
 		getModel().addWall(aWall);
-		ArenaPanel.getCurrent().repaint();
     Arena.step();
 	}
 
@@ -244,7 +238,6 @@ public class Arena {
 	public static void addBeepers(int x, int y, int beeperCount) {
 		Location l = new Location(x, y);
 		getModel().putBeepers(l, beeperCount);
-		ArenaPanel.getCurrent().repaint();
     Arena.step();
 	}
 	

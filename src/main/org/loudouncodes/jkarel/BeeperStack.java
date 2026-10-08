@@ -59,7 +59,7 @@ public class BeeperStack extends Item {
   }
   
   public void setColor(Color c) {
-    myColor = c;
+    myColor = java.util.Objects.requireNonNull(c, "color");
   }
   
   public Color getColor() {
@@ -82,7 +82,9 @@ public class BeeperStack extends Item {
     FontMetrics fm = g.getFontMetrics(f);
     Rectangle2D bounds = fm.getStringBounds(text, g);
 
-    g.setColor(Color.red);
+    // Use a contrasting label so team colors never hide the count.
+    int brightness = 299 * myColor.getRed() + 587 * myColor.getGreen() + 114 * myColor.getBlue();
+    g.setColor(brightness < 128000 ? Color.WHITE : Color.BLACK);
     g.drawString(text, (int)(x - bounds.getWidth() / 2),
                  (int)(y + bounds.getHeight() / 2));
   }
