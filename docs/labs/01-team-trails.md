@@ -1,5 +1,11 @@
 # Lesson 1: Team trails
 
+**New capability: Robot/Beeper Colors**
+
+> **Robot/Beeper Colors**
+>
+> A robot has a drawing color. When it drops a beeper, that color applies to the whole stack. Color shows appearance; your program must keep team identity separately.
+
 How could a player tell which team owns a trail? Build a small arena with two
 colored robots, then use the colors and walls in a project of your choice.
 

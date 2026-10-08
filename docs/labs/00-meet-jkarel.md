@@ -1,16 +1,20 @@
 # Lesson 0: Meet LoudounCodes JKarel
 
-You already know how to make Karel solve a problem. This library gives you more
-ways to build the world and your own game rules. Start by learning the vocabulary
-so you can read an unfamiliar method and predict what it does.
+**New terminology: Arenas, Locations, and Directions**
+
+> **Arena, Location, Direction**
+>
+> Arena is the shared world; Location is a grid position; Direction is a facing value. Arena methods operate on the scene. Robot methods act on one robot.
+
+You already know Karel. Learn these names to read the new API and build
+your own world and game rules.
 
 ## From a display to an arena
 
 An arena names the place where robots, walls, and beepers interact.
 `Arena.addNorthWall(4, 3)` reads as an action in that place;
-`Arena.setPace(Pacing.SLOW)` names how its activity unfolds. The API is more fluent
-to read because its names express the model. These methods do not return objects
-for a chain of calls.
+`Arena.setPace(Pacing.SLOW)` names how its activity unfolds. These names express the model and make the API more fluent to read.
+These methods do not support chained calls.
 
 Compare a familiar opening with the new version:
 
@@ -42,7 +46,7 @@ The changes to carry into your own code:
 - The normal robot verbs and sensors still work. Teach a subclass `turnRight`
   by calling `turnLeft` three times.
 - `Arena` is the front door; `ArenaModel` holds the scene's state.
-  Use `Arena.getModel()` for custom items and removable walls.
+  `Arena.getModel()` exposes custom items and removable walls.
 
 ## Predict and run
 

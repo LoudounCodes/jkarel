@@ -3,8 +3,11 @@
 [LoudounCodes Karel Extension Labs](LoudounCodes-Karel-Extension-Labs.pdf) combines
 an opening API lesson and nine feature lessons with jGRASP setup, complete example listings, teacher notes,
 and source citations. It is formatted on US Letter paper with internal navigation
-links, external source links, page numbers, and the selected LoudounCodes logo once at
-small size. Body text is black; green headings and links provide limited spot color.
+links, external source links, page numbers, and a dedicated cover with the selected
+LoudounCodes logo. Every lesson begins with a capability, concept, or terminology
+label and an explanatory sidebar. Body text is black; green headings, links, and
+thin sidebar rules provide limited spot color. The appendix examples include
+comments explaining the relevant behavior.
 There are no page headers or filled panels.
 
 Regenerate from the Markdown and Java sources without changing the Ant build:
@@ -22,11 +25,13 @@ The logo is copied unchanged from Bock's personal Dropbox:
 It is the selected master artwork, copied unchanged. The
 Dropbox original remains untouched.
 
-Print only the lesson needed: orientation is page 3; colors 4; events 5–6;
-walls 7; pacing 8; directions/retreat 9; map transitions 10; custom rendering 11;
-lettering 12; map-source design 13. The opening and setup are pages 1–2;
-complete code/maps are 14–24; teacher notes and feature coverage are 25–27.
+Print only the lesson needed: orientation is page 4; colors 5; events 6–7;
+walls 8; pacing 9; directions/retreat 10; map transitions 11; custom rendering 12;
+lettering 13; map-source design 14. The cover, guide, and setup are pages 1–3;
+complete code/maps are 15–25; teacher notes and feature coverage are 26–28.
 
-Validation: 27 pages; body text and example listings inspected after
+Validation: 28 pages; capability labels checked in extracted text, and the cover,
+sidebars, and commented example layout inspected after
 PDF rendering; jGRASP and license citations retained as clickable links. The PDF
-was opened locally with macOS `open` for Bock's review.
+was opened locally with macOS `open` for Bock's review. All ten commented
+Java examples compile with `javac --release 18` against the packaged library.

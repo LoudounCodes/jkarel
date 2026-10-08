@@ -1,5 +1,11 @@
 # Lesson 3: Build a room with a door
 
+**New capability: Programmatic Walls and Beepers**
+
+> **Programmatic construction**
+>
+> The program can place walls and beeper stacks while it runs. Loops describe repeated layout. Keep a wall object reference when the game needs to remove that specific wall.
+
 Maps need not be fixed before a game starts. Construct walls and beepers with
 loops, then let the program open a door. Use coordinates and conditions you
 already know to describe the world you want.

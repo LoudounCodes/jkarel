@@ -1,5 +1,11 @@
 # Lesson 4: Predict an action with STEP pacing
 
+**New capability: Pacing and STEP Mode**
+
+> **Pacing**
+>
+> Pacing controls the wait after an action. STEP waits for Enter in the run console. A named enum value selects timing; changing pace does not change the robot rules.
+
 Slow a program down to explain it. Pacing is a named choice that changes how long
 the program waits between actions, while preserving the rules of the robot.
 

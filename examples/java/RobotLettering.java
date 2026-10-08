@@ -5,11 +5,14 @@ import org.loudouncodes.jkarel.demo.AlphaBot;
 public class RobotLettering {
     public static void main(String[] args) {
         Arena.openDefaultMap();
+        // Leave a clear route and enough room for the lettering routine.
         Arena.setSize(24, 12);
         Arena.setPace(Pacing.LUDICRUS);
         AlphaBot sign = new AlphaBot();
         sign.setColor(Color.BLUE);
+        // AlphaBot draws ASCII letters with moves and colored beeper drops.
         sign.say("HI");
+        // Unlimited supplies use a named sentinel, not an ordinary count.
         System.out.println("Infinite inventory: " + (sign.getBeepers() == BeeperStack.INFINITY));
     }
 }

@@ -43,6 +43,6 @@ traunche:
   remediation_items: []
   closeout:
     state: complete
-    summary: Classroom repairs, ten feature lessons, and print-friendly PDF implemented; classroom acceptance remains pending.
+    summary: Classroom repairs and ten feature lessons implemented. PDF has a dedicated cover, capability/concept sidebars, and commented appendix sources; render and Java 18 compilation checked. Classroom acceptance remains pending.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-08T18:23:10Z'
+updated_at: '2026-10-08T18:36:27Z'

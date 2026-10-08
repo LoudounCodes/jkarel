@@ -1,5 +1,11 @@
 # Lesson 6: Change levels while keeping the player
 
+**New capability: Map Reloading**
+
+> **Map reloading**
+>
+> Loading replaces the map contents while keeping existing robots and listeners. Player position, facing, inventory, and your score variables survive. A level transition must decide which state to reset.
+
 Move from one map to another during a program. First decide which state belongs
 to the map and which belongs to the player.
 

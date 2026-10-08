@@ -1,5 +1,11 @@
 # Lesson 2: Let the arena tell the scoreboard
 
+**New concept: Listeners**
+
+> **Listeners**
+>
+> A listener is an object registered to receive notifications. The arena calls its methods when actions happen. The listener observes those actions without taking over the game loop.
+
 A game needs to count pickups and moves. Should every robot have to know about
 the scoreboard? Use an interface to let a separate observer react to arena events.
 

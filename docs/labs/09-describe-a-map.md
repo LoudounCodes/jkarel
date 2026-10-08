@@ -1,5 +1,11 @@
 # Lesson 9: An interface that describes a map
 
+**New concept: MapDataSource Interfaces (Design Exercise)**
+
+> **Data-source interfaces**
+>
+> An interface specifies what information an object supplies. Different implementations can describe maps. Here a student-written adapter installs that description; the library does not yet load MapDataSource objects directly.
+
 Advanced design extension. You know how to build an arena and observe its events.
 Now separate a description of a map from the code that installs it.
 

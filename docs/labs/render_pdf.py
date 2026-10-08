@@ -32,12 +32,15 @@ if (font_dir / 'Arial.ttf').exists():
     pdfmetrics.registerFontFamily('Handout', normal='Handout', bold='HandoutBold', italic='HandoutItalic', boldItalic='HandoutBold')
     FONT, BOLD, ITALIC = 'Handout', 'HandoutBold', 'HandoutItalic'
 
-body = ParagraphStyle('Body', fontName=FONT, fontSize=10, leading=13, textColor=INK, spaceAfter=6)
-h1 = ParagraphStyle('Title', parent=body, fontName=BOLD, fontSize=22, leading=27, textColor=INK, spaceAfter=16, keepWithNext=True)
-h2 = ParagraphStyle('Heading', parent=body, fontName=BOLD, fontSize=13, leading=16, textColor=GREEN, spaceBefore=8, spaceAfter=5, keepWithNext=True)
-code = ParagraphStyle('Code', fontName='Courier', fontSize=8.0, leading=8.8, spaceBefore=5, spaceAfter=13)
+body = ParagraphStyle('Body', fontName=FONT, fontSize=10, leading=12.5, textColor=INK, spaceAfter=5)
+h1 = ParagraphStyle('Title', parent=body, fontName=BOLD, fontSize=20, leading=24, textColor=INK, spaceAfter=12, keepWithNext=True)
+h2 = ParagraphStyle('Heading', parent=body, fontName=BOLD, fontSize=13, leading=16, textColor=GREEN, spaceBefore=7, spaceAfter=4, keepWithNext=True)
+code = ParagraphStyle('Code', fontName='Courier', fontSize=8.0, leading=8.8, spaceBefore=5, spaceAfter=10)
 small = ParagraphStyle('Small', parent=body, fontSize=9, leading=13)
-bullet = ParagraphStyle('Bullet', parent=body, leftIndent=17, firstLineIndent=-12, spaceAfter=6)
+capability = ParagraphStyle('Capability', parent=body, fontName=BOLD, leading=14, spaceAfter=10, keepWithNext=True)
+sidebar_title = ParagraphStyle('SidebarTitle', parent=small, fontName=BOLD, leading=11, spaceAfter=4)
+sidebar_body = ParagraphStyle('SidebarBody', parent=small, leading=11, spaceAfter=0)
+bullet = ParagraphStyle('Bullet', parent=body, leftIndent=17, firstLineIndent=-12, spaceAfter=4)
 LESSONS = [
     ('00-meet-jkarel.md', 'WelcomeArena.java', 'Names, types, and the Arena API'),
     ('01-team-trails.md', 'TeamTrails.java', 'Robot and beeper colors'),
@@ -76,10 +79,35 @@ def parse(path):
 
 def blocks(nodes, anchor=None):
     result = []
-    for node in nodes:
+    consumed = set()
+    for index, node in enumerate(nodes):
+        if index in consumed:
+            continue
         kind, value = node['t'], node.get('c')
         if kind in ('Para', 'Plain'):
-            result.append(Paragraph(inline(value), body))
+            text = inline(value)
+            result.append(Paragraph(text, capability if text.startswith('<b>New ') else body))
+        elif kind == 'BlockQuote':
+            explanation = []
+            for quote_index, part in enumerate(value):
+                if part['t'] not in ('Para', 'Plain'):
+                    raise ValueError('Sidebars must contain a title and explanatory paragraphs')
+                explanation.append(Paragraph(inline(part['c']), sidebar_title if quote_index == 0 else sidebar_body))
+            opening = []
+            next_index = index + 1
+            while next_index < len(nodes) and nodes[next_index]['t'] in ('Para', 'Plain'):
+                opening.append(nodes[next_index])
+                consumed.add(next_index)
+                next_index += 1
+            sidebar = Table([[blocks(opening), explanation]], colWidths=[344, 172], hAlign='LEFT')
+            sidebar.setStyle(TableStyle([
+                ('VALIGN',(0,0),(-1,-1),'TOP'),
+                ('LINEBEFORE',(1,0),(1,0),0.6,GREEN),
+                ('LEFTPADDING',(0,0),(0,0),0), ('RIGHTPADDING',(0,0),(0,0),16),
+                ('LEFTPADDING',(1,0),(1,0),10), ('RIGHTPADDING',(1,0),(1,0),0),
+                ('TOPPADDING',(0,0),(-1,-1),0), ('BOTTOMPADDING',(0,0),(-1,-1),8),
+            ]))
+            result.append(sidebar)
         elif kind == 'Header':
             heading = inline(value[2])
             if value[0] == 1 and anchor:
@@ -123,9 +151,16 @@ def blocks(nodes, anchor=None):
         else: raise ValueError('Unsupported block: ' + kind)
     return result
 
-story = [Image(str(HERE/'assets/loudouncodes-logo.png'), 48, 48, hAlign='LEFT'), Spacer(1, 10),
-         Paragraph('LoudounCodes Karel<br/>Creative Project Lessons', h1),
-         Paragraph('Java 18 · jGRASP · Classroom review edition · October 2026', small),
+cover_title = ParagraphStyle('CoverTitle', parent=h1, fontSize=28, leading=34, spaceAfter=18)
+story = [Spacer(1, 45),
+         Image(str(HERE/'assets/loudouncodes-logo.png'), 180, 180, hAlign='LEFT'),
+         Spacer(1, 32),
+         Paragraph('Karel<br/>Creative Project Lessons', cover_title),
+         Paragraph('LoudounCodes', h2),
+         Paragraph('Java 18 · jGRASP', body),
+         Paragraph('Classroom review edition · October 2026', small),
+         PageBreak(),
+         Paragraph('Lesson guide', h1),
          Paragraph('Start with the API orientation, then choose the features your own project needs. '
                    'Print the selected lesson pages; complete program listings and teacher notes follow separately.', body),
          Spacer(1, 8)]
@@ -160,7 +195,7 @@ story += [PageBreak(), Paragraph('Teacher notes and sources', h1)]
 story += blocks(setup[split:])
 story.append(Paragraph('Brand asset: the selected master_logo.png from the personal Dropbox '
                        'Marketing/logos collection, copied unchanged. The artwork is retained in the repository; '
-                       'the PDF uses one small placement for economical printing.', small))
+                       'the PDF places it on the cover; lesson pages use only limited spot color.', small))
 story += [PageBreak()]
 story += blocks(parse(HERE/'FEATURE-MAP.md'), 'featuremap')
 
@@ -173,7 +208,7 @@ def page(canvas, document):
     canvas.drawRightString(width-43, 24, str(document.page))
     canvas.restoreState()
 
-doc = SimpleDocTemplate(str(OUTPUT), pagesize=letter, leftMargin=48, rightMargin=48, topMargin=45, bottomMargin=53,
+doc = SimpleDocTemplate(str(OUTPUT), pagesize=letter, leftMargin=48, rightMargin=48, topMargin=40, bottomMargin=48,
     title='LoudounCodes — Karel Creative Project Labs', author='LoudounCodes', subject='API orientation and feature lessons for JKarel in jGRASP')
 doc.build(story, onFirstPage=page, onLaterPages=page)
 print(OUTPUT)

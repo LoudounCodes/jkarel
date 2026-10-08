@@ -5,6 +5,7 @@ public class RoomBuilder {
         Arena.openDefaultMap();
         Arena.setSize(8, 6);
         Arena.setPace(Pacing.FAST);
+        // A visible grid size does not build walls; these loops do.
         for (int x = 1; x <= 8; x++) {
             Arena.addSouthWall(x, 1);
             Arena.addNorthWall(x, 6);
@@ -13,14 +14,17 @@ public class RoomBuilder {
             Arena.addWestWall(1, y);
             Arena.addEastWall(8, y);
         }
+        // Leave a gap in the divider, then fill it with a removable door.
         for (int y = 2; y <= 5; y++) {
             if (y != 3) Arena.addEastWall(4, y);
         }
+        // Keep this exact object so we can remove this wall later.
         Wall door = new Wall(4, 3, Arena.VERTICAL);
         Arena.getModel().addWall(door);
         Arena.addBeepers(5, 3, 3);
         Robot player = new Robot(4, 3, Direction.EAST, 0);
         System.out.println("Door closed, front clear: " + player.frontIsClear());
+        // Opening the door changes the sensor result before the next move.
         Arena.getModel().removeWall(door);
         if (player.frontIsClear()) player.move();
         if (player.nextToABeeper()) player.pickBeeper();

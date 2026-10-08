@@ -5,6 +5,7 @@ import org.loudouncodes.jkarel.*;
 public class CustomItems {
     private static class Goal extends Item {
         Goal(int x, int y) { super(x, y); }
+        // x and y are pixel centers supplied by the arena, not grid cells.
         public void render(Graphics graphics, int x, int y) {
             graphics.setColor(Color.GREEN);
             graphics.drawOval(x - 12, y - 12, 24, 24);
@@ -12,8 +13,10 @@ public class CustomItems {
             graphics.drawLine(x, y - 8, x, y + 8);
         }
     }
+    // Override drawing while inheriting the normal robot actions and sensors.
     private static class Player extends Robot {
         Player() { super(2, 2, Direction.EAST, 0); }
+        // x and y are pixel centers supplied by the arena, not grid cells.
         public void render(Graphics graphics, int x, int y) {
             graphics.setColor(getColor());
             graphics.fillRect(x - 8, y - 8, 16, 16);
@@ -28,6 +31,7 @@ public class CustomItems {
         player.setColor(Color.BLUE);
         for (int turn = 0; turn < 2; turn++) {
             if (player.frontIsClear()) player.move();
+            // The game loop decides when the goal is reached; drawing does not.
             if (player.getLocation().equals(goal.getLocation())) {
                 Arena.getModel().removeUserItem(goal);
                 System.out.println("Reached the goal at " + player.getLocation());

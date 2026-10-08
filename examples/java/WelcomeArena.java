@@ -2,10 +2,13 @@ import org.loudouncodes.jkarel.*;
 
 public class WelcomeArena {
     public static void main(String[] args) {
+        // Arena calls prepare the shared world before we add a robot.
         Arena.openDefaultMap();
         Arena.setSize(8, 6);
         Arena.setPace(Pacing.FAST);
+        // Constructor arguments: column, row, facing, starting inventory.
         Robot explorer = new Robot(2, 2, Direction.EAST, 2);
+        // Robot calls change this robot; the dropped beeper stays behind.
         explorer.putBeeper();
         explorer.move();
         explorer.turnLeft();

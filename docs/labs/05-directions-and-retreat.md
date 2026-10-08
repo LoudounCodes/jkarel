@@ -1,5 +1,11 @@
 # Lesson 5: Directions, sensors, and a retreating scout
 
+**New capability: Backing Up; New concept: Protected Methods**
+
+> **Protected movement**
+>
+> Backing up changes position without turning. A protected method is available inside a subclass. Your Scout exposes a public retreat operation that checks the rear sensor before using backUp.
+
 A robot can face one direction while checking another. Extend Robot with a
 retreat method and use typed directions to reason about its options.
 

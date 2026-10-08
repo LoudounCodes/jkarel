@@ -11,9 +11,11 @@ public class TeamTrails {
 
         Robot red = new Robot(2, 2, Direction.EAST, 5);
         Robot blue = new Robot(2, 4, Direction.EAST, 5);
+        // Drops use the robot color; team identity is stored in these variables.
         red.setColor(Color.RED);
         blue.setColor(Color.BLUE);
 
+        // Five drops need only four moves: both trails end in column 6.
         for (int step = 0; step < 5; step++) {
             red.putBeeper();
             blue.putBeeper();

@@ -1,5 +1,11 @@
 # Lesson 8: A robot that draws letters
 
+**New capability: Robot Lettering**
+
+> **Lettering and infinite supplies**
+>
+> AlphaBot composes ordinary moves and drops into bitmap letters. Its unlimited inventory uses BeeperStack.INFINITY, a special value. The current lettering routine supports ASCII characters on a clear route.
+
 Use an existing Robot subclass to turn a short message into beeper art. Then
 inspect how a larger behavior is composed from familiar robot actions.
 

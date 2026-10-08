@@ -4,6 +4,7 @@ public class ScoutMoves {
     private static class Scout extends Robot {
         Scout() { super(3, 3, Direction.NORTH, 0); }
         public void turnRight() { turnLeft(); turnLeft(); turnLeft(); }
+        // A subclass can call protected backUp; check the rear first.
         public void retreat() { if (backIsClear()) backUp(); }
     }
     public static void main(String[] args) {
@@ -12,10 +13,12 @@ public class ScoutMoves {
         Arena.addWestWall(3, 3);
         Scout scout = new Scout();
         System.out.println("Left clear: " + scout.leftIsClear());
+        // This computes a direction value without turning the scout.
         Direction planned = scout.getDirection().right();
         System.out.println("Planned direction: " + planned);
         scout.turnRight();
         if (scout.frontIsClear()) scout.move();
+        // Move backward without changing the eastward facing.
         scout.retreat();
         System.out.println("Scout " + scout.getLocation() + " " + scout.getDirection());
     }

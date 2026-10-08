@@ -17,6 +17,7 @@ public class EventScoreboard {
         Robot blue = new Robot(2, 4, Direction.EAST, 0);
         red.setColor(Color.RED); blue.setColor(Color.BLUE);
         Scoreboard scores = new Scoreboard(red, blue);
+        // Register before actions so the scoreboard receives their callbacks.
         Arena.addListener(scores);
         try {
             // The main program controls movement; the listener only observes it.
@@ -26,6 +27,7 @@ public class EventScoreboard {
             }
             scores.printResult();
         } finally {
+            // Remove the observer even if an action throws an exception.
             Arena.removeListener(scores);
         }
     }
@@ -52,6 +54,8 @@ public class EventScoreboard {
             if (robot == red || robot == blue) moves++;
         }
 
+        // Object identity identifies the player, even if its color changes.
+        // The pickup has already changed the inventory when this is called.
         @Override
         public void beeperPickedUp(Robot robot) {
             if (robot == red) redScore++;

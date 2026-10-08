@@ -1,5 +1,11 @@
 # Lesson 7: Draw a goal and a different player
 
+**New capability: Custom Items and Rendering**
+
+> **Self-rendering items**
+>
+> An Item subclass supplies its drawing through render. The arena provides pixel coordinates; the item retains a grid location. Drawing describes appearance. The main loop supplies game behavior.
+
 Your game might need a target, a treasure marker, or a different-looking player.
 Give an object responsibility for drawing itself while keeping game decisions
 in the main loop.
