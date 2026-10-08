@@ -1,6 +1,6 @@
 # Creative-project extensions
 
-[What is this?](WHAT-IS-THIS.md) introduces the library and this curriculum.
+[About this library and curriculum](WHAT-IS-THIS.md) introduces the library and this curriculum.
 
 These original lessons are for students who have finished their Karel sequence
 and are building a game, maze, simulation, or artwork. Start with the orientation,

@@ -4,7 +4,7 @@
 an opening API lesson and nine feature lessons with jGRASP setup, complete example listings, teacher notes,
 and source citations. It is formatted on US Letter paper with internal navigation
 links, external source links, page numbers, and a dedicated cover with the selected
-LoudounCodes logo, followed by a “What is this?” introduction. Every lesson begins with a capability, concept, or terminology
+LoudounCodes logo, followed by a full-page introduction to the library and curriculum. Every lesson begins with a capability, concept, or terminology
 label and an explanatory sidebar. Body text is black; green headings, links, and
 thin sidebar rules provide limited spot color. The appendix examples include
 comments explaining the relevant behavior.
