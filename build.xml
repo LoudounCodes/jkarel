@@ -76,7 +76,8 @@
           <attribute name="Class-Path" value="${manifest.classpath}"/>
           <attribute name="Main-Class" value="org.loudouncodes.jkarel.demo.Hello"/>
         </manifest>
-        <fileset dir="${build.dir}" excludes="**/*Tests*.class"/>
+        <fileset dir="${build.dir}" includes="org/loudouncodes/**/*.class"
+                 excludes="**/*Tests*.class"/>
         
         <fileset dir="${src.main.dir}">
           <filename name="**/*.map"/>
@@ -103,6 +104,7 @@
         </fileset>
         <fileset dir=".">
           <include name="docs/labs/**"/>
+          <exclude name="**/__pycache__/**"/>
         </fileset>
         <fileset dir=".">
           <filename name="LICENSE.TXT"/>
@@ -111,6 +113,7 @@
           <include name="src/**/*.java"/>
           <include name="examples/**/*.java"/>
           <include name="examples/**/*.map"/>
+          <include name="scripts/CaptureLabViews.java"/>
         </fileset>
         
       </jar>

@@ -27,7 +27,7 @@ class period; the interface-design lesson can take longer.
 Lessons 1 and 2 are the original two project extensions; the later lessons go deeper
 into individual capabilities. [Feature coverage](FEATURE-MAP.md) connects each
 lesson to its actual API and distinguishes a working feature from a design exercise.
-The PDF uses black body text, sparse green accents, no page header or filled panels,
+Each lesson includes a captioned diagram or arena view. The PDF uses black body text, sparse green accents, no page header or filled panels,
 and the selected LoudounCodes logo on a separate cover page.
 
 ## Set up in jGRASP

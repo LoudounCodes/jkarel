@@ -3,3 +3,5 @@
 out
 scratch
 build
+
+__pycache__/

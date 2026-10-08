@@ -13,9 +13,11 @@ import textwrap
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted, Image, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted, Image, Table, TableStyle, KeepTogether
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+
+from illustrations import FIGURES
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -40,6 +42,7 @@ small = ParagraphStyle('Small', parent=body, fontSize=9, leading=13)
 capability = ParagraphStyle('Capability', parent=body, fontName=BOLD, leading=14, spaceAfter=10, keepWithNext=True)
 sidebar_title = ParagraphStyle('SidebarTitle', parent=small, fontName=BOLD, leading=11, spaceAfter=4)
 sidebar_body = ParagraphStyle('SidebarBody', parent=small, leading=11, spaceAfter=0)
+caption = ParagraphStyle('Caption', parent=small, fontSize=8.5, leading=11, spaceAfter=9)
 bullet = ParagraphStyle('Bullet', parent=body, leftIndent=17, firstLineIndent=-12, spaceAfter=4)
 LESSONS = [
     ('00-meet-jkarel.md', 'WelcomeArena.java', 'Names, types, and the Arena API'),
@@ -114,11 +117,24 @@ def blocks(nodes, anchor=None):
                 ('TOPPADDING',(0,0),(-1,-1),0), ('BOTTOMPADDING',(0,0),(-1,-1),4),
             ]))
             result.append(sidebar)
+            if anchor and anchor.startswith('lab'):
+                drawing, explanation = FIGURES[int(anchor[3:])]()
+                result.append(KeepTogether([Spacer(1, 7), drawing, Spacer(1, 4),
+                    Paragraph(explanation, caption)]))
         elif kind == 'Header':
             heading = inline(value[2])
             if value[0] == 1 and anchor:
                 heading = '<a name="' + anchor + '"/>' + heading
-            if anchor == 'lab2' and heading == 'Callback rules':
+            continuation = {
+                'lab0': 'Predict and run', 'lab1': 'Exercises', 'lab3': 'Exercises',
+                'lab5': 'Exercises', 'lab6': 'Experiments', 'lab7': 'Exercises',
+                'lab8': 'Investigate and extend', 'lab9': 'Make a second implementation',
+            }
+            if anchor in continuation and heading == continuation[anchor]:
+                result.append(PageBreak())
+                number = int(anchor[3:])
+                result.append(Paragraph('Lesson ' + str(number) + ': ' + heading, h1))
+            elif anchor == 'lab2' and heading == 'Callback rules':
                 result.append(PageBreak())
                 heading = 'Event scoreboard: callback rules'
                 result.append(Paragraph(heading, h1))
@@ -155,6 +171,11 @@ def blocks(nodes, anchor=None):
                 ('BOTTOMPADDING',(0,0),(-1,-1),6), ('TOPPADDING',(0,0),(-1,-1),6)]))
             result.append(table)
         else: raise ValueError('Unsupported block: ' + kind)
+    if anchor and anchor.startswith('lab'):
+        for i, flow in enumerate(result):
+            if isinstance(flow, Paragraph) and flow.getPlainText() == 'Show what you learned':
+                result[i:] = [KeepTogether(result[i:])]
+                break
     return result
 
 cover_title = ParagraphStyle('CoverTitle', parent=h1, fontSize=28, leading=34, spaceAfter=18)
@@ -169,6 +190,8 @@ story = [Spacer(1, 45),
 story += blocks(parse(HERE/'WHAT-IS-THIS.md'))
 story += [PageBreak(),
          Paragraph('Lesson guide', h1),
+         Paragraph('The classroom archive includes an independent starter folder for each lesson. '
+                   'Open its jGRASP project and complete the TODOs. The appendix contains complete reference programs.', body),
          Paragraph('Start with the API orientation, then choose the features your own project needs. '
                    'Print the selected lesson pages; complete program listings and teacher notes follow separately.', body),
          Spacer(1, 8)]
@@ -189,6 +212,7 @@ for number, (markdown, _, _) in enumerate(LESSONS):
 story += [PageBreak(), Paragraph('Complete example programs', h1),
           Paragraph('Copy each listing into a file with the name shown and run it separately in jGRASP. '
                     'For MapStages, also copy both map files from the listings below into that working folder. '
+                    'Student starter folders contain focused TODOs; these appendix listings are complete references. '
                     'The same sources are in examples/java and examples/maps.', body)]
 for number, (_, filename, _) in enumerate(LESSONS):
     if number: story.append(PageBreak())
@@ -204,6 +228,8 @@ story += blocks(setup[split:])
 story.append(Paragraph('Brand asset: the selected master_logo.png from the personal Dropbox '
                        'Marketing/logos collection, copied unchanged. The artwork is retained in the repository; '
                        'the PDF places it on the cover; lesson pages use only limited spot color.', small))
+story.append(Paragraph('Illustrations: original diagrams; arena views captured from the included Java examples. '
+                       'Screenshots preserve the actual appearance. Diagram timing and layouts are schematic.', small))
 story += [PageBreak()]
 story += blocks(parse(HERE/'FEATURE-MAP.md'), 'featuremap')
 

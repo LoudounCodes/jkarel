@@ -119,3 +119,33 @@ remain human acceptance checks. No publication or push is claimed.
 19:21 UTC direction check — Are we doing the right thing right now? Yes: the
 archive, relocation checks, native editor compile/run, and regression checks are
 finished. Commit the bounded starter work and hand over the classroom archive.
+
+## Illustrated packet
+
+The PDF is now 37 pages, with a captioned figure integrated into each of the ten
+lessons. Original vector diagrams cover Arena/Display, stack recoloring, callback
+order, doors and sensors, pacing, facing versus movement, retained/replaced map
+state, and the map-source adapter. Actual Swing captures show the completed team
+trails, AlphaBot lettering, and the custom player/goal before and after removal.
+The custom close-ups are captured directly from the example's actual classes.
+`scripts/CaptureLabViews.java` and `docs/labs/illustrations.py` reproduce the art.
+
+All ten figure captions and lesson page boundaries were checked in extracted PDF
+text. The figures were visually inspected in rendered pages for legibility and
+layout. Longer lessons break at exercise boundaries; assessments and teacher
+prompts stay together. Black text, white diagram backgrounds, and limited spot
+color remain. Screenshot panels are small and retain the library's appearance.
+The PDF print guide is updated to its current page ranges.
+
+`ant build-jar build-starters` passed. Both the full JAR and classroom ZIP contain
+the exact current PDF. Class inclusion in the full JAR is constrained to the actual
+library package so generated capture/verification classes are not packaged;
+Python caches are also excluded. Java target, default Ant workflow, and classroom
+starter layout are preserved. Classroom human acceptance and publication remain
+outside this local artifact check.
+
+19:36 UTC direction check — Are we doing the right thing right now? Yes: the
+illustrated PDF is open and all ten lesson figures have been inspected. A fresh
+full JAR build removed a stale Python cache entry retained by Ant's up-to-date
+check. Both distribution copies now match the PDF exactly, with caches and
+capture/verification classes excluded. Finish the local commit and hand over.
