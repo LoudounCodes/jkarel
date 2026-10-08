@@ -60,5 +60,5 @@ promise, an implementation choice, and an adapter responsibility. Identify exact
 which part is supported by the current library and which part you wrote.
 
 Teacher prompt: compare this interface, which is queried for data, with
-ArenaListener, whose methods receive notifications. Keep the initial example
-small; random-maze generation and dependency refactoring belong to a later project.
+ArenaListener, whose methods receive notifications. Keep this example small;
+leave maze generation and refactoring for later work.

@@ -7,30 +7,41 @@ names, support for newer Java versions, and additional ways to construct and
 control the world. This edition targets Java 18 and retains the Ant build and
 jGRASP workflow used in the classroom.
 
-Karel's small world gives students a useful foundation: actions have visible
-consequences, sensors support decisions, and a short program can express a complete
-solution. After students master those ideas, their questions often grow beyond the
-original assignments. Can a door open? Can two teams have different colors? Can the
-program keep score when a robot collects a beeper? This library gives those
-questions a practical place in the next stage of learning Java.
+Karel gives students a foundation in actions, decisions, and visible consequences.
+Once they master the original assignments, their questions grow: Can a door open?
+Can teams have different colors? Can a robot's pickup change the score? This library
+makes those questions part of the next stage of learning Java.
 
 ## A clearer interface and a richer world
 
-The API uses names that express the model students are working with. An `Arena`
-is the shared world; a `Location` identifies a grid position; a `Direction`
-represents a robot's facing. Calls such as `Arena.addNorthWall` and
-`Arena.setPace` read naturally as operations on that world. This more fluent
-vocabulary helps students distinguish scene construction from the actions of an
-individual robot, while typed directions and named pacing values make choices
-explicit in their code.
+The older API organized the world around a `Display`. That name suggests a
+screen: something that shows the action. An `Arena` names the place where the
+action happens. A robot belongs in an arena alongside walls, supplies, and other
+robots; the display presents that world to the viewer. The distinction helps
+students reason about the simulation separately from its presentation. Calls such
+as `Arena.addNorthWall` express an operation in the world they are constructing.
 
-The added capabilities support projects whose worlds change during play. Students
-can build walls and beeper supplies programmatically, add or remove a door,
-assign colors to robots and beeper trails, and load another map while retaining a
-player. Listeners let a scorekeeper or another observer respond to movement and
-beeper activity. Custom items and robot drawing provide a way to give a project
-its own visual vocabulary. Students still write the rules, choose the sequence of
-actions, and decide what each event means in their game.
+`Pacing` makes a similar distinction. A display's “speed” leaves the reader to
+interpret what is moving and what the number means. An arena's pace describes
+how its activity unfolds. Like a pace car governing a race, pacing regulates the
+rhythm of the action. Named values such as `Pacing.SLOW` and `Pacing.STEP` make
+that intent visible: students control when actions proceed while the rules of
+movement stay the same.
+
+These choices establish a mental model. Object-oriented programming lets us
+represent a real or imagined world through objects with recognizable roles,
+responsibilities, and relationships. A coherent vocabulary helps programmers
+reason about the system and communicate their intentions. In a small classroom
+program, that clarity makes the next line easier to write. In a project maintained
+by a dozen programmers over several years, the same clarity supports shared
+understanding as people and requirements change. Small API decisions become
+part of the structure on which larger programs depend.
+
+Students can build walls and supplies programmatically, open doors by removing
+walls, color robots and beeper trails, and change maps while retaining a player.
+Listeners let a scorekeeper respond to moves and pickups. Custom rendering gives
+items and robots their own appearance. Students write the rules and decide what
+each event means in their game.
 
 ## Java concepts with a visible purpose
 
@@ -55,10 +66,7 @@ and API. The remaining lessons introduce individual capabilities, with a brief
 concept explanation, exercises, and complete commented programs in the appendix.
 The jGRASP setup instructions and teacher notes support classroom use.
 
-Work through the sequence as a progression, or choose lessons to support an
-existing project. A maze may need changing walls; a team game may need colors and
-event scoring; a visual project may need custom rendering. The final map-interface
-lesson is an advanced design exercise that asks students to connect a declared
-contract to their own implementation. Throughout, the aim is to help students
-move from solving a supplied Karel problem to designing a program whose behavior
-they can explain, test, and extend.
+Follow the sequence or choose lessons for a particular project. The final
+map-interface lesson is an advanced design exercise connecting a declared contract
+to a student's implementation. The aim throughout is to move from solving a
+supplied Karel problem to designing a program students can explain, test, and extend.

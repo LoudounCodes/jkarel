@@ -99,13 +99,19 @@ def blocks(nodes, anchor=None):
                 opening.append(nodes[next_index])
                 consumed.add(next_index)
                 next_index += 1
-            sidebar = Table([[blocks(opening), explanation]], colWidths=[344, 172], hAlign='LEFT')
+            callout = Table([[explanation]], colWidths=[184], hAlign='LEFT')
+            callout.setStyle(TableStyle([
+                ('BOX',(0,0),(-1,-1),0.6,colors.HexColor('#aeb8ae')),
+                ('LINEBEFORE',(0,0),(0,0),1.5,GREEN),
+                ('LEFTPADDING',(0,0),(-1,-1),10), ('RIGHTPADDING',(0,0),(-1,-1),10),
+                ('TOPPADDING',(0,0),(-1,-1),6), ('BOTTOMPADDING',(0,0),(-1,-1),6),
+            ]))
+            sidebar = Table([[blocks(opening), [callout]]], colWidths=[332, 184], hAlign='LEFT')
             sidebar.setStyle(TableStyle([
                 ('VALIGN',(0,0),(-1,-1),'TOP'),
-                ('LINEBEFORE',(1,0),(1,0),0.6,GREEN),
                 ('LEFTPADDING',(0,0),(0,0),0), ('RIGHTPADDING',(0,0),(0,0),16),
-                ('LEFTPADDING',(1,0),(1,0),10), ('RIGHTPADDING',(1,0),(1,0),0),
-                ('TOPPADDING',(0,0),(-1,-1),0), ('BOTTOMPADDING',(0,0),(-1,-1),8),
+                ('LEFTPADDING',(1,0),(1,0),0), ('RIGHTPADDING',(1,0),(1,0),0),
+                ('TOPPADDING',(0,0),(-1,-1),0), ('BOTTOMPADDING',(0,0),(-1,-1),4),
             ]))
             result.append(sidebar)
         elif kind == 'Header':

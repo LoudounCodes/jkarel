@@ -6,7 +6,8 @@ and source citations. It is formatted on US Letter paper with internal navigatio
 links, external source links, page numbers, and a dedicated cover with the selected
 LoudounCodes logo, followed by a full-page introduction to the library and curriculum. Every lesson begins with a capability, concept, or terminology
 label and an explanatory sidebar. Body text is black; green headings, links, and
-thin sidebar rules provide limited spot color. The appendix examples include
+sidebar accent edges provide limited spot color. Sidebars have inset text and
+a light outline on a white background. The appendix examples include
 comments explaining the relevant behavior.
 There are no page headers or filled panels.
 
