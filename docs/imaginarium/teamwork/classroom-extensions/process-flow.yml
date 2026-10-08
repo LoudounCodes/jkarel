@@ -22,6 +22,7 @@ traunche:
   - Package a runnable jGRASP starter folder for each lesson, with focused student TODOs.
   - Restore the prose from before the comparison rewrite and consolidate unpublished follow-up work into a clean history.
   - Move the lesson plan ahead of the introduction and list the existing terminology lesson explicitly; keep all other reader content locked.
+  - Add Arena.loadMap(MapDataSource) with validation, reusable beeper descriptions, and existing level-transition events; leave the locked curriculum unchanged.
   non_goals:
   - Change build tools, public teaching abstractions, or directory layout.
   - Rewrite locked lesson, introduction, teacher, or appendix prose beyond the requested ordering and terminology labels.
@@ -50,10 +51,11 @@ traunche:
   accepted_deferrals: []
   unresolved_risks:
   - Windows classroom Java/jGRASP execution and interactive STEP input await human verification.
+  - Locked Lesson 9 and its appendix adapter comment describe the previously missing overload; factual correction awaits authorization.
   findings: []
   remediation_items: []
   closeout:
     state: complete
-    summary: Moved the lesson plan to page 3 before the unchanged introduction on page 5 and explicitly labeled the existing Lesson 0 as terminology. Reader content is locked. Markdown byte comparisons and all-page rendered-text comparisons prove that all other content is unchanged. The 42-page layout, three blank versos, ten lesson links, exact PDF copies in both Ant distributions, license copies, archive portability, and Javadoc resources passed local checks. Single-author local layout and packaging verification; actual Windows classroom and interactive STEP acceptance remain pending. No push or publication.
+    summary: Added Arena.loadMap(MapDataSource) through existing model operations with pre-clear validation, copied beeper descriptions, preserved wall identity, robot/listener continuity, and existing addition/map-loaded notifications. XML loading and locked curriculum content remain unchanged. All 17 regression tests, ten starter/reference compilations and runs, a Java 18 packaged-JAR example of the new call, updated offline Javadoc, final distribution copies, notices, archive portability, and documentation links passed local checks. Single-author local implementation and verification; locked Lesson 9 factual correction and actual Windows/interactive STEP acceptance remain pending. No push or publication.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-08T22:13:29Z'
+updated_at: '2026-10-08T23:58:40Z'

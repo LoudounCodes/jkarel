@@ -6,11 +6,32 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.loudouncodes.jkarel.xml.Attributes;
 
 public class ArenaTests {
+    private static class TestMap implements MapDataSource {
+        int width = 8, height = 6;
+        List<Wall> walls = new ArrayList<>();
+        Map<Location, BeeperStack> beepers = new HashMap<>();
+        public int getWidth() { return width; }
+        public int getHeight() { return height; }
+        public List<Wall> getWalls() { return walls; }
+        public Map<Location, BeeperStack> getBeepers() { return beepers; }
+    }
+
+    private void assertRejectedMap(MapDataSource source, Class<? extends RuntimeException> type) {
+        try {
+            Arena.loadMap(source);
+            fail("Expected rejected map data");
+        } catch (RuntimeException expected) {
+            assertTrue(expected.toString(), type.isInstance(expected));
+        }
+    }
+
     private void assertInvalidAction(Runnable action) {
         try {
             action.run();
@@ -229,5 +250,132 @@ public class ArenaTests {
         assertEquals(List.of("add", "remove"), actions);
         assertEquals(2, before.size());
         assertEquals(3, Arena.getModel().getWalls().size());
+    }
+
+    @Test
+    public void describedLevelPreservesPlayersAndReportsInstallationInOrder() {
+        Robot player = new Robot(3, 3, Direction.EAST, 2);
+        player.setColor(Color.RED);
+        Arena.addNorthWall(3, 3);
+        Arena.addBeeper(3, 3);
+        Arena.getModel().addUserItem(new Item(2, 2) {
+            public void render(Graphics g, int x, int y) {}
+        });
+        TestMap source = new TestMap();
+        Wall door = new Wall(3, 3, Arena.VERTICAL) {
+            public void render(Graphics g, int x, int y) { g.drawLine(x, y, x, y + 5); }
+        };
+        source.walls.add(door);
+        BeeperStack supplies = new BeeperStack(4, 3, 2);
+        supplies.setColor(Color.BLUE);
+        source.beepers.put(new Location(4, 3), supplies);
+        BeeperStack infinite = new BeeperStack(5, 3, BeeperStack.INFINITY);
+        infinite.setColor(Color.GREEN);
+        source.beepers.put(new Location(5, 3), infinite);
+        List<String> events = new ArrayList<>();
+        Arena.addListener(new ArenaListener() {
+            public void wallAdded(Wall wall) { events.add("wall"); }
+            public void beeperAdded(BeeperStack stack) { events.add("beeper"); }
+            public void mapLoaded(String name) {
+                assertEquals(TestMap.class.getName(), name);
+                assertEquals(new Location(8, 6), Arena.getModel().getSize());
+                assertEquals(2, Arena.getModel().getBeepers().size());
+                events.add("map");
+            }
+            public void robotMoved(Robot robot) { events.add("move"); }
+        });
+
+        Arena.loadMap(source);
+        assertEquals(List.of("wall", "beeper", "beeper", "map"), events);
+        assertEquals(List.of(player), Arena.getModel().getRobots());
+        assertEquals(new Location(3, 3), player.getLocation());
+        assertEquals(Direction.EAST, player.getDirection());
+        assertEquals(2, player.getBeepers());
+        assertEquals(Color.RED, player.getColor());
+        assertTrue(Arena.getModel().getUserItems().isEmpty());
+        assertFalse(player.nextToABeeper());
+        assertFalse(player.frontIsClear());
+        assertSame(door, Arena.getModel().getWalls().get(0));
+        assertEquals(Color.BLUE, Arena.getModel().getBeepers().get(new Location(4, 3)).getColor());
+        assertEquals(Color.GREEN, Arena.getModel().getBeepers().get(new Location(5, 3)).getColor());
+        assertEquals(BeeperStack.INFINITY,
+            Arena.getModel().getBeepers().get(new Location(5, 3)).getBeepers());
+
+        Arena.getModel().removeWall(door);
+        player.move();
+        player.pickBeeper();
+        player.putBeeper();
+        assertEquals("move", events.get(4));
+        assertEquals(2, supplies.getBeepers());
+        assertEquals(Color.BLUE, supplies.getColor());
+        source.walls.clear(); source.beepers.clear();
+        assertEquals(2, Arena.getModel().getBeepers().size());
+    }
+
+    @Test
+    public void mapDescriptionCanBeReusedAfterItsInstalledBeepersChange() {
+        TestMap source = new TestMap();
+        Location key = new Location(3, 3);
+        BeeperStack supplies = new BeeperStack(3, 3, 2);
+        source.beepers.put(key, supplies);
+        Robot player = new Robot(3, 3, Direction.NORTH, 0);
+        Arena.loadMap(source);
+        player.pickBeeper();
+        assertEquals(1, Arena.getModel().getBeepers().get(new Location(3, 3)).getBeepers());
+        assertEquals(2, supplies.getBeepers());
+        Arena.loadMap(source);
+        assertEquals(2, Arena.getModel().getBeepers().get(new Location(3, 3)).getBeepers());
+        assertNotSame(key, Arena.getModel().getBeepers().keySet().iterator().next());
+        assertNotSame(supplies, Arena.getModel().getBeepers().get(key));
+        assertEquals(1, player.getBeepers());
+
+        Arena.loadMap(new MapDataSource() {
+            public int getWidth() { return 4; }
+            public int getHeight() { return 5; }
+            public List<Wall> getWalls() { return List.of(); }
+            public Map<Location, BeeperStack> getBeepers() { return Map.of(); }
+        });
+        assertEquals(new Location(4, 5), Arena.getModel().getSize());
+        assertTrue(Arena.getModel().getWalls().isEmpty());
+        assertTrue(Arena.getModel().getBeepers().isEmpty());
+        assertTrue(Arena.getModel().getRobots().contains(player));
+    }
+
+    @Test
+    public void invalidDescriptionsLeaveTheCurrentLevelAndListenersUntouched() {
+        Arena.addEastWall(3, 3);
+        Arena.addBeeper(3, 3);
+        Robot player = new Robot(3, 3, Direction.EAST, 0);
+        List<String> events = new ArrayList<>();
+        Arena.addListener(new ArenaListener() {
+            public void mapLoaded(String name) { events.add(name); }
+            public void wallAdded(Wall wall) { events.add("wall"); }
+            public void beeperAdded(BeeperStack stack) { events.add("beeper"); }
+        });
+        TestMap zeroWidth = new TestMap(); zeroWidth.width = 0;
+        TestMap negativeHeight = new TestMap(); negativeHeight.height = -1;
+        TestMap wrongKey = new TestMap();
+        wrongKey.beepers.put(new Location(4, 3), new BeeperStack(5, 3, 1));
+        for (TestMap source : List.of(zeroWidth, negativeHeight, wrongKey))
+            assertRejectedMap(source, IllegalArgumentException.class);
+
+        assertRejectedMap(null, NullPointerException.class);
+        TestMap nullWalls = new TestMap(); nullWalls.walls = null;
+        TestMap nullBeepers = new TestMap(); nullBeepers.beepers = null;
+        TestMap nullWall = new TestMap(); nullWall.walls.add(null);
+        TestMap nullStack = new TestMap(); nullStack.beepers.put(new Location(4, 3), null);
+        for (TestMap source : List.of(nullWalls, nullBeepers, nullWall, nullStack))
+            assertRejectedMap(source, NullPointerException.class);
+
+        assertRejectedMap(new TestMap() {
+            public Map<Location, BeeperStack> getBeepers() {
+                throw new IllegalStateException("Source generation failed");
+            }
+        }, IllegalStateException.class);
+        assertEquals(new Location(10, 10), Arena.getModel().getSize());
+        assertFalse(player.frontIsClear());
+        assertTrue(player.nextToABeeper());
+        assertTrue(Arena.getModel().getRobots().contains(player));
+        assertTrue(events.isEmpty());
     }
 }

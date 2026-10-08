@@ -6,13 +6,21 @@ import java.util.*;
 /**
   * The abstract concept of a 'source' for map data.
   *
-  * When this interface was first extracted, only the xml parser for map
-  * files implemented it.  There are plans to have implementations of
-  * maze generating algorithms from the book "mazes for programmers"
-  * implement this interface, and who knows what other sources of map data
-  * there could be in the future... That's the whole point of an interface,
-  * we are leaving the door open for future developers to plug in ideas
-  * we haven't even thought of yet.
+  * Implement this interface for a fixed room, a generated maze, or another
+  * description of a level, then pass it to {@link Arena#loadMap(MapDataSource)}.
+  * There are plans to have implementations of maze generating algorithms from
+  * the book "mazes for programmers" implement this interface, and who knows
+  * what other sources of map data there could be in the future... That's the
+  * whole point of an interface, we are leaving the door open for future
+  * developers to plug in ideas we haven't even thought of yet.
+  *
+  * Width and height must be positive. Collections, their entries, and beeper
+  * colors must be non-null. Each beeper key must match its stack's location;
+  * counts must be positive or {@link BeeperStack#INFINITY}.
+  *
+  * The loader copies the collections and beeper data. Walls retain their object
+  * identity, so a source can supply a custom-drawn wall or a removable door.
+  * The existing String overload continues to load XML files.
   */
 public interface MapDataSource {
 
@@ -23,7 +31,7 @@ public interface MapDataSource {
   public int getWidth();
   
   /**
-    * @return the hright of this map in rows that robots can
+    * @return the height of this map in rows that robots can
     *        walk east and west on.
     */
   public int getHeight();

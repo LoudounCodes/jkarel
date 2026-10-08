@@ -97,6 +97,23 @@ public class Arena {
     model.parseMap(mapName);
     step();
   }
+
+  /**
+   * Build a level from a map description. Existing robots and listeners continue;
+   * walls, beepers, and custom items are replaced. The source is validated before
+   * the current map is cleared. Wall objects retain their identity and drawing;
+   * beeper stacks are copied so the description can be used again.
+   * Addition callbacks run during installation. The final mapLoaded callback
+   * uses the source's fully qualified class name, then the arena repaints and paces.
+   *
+   * @param source the dimensions, walls, and beepers for the new level
+   * @throws IllegalArgumentException for invalid dimensions, counts, or beeper keys
+   * @throws NullPointerException for a null source, collection, entry, or color
+   */
+  public static void loadMap(MapDataSource source) {
+    model.loadMap(source);
+    step();
+  }
   
   
 	/**

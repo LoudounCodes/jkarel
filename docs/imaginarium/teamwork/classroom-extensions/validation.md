@@ -352,3 +352,43 @@ Javadoc resources passed the existing packaging checks. Executable code and
 jGRASP projects are unchanged, so earlier compilation/run evidence remains
 applicable. Local layout and packaging proof; actual Windows classroom and STEP
 acceptance remain pending. No push or publication.
+
+## MapDataSource loading overload
+
+Bock authorized a quick addition of the missing map-interface connection.
+Added Arena.loadMap(MapDataSource) and a package-level model installer. The XML
+String loader is unchanged. Descriptions are read and validated before clearing
+the current level; dimensions must be positive and beeper keys must agree with
+stack locations. Null components and invalid counts are rejected. Collections
+and beeper data are copied. Wall identity is retained for removable doors and
+custom rendering.
+
+Loading replaces walls, beepers, and custom items while preserving robot state
+and registered listeners. Wall/beeper additions precede one mapLoaded callback;
+its String identifier is the source class's Class.getName() value. The facade
+then repaints and applies the selected pacing. This uses existing model operations
+and callbacks, preserving the Ant/Java 18 workflow and teaching abstractions.
+Javadoc describes the new overload and its contract; the original explanation
+of future maze-generator implementations is retained.
+
+Default Ant build passed all 17 tests, including new tests for player preservation,
+complete-state map notification and event ordering, colored/infinite supplies,
+removable custom walls, reusable descriptions, two implementations, and invalid
+or failing descriptions retaining the prior level. All ten starters and completed
+references compiled and ran against the updated classroom JAR after relocated
+ZIP extraction. A separate Java 18 program calling Arena.loadMap(new GeneratedRoom())
+compiled against the classroom JAR and ran to [4, 2] with inventory 2. Offline
+Javadoc includes the overload. Both distributions rebuilt; final PDF/JAR copies,
+notices, archive portability, and local documentation resources checked.
+
+The locked curriculum Markdown and PDF are byte-for-byte unchanged. Lesson 9
+still describes the missing overload and uses its student adapter; its factual
+statements and matching appendix comment need an explicitly authorized update.
+The XML parser still installs maps directly, as before. Single-author local build
+and packaging proof; actual Windows classroom and interactive STEP acceptance
+remain pending. No push or publication.
+
+2026-10-08T23:58:40Z: Are we doing the right thing right now? Yes: the focused
+loader works through the existing API, checks pass, and the classroom package
+is rebuilt. Stop here; XML-parser restructuring and locked lesson changes
+are outside this addition.

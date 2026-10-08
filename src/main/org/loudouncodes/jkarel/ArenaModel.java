@@ -283,6 +283,41 @@ public class ArenaModel {
     walls = Collections.synchronizedList(new ArrayList<Wall>());
     userItems = Collections.synchronizedList(new ArrayList<Item>());
   }
+
+  // Prepare and validate the description before replacing the current level.
+  void loadMap(MapDataSource source) {
+    Objects.requireNonNull(source, "source");
+    int mapWidth = source.getWidth();
+    int mapHeight = source.getHeight();
+    if (mapWidth < 1 || mapHeight < 1)
+      throw new IllegalArgumentException("Map dimensions must be positive");
+
+    List<Wall> mapWalls = new ArrayList<>(Objects.requireNonNull(source.getWalls(), "walls"));
+    for (Wall wall : mapWalls) Objects.requireNonNull(wall, "wall");
+
+    List<BeeperStack> mapBeepers = new ArrayList<>();
+    for (Map.Entry<Location, BeeperStack> entry :
+        Objects.requireNonNull(source.getBeepers(), "beepers").entrySet()) {
+      Location location = Objects.requireNonNull(entry.getKey(), "beeper location");
+      BeeperStack stack = Objects.requireNonNull(entry.getValue(), "beeper stack");
+      if (!location.equals(stack.getLocation()))
+        throw new IllegalArgumentException("Beeper key must match its stack location");
+      int count = stack.getBeepers();
+      if (count < 1 && count != BeeperStack.INFINITY)
+        throw new IllegalArgumentException("Beeper count must be positive or INFINITY");
+      BeeperStack copy = new BeeperStack(location.getX(), location.getY(), count);
+      copy.setColor(Objects.requireNonNull(stack.getColor(), "beeper color"));
+      mapBeepers.add(copy);
+    }
+
+    clearMap();
+    width = mapWidth;
+    height = mapHeight;
+    for (Wall wall : mapWalls) addWall(wall);
+    for (BeeperStack stack : mapBeepers)
+      putBeepers(stack.getLocation(), stack.getBeepers(), stack.getColor());
+    for (ArenaListener listener : listeners) listener.mapLoaded(source.getClass().getName());
+  }
   
   
   protected void parseMap(String mapName) {
