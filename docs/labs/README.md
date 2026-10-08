@@ -13,7 +13,7 @@ then choose the features your project needs. Each lesson includes a working exam
 predictions, experiments, and a demonstration of what you learned. Most fit one
 class period; the interface-design lesson can take longer.
 
-0. [Meet JKarel: names, types, and the Arena API](00-meet-jkarel.md)
+0. [Terminology: Arenas, Locations, and Directions](00-meet-jkarel.md)
 1. [Team trails: robot and beeper colors](01-team-trails.md)
 2. [Event scoreboard: interfaces and observers](02-event-scoreboard.md)
 3. [Build a room: walls, beepers, and doors](03-build-a-room.md)

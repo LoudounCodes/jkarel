@@ -327,3 +327,28 @@ history is changed and no push/publication occurs. Proof remains single-author
 local build, packaging, and visual verification, supplemented by the preserved
 native macOS jGRASP results. Actual Windows classroom execution and interactive
 STEP acceptance remain pending.
+
+## Front lesson plan with locked content
+
+Bock locked reader content except changes necessary to put the lesson plan at
+the front and include terminology as a lesson. Moved the plan from page 5 to
+page 3 and the unchanged introduction from page 3 to page 5. The plan heading
+is now Lesson plan; its Lesson 0 label is Terminology — Arenas, Locations, and
+Directions. That entry links to the existing terminology lesson on pages 7–8.
+The Markdown sequence label and production page guide match. No new lesson or
+prose rewrite was introduced.
+
+All introduction, lesson, and feature-guide Markdown bytes match the locked
+commit. Rendered text comparison covers all 42 pages, excluding footer page
+numbers: the introduction matches its moved counterpart, the plan matches after
+the authorized heading/label changes, and every other page matches exactly.
+All ten plan links resolve to the existing lessons. The three blank versos,
+lesson starts, code listings, and illustrations remain. Inspected the two moved
+pages and opened the current PDF locally.
+
+Ant build-jar/build-starters passed. Both distributions contain the exact current
+PDF. Archive portability, root README links, license copies, and all local
+Javadoc resources passed the existing packaging checks. Executable code and
+jGRASP projects are unchanged, so earlier compilation/run evidence remains
+applicable. Local layout and packaging proof; actual Windows classroom and STEP
+acceptance remain pending. No push or publication.

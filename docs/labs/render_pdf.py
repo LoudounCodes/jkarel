@@ -47,7 +47,7 @@ sidebar_body = ParagraphStyle('SidebarBody', parent=small, leading=11, spaceAfte
 caption = ParagraphStyle('Caption', parent=small, fontSize=8.5, leading=11, spaceAfter=9)
 bullet = ParagraphStyle('Bullet', parent=body, leftIndent=17, firstLineIndent=-12, spaceAfter=4)
 LESSONS = [
-    ('00-meet-jkarel.md', 'WelcomeArena.java', 'Names, types, and the Arena API'),
+    ('00-meet-jkarel.md', 'WelcomeArena.java', 'Terminology: Arenas, Locations, and Directions'),
     ('01-team-trails.md', 'TeamTrails.java', 'Robot and beeper colors'),
     ('02-event-scoreboard.md', 'EventScoreboard.java', 'Interfaces and event scoring'),
     ('03-build-a-room.md', 'RoomBuilder.java', 'Build walls, supplies, and doors'),
@@ -238,15 +238,9 @@ story = [Topic('cover'), Spacer(1, 45),
                    '<link href="https://creativecommons.org/licenses/by/4.0/" color="#27733b">CC BY 4.0</link>. '
                    'Java code and arena screenshots: GPLv3. Logo excluded from CC BY. '
                    'Attribution does not imply endorsement.', small),
-         NextPageTemplate('opening'), PageBreak(), Recto(), Topic('introduction')]
-introduction = blocks(parse(HERE/'WHAT-IS-THIS.md'))
-intro_body = ParagraphStyle('IntroductionBody', parent=body, leading=12.5, spaceAfter=5)
-for flow in introduction:
-    if isinstance(flow, Paragraph) and flow.style is body:
-        flow.style = intro_body
-story += introduction
-story += [NextPageTemplate('body'), PageBreak(), Recto(), Topic('guide'),
-         Paragraph('Lesson guide', h1),
+         NextPageTemplate('body'), PageBreak(), Recto(), Topic('guide')]
+story += [
+         Paragraph('Lesson plan', h1),
          Paragraph('The classroom archive includes an independent starter folder for each lesson. '
                    'Open its jGRASP project and complete the TODOs. The appendix contains complete reference programs.', body),
          Paragraph('Start with the API orientation, then choose the features your own project needs. '
@@ -254,7 +248,14 @@ story += [NextPageTemplate('body'), PageBreak(), Recto(), Topic('guide'),
          Spacer(1, 8)]
 for number, (_, _, title) in enumerate(LESSONS):
     story.append(Paragraph(str(number) + '. <link href="#lab' + str(number) + '" color="#27733b">' + title + '</link>', body))
-story.append(PageBreak())
+story += [NextPageTemplate('opening'), PageBreak(), Recto(), Topic('introduction')]
+introduction = blocks(parse(HERE/'WHAT-IS-THIS.md'))
+intro_body = ParagraphStyle('IntroductionBody', parent=body, leading=12.5, spaceAfter=5)
+for flow in introduction:
+    if isinstance(flow, Paragraph) and flow.style is body:
+        flow.style = intro_body
+story += introduction
+story += [NextPageTemplate('body'), PageBreak()]
 
 setup = parse(HERE/'README.md')
 split = next(i for i,b in enumerate(setup) if b['t']=='Header' and inline(b['c'][2])=='Teacher acceptance')

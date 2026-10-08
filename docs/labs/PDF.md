@@ -4,7 +4,7 @@
 an opening API lesson and nine feature lessons with jGRASP setup, complete example listings, teacher notes,
 and source citations. It is formatted on US Letter paper with internal navigation
 links, external source links, page numbers, and a dedicated cover with the selected
-LoudounCodes logo, followed by a full-page introduction to the library and curriculum. Every lesson begins with a capability, concept, or terminology
+LoudounCodes logo, followed by the lesson plan and a full-page introduction to the library and curriculum. Every lesson begins with a capability, concept, or terminology
 label and an explanatory sidebar. Body text is black; green headings, links, and
 sidebar accent edges provide limited spot color. Sidebars have inset text and
 a light outline on a white background. The appendix examples include
@@ -29,7 +29,7 @@ Dropbox original remains untouched.
 
 Print two-sided on US Letter, flipping on the **long edge**, at actual size.
 Keep the marked blank pages; disabling a printer's blank-page skipping preserves
-the intended page order. The cover is page 1, introduction 3, guide 5, and setup 6.
+the intended page order. The cover is page 1, lesson plan 3, introduction 5, and setup 6.
 Pages 2 and 4 are intentional blank backs. Every lesson starts on a right-hand
 page and occupies two pages: orientation 7–8; colors 9–10; events 11–12;
 walls 13–14; pacing 15–16; directions/retreat 17–18; map transitions 19–20;
