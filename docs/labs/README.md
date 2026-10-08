@@ -2,6 +2,11 @@
 
 [About this library and curriculum](WHAT-IS-THIS.md) introduces the library and this curriculum.
 
+Student projects are available in [the starter folders](../../examples/starters/README.md).
+Build the classroom archive with `ant build-starters`; each lab includes a local
+library JAR, a jGRASP project, and focused TODOs. The appendix listings are the
+complete reference examples.
+
 These original lessons are for students who have finished their Karel sequence
 and are building a game, maze, simulation, or artwork. Start with the orientation,
 then choose the features your project needs. Each lesson includes a working example,

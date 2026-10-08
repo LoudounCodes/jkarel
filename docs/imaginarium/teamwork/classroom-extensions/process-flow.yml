@@ -14,6 +14,7 @@ traunche:
   - Add original extension labs and runnable Java examples covering implemented features.
   - Add API orientation and an advanced MapDataSource design exercise.
   - Produce a print-friendly PDF with limited spot color.
+  - Package a runnable jGRASP starter folder for each lesson, with focused student TODOs.
   non_goals:
   - Change build tools, public teaching abstractions, or directory layout.
   - Replace the XML parser or introduce a new model architecture.
@@ -29,6 +30,8 @@ traunche:
   - Clean Ant build and regression tests.
   - Compile and run both labs against the packaged JAR.
   - Record remaining classroom acceptance checks.
+  - Compile and run each starter with its own packaged library and maps.
+  - Verify portable jGRASP project files and the student distribution archive.
   state_dimensions:
     content_quality: implemented_and_tested
     process_proof: single_author_with_automated_and_local_gui_checks
@@ -43,6 +46,6 @@ traunche:
   remediation_items: []
   closeout:
     state: complete
-    summary: Classroom repairs and ten feature lessons implemented. PDF has a dedicated cover, full-page introduction explaining API mental models, outlined capability/concept sidebars, and commented appendix sources; render and Java 18 compilation checked. Classroom acceptance remains pending.
+    summary: Classroom repairs and ten feature lessons implemented. PDF has a dedicated cover, full-page introduction explaining API mental models, outlined capability/concept sidebars, and commented appendix sources; render and Java 18 compilation checked. Ten runnable student starter projects and an Ant-built classroom archive added; ZIP relocation, local-JAR compilation, starter/reference execution, and native jGRASP compile/run checked. Classroom acceptance remains pending.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-08T18:53:11Z'
+updated_at: '2026-10-08T19:21:31Z'

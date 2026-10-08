@@ -1,0 +1,7 @@
+<world>
+  <properties><defaultSize width='8' height='6'/></properties>
+  <objects>
+    <beeper x='3' y='2' num='1'/>
+    <wall x='2' y='3' length='3' style='horizontal'/>
+  </objects>
+</world>

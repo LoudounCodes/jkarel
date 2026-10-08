@@ -116,6 +116,60 @@
       </jar>
     </target>
 
+    <!-- Optional classroom distribution; the existing build-all stays unchanged. -->
+    <target name="build-starters" depends="build-src">
+      <mkdir dir="${output.dir}/classroom"/>
+      <jar destfile="${output.dir}/classroom/jkarel.jar">
+        <fileset dir="${build.dir}" includes="org/loudouncodes/**/*.class"
+                 excludes="**/*Tests*.class"/>
+        <fileset dir="${src.main.dir}" includes="**/*.map,**/*.gif,**/*.png"/>
+        <fileset dir="${src.map.dir}" includes="**/*.map"/>
+        <fileset dir="." includes="LICENSE.TXT"/>
+      </jar>
+      <copy todir="${output.dir}/starter-labs" overwrite="true">
+        <fileset dir="examples/starters" includes="**/*.java,**/*.gpj,**/*.md,**/*.map"/>
+      </copy>
+      <copy file="docs/labs/LoudounCodes-Karel-Extension-Labs.pdf"
+            todir="${output.dir}/starter-labs"/>
+      <!-- Include corresponding source and the unchanged Ant build for GPL reuse. -->
+      <copy todir="${output.dir}/starter-labs/library-source">
+        <fileset dir="." includes="src/**,lib/*.jar,build.xml,README.md,LICENSE.TXT"/>
+      </copy>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/00-meet-jkarel"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/00-meet-jkarel"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/01-team-trails"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/01-team-trails"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/02-event-scoreboard"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/02-event-scoreboard"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/03-build-a-room"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/03-build-a-room"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/04-predict-with-pacing"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/04-predict-with-pacing"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/05-directions-and-retreat"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/05-directions-and-retreat"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/06-change-levels"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/06-change-levels"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/07-draw-your-own-items"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/07-draw-your-own-items"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/08-robot-lettering"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/08-robot-lettering"/>
+      <copy file="${output.dir}/classroom/jkarel.jar"
+            todir="${output.dir}/starter-labs/09-describe-a-map"/>
+      <copy file="LICENSE.TXT" todir="${output.dir}/starter-labs/09-describe-a-map"/>
+      <zip destfile="${output.dir}/LoudounCodes-Karel-Starter-Labs.zip"
+           basedir="${output.dir}" includes="starter-labs/**"
+           excludes="**/*.class,**/*.gpb,**/*.gpw,**/.DS_Store,starter-labs/library-source/build/**,starter-labs/library-source/out/**"/>
+    </target>
+
     <target name="test" depends="build-src, build-test">
         <junit printsummary="on" haltonfailure="yes" fork="true">
             <sysproperty key="java.awt.headless" value="true"/>

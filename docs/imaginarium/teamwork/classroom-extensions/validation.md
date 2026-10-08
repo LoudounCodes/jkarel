@@ -81,3 +81,41 @@ into library refactoring or additional tooling.
 Ant also packages the new example map files alongside their Java sources so the
 level-change examples can be extracted together. The Ant command and Java target
 remain unchanged.
+
+19:09 UTC direction check — Are we doing the right thing right now? Yes: ten
+independent starters and their student archive have compiled and run after
+relocation. Verify native jGRASP project settings, then finish the distributable;
+illustrations remain the next step rather than expanding this task into artwork.
+
+## Student starter distribution
+
+Ten original starter projects now live under `examples/starters`, each with
+compilable Java code, focused TODOs, a native jGRASP project, baseline/target
+instructions, and maps where needed. Complete reference programs remain separate.
+The original curriculum shell archive was inspected for its scaffold pattern;
+none of its shell code, demonstration JARs, worksheets, or maps was copied.
+
+`ant build-starters` builds a 65 KB runtime JAR and supplies it to every independent
+folder. The ZIP includes the curriculum PDF once, license copies, and corresponding
+library source with the Ant build. The target does not change build-all or Java 18.
+The ZIP excludes compiled student classes and temporary jGRASP project files.
+
+`python3 scripts/verify_starters.py` passed all ten folders after extracting the
+ZIP into a path containing spaces. Each starter and its complete reference compiled
+with `--release 18` against the folder's own JAR and ran headlessly with expected
+output. Local map lookup and project section lengths/relative paths were checked.
+The runtime JAR excludes tests, source listings, and reference examples.
+`ant test` also passed: 14 tests, zero failures/errors/skips.
+
+The installed jGRASP 2.0.6_18 opened the TeamTrails project, recognized the source
+as a project member, and compiled it using its local JAR without manual classpath
+setup. The same project also compiled after relocation to a path containing
+spaces and ran to the expected starter result: Red inventory 5, Blue inventory 5.
+jGRASP itself ran on the installed Java 17; compilation/runtime tools used
+the local newer JDK. Library and automated compilation still target Java 18.
+Actual classroom Java 18, all ten graphical lessons, and STEP Enter interaction
+remain human acceptance checks. No publication or push is claimed.
+
+19:21 UTC direction check — Are we doing the right thing right now? Yes: the
+archive, relocation checks, native editor compile/run, and regression checks are
+finished. Commit the bounded starter work and hand over the classroom archive.
