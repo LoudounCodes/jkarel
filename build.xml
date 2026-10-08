@@ -110,6 +110,7 @@
         <fileset dir=".">
           <include name="src/**/*.java"/>
           <include name="examples/**/*.java"/>
+          <include name="examples/**/*.map"/>
         </fileset>
         
       </jar>

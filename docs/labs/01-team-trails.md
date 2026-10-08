@@ -1,4 +1,4 @@
-# Extension 1: Team trails
+# Lesson 1: Team trails
 
 How could a player tell which team owns a trail? Build a small arena with two
 colored robots, then use the colors and walls in a project of your choice.

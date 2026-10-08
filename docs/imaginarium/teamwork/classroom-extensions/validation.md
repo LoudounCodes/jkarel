@@ -53,3 +53,31 @@ still does not construct full boundary walls automatically; the first lab teache
 explicit enclosure. Keyboard input, timers, turn/color events, and general game
 engine features are outside this pass. Neither code nor curriculum was pushed or
 published.
+
+
+## Expanded lessons and economical print layout
+
+2026-10-08: added Lesson 0 API orientation and seven further feature lessons,
+keeping the original color/event lessons. Ten lesson programs compile with
+`javac --release 18` against the JAR. All ten run headlessly with expected-output
+checks, including map-transition state, retreat facing, door sensing, infinite
+inventory, and the descriptor adapter. MapStages was also run from the folder
+containing its maps with no arguments to verify the student file-lookup setup.
+CustomItems and RobotLettering ran with real Swing windows; their final renders
+were inspected. STEP interaction still needs the actual classroom run console.
+
+The renderer uses the selected logo once, black body text, limited green accents,
+and no page header or filled panel. Lesson text is on pages 3–13 of the 27-page
+packet; complete code/maps and teacher notes can be printed separately. Feature
+coverage is checked against both current source and repository history. The
+MapDataSource exercise is explicitly a student adapter, not a claim of an
+integrated library feature. Source references and existing license notes remain.
+
+18:23 UTC direction check — Are we doing the right thing right now? Yes: the next
+usable outcome is the revised printable packet. Example behavior and visible
+rendering have been checked; finish PDF inspection and packaging without expanding
+into library refactoring or additional tooling.
+
+Ant also packages the new example map files alongside their Java sources so the
+level-change examples can be extracted together. The Ant command and Java target
+remain unchanged.

@@ -11,10 +11,9 @@ import subprocess
 import textwrap
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted, Image, Table, TableStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
@@ -22,8 +21,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 OUTPUT = HERE / 'LoudounCodes-Karel-Extension-Labs.pdf'
 GREEN = colors.HexColor('#27733b')
-GOLD = colors.HexColor('#d4a93d')
-INK = colors.HexColor('#202824')
+INK = colors.black
 FONT = 'Helvetica'
 BOLD = 'Helvetica-Bold'
 ITALIC = 'Helvetica-Oblique'
@@ -35,12 +33,28 @@ if (font_dir / 'Arial.ttf').exists():
     FONT, BOLD, ITALIC = 'Handout', 'HandoutBold', 'HandoutItalic'
 
 body = ParagraphStyle('Body', fontName=FONT, fontSize=10, leading=13, textColor=INK, spaceAfter=6)
-h1 = ParagraphStyle('Title', parent=body, fontName=BOLD, fontSize=22, leading=27, textColor=GREEN, spaceAfter=16, keepWithNext=True)
+h1 = ParagraphStyle('Title', parent=body, fontName=BOLD, fontSize=22, leading=27, textColor=INK, spaceAfter=16, keepWithNext=True)
 h2 = ParagraphStyle('Heading', parent=body, fontName=BOLD, fontSize=13, leading=16, textColor=GREEN, spaceBefore=8, spaceAfter=5, keepWithNext=True)
-code = ParagraphStyle('Code', fontName='Courier', fontSize=8.0, leading=8.8, backColor=colors.HexColor('#f0f4f0'), borderPadding=9, spaceBefore=5, spaceAfter=13)
+code = ParagraphStyle('Code', fontName='Courier', fontSize=8.0, leading=8.8, spaceBefore=5, spaceAfter=13)
 small = ParagraphStyle('Small', parent=body, fontSize=9, leading=13)
 bullet = ParagraphStyle('Bullet', parent=body, leftIndent=17, firstLineIndent=-12, spaceAfter=6)
-links = {'01-team-trails.md': '#lab1', '02-event-scoreboard.md': '#lab2', 'README.md': '#setup', '../../examples/java/TeamTrails.java': '#team-source', '../../examples/java/EventScoreboard.java': '#event-source', '../../LICENSE.TXT': 'https://github.com/LoudounCodes/jkarel/blob/master/LICENSE.TXT'}
+LESSONS = [
+    ('00-meet-jkarel.md', 'WelcomeArena.java', 'Names, types, and the Arena API'),
+    ('01-team-trails.md', 'TeamTrails.java', 'Robot and beeper colors'),
+    ('02-event-scoreboard.md', 'EventScoreboard.java', 'Interfaces and event scoring'),
+    ('03-build-a-room.md', 'RoomBuilder.java', 'Build walls, supplies, and doors'),
+    ('04-predict-with-pacing.md', 'PaceProbe.java', 'Pacing and STEP mode'),
+    ('05-directions-and-retreat.md', 'ScoutMoves.java', 'Directions and protected behavior'),
+    ('06-change-levels.md', 'MapStages.java', 'Load maps and change levels'),
+    ('07-draw-your-own-items.md', 'CustomItems.java', 'Custom items and robot rendering'),
+    ('08-robot-lettering.md', 'RobotLettering.java', 'AlphaBot lettering and infinite supplies'),
+    ('09-describe-a-map.md', 'DescribeAMap.java', 'MapDataSource design extension'),
+]
+links = {'README.md': '#setup', 'FEATURE-MAP.md': '#featuremap',
+         '../../LICENSE.TXT': 'https://github.com/LoudounCodes/jkarel/blob/master/LICENSE.TXT'}
+for number, (markdown, source, _) in enumerate(LESSONS):
+    links[markdown] = '#lab' + str(number)
+    links['../../examples/java/' + source] = '#source' + str(number)
 
 def inline(nodes):
     result = []
@@ -87,60 +101,79 @@ def blocks(nodes, anchor=None):
             result.append(Preformatted('\n'.join(lines), code))
         elif kind in ('BulletList', 'OrderedList'):
             items = value if kind == 'BulletList' else value[1]
-            for i, item in enumerate(items, 1):
+            for i, item in enumerate(items, 1 if kind == 'BulletList' else value[0][0]):
                 prefix = '•' if kind == 'BulletList' else str(i) + '.'
                 text = ' '.join(inline(part['c']) for part in item if part['t'] in ('Para', 'Plain'))
                 result.append(Paragraph(prefix + '  ' + text, bullet))
+        elif kind == 'Table':
+            rows = list(value[3][1])
+            for table_body in value[4]:
+                rows += table_body[2] + table_body[3]
+            data = []
+            for row in rows:
+                cells = []
+                for cell in row[1]:
+                    text = ' '.join(inline(part['c']) for part in cell[4] if part['t'] in ('Para', 'Plain'))
+                    cells.append(Paragraph(text, small))
+                data.append(cells)
+            table = Table(data, colWidths=[516 / len(data[0])] * len(data[0]), repeatRows=1, hAlign='LEFT')
+            table.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'), ('LINEBELOW',(0,0),(-1,0),0.5,colors.grey),
+                ('BOTTOMPADDING',(0,0),(-1,-1),6), ('TOPPADDING',(0,0),(-1,-1),6)]))
+            result.append(table)
         else: raise ValueError('Unsupported block: ' + kind)
     return result
 
-story = []
-center = ParagraphStyle('Cover', parent=body, alignment=TA_CENTER)
-cover_title = ParagraphStyle('CoverTitle', parent=center, fontName=BOLD, fontSize=34, leading=40, textColor=GREEN, spaceAfter=18)
-cover_subtitle = ParagraphStyle('CoverSubtitle', parent=center, fontSize=15, leading=22, spaceAfter=16)
-story += [Spacer(1, 30), Image(str(HERE/'assets/loudouncodes-logo.png'), 120, 120), Spacer(1, 28),
-          Paragraph('Karel<br/>Creative Project Labs', cover_title),
-          Paragraph('Colors, walls, and events<br/>with LoudounCodes JKarel', cover_subtitle),
-          Spacer(1, 14), Paragraph('LAB 01  ·  TEAM TRAILS<br/>LAB 02  ·  EVENT SCOREBOARD', center),
-          Spacer(1, 28), Paragraph('For students ready to make their own maze,<br/>game, simulation, or artwork.', center),
-          Spacer(1, 35), Paragraph('Java 18  ·  jGRASP  ·  JKarel 1.0.0', center),
-          Paragraph('Classroom review edition · October 2026', center), PageBreak()]
+story = [Image(str(HERE/'assets/loudouncodes-logo.png'), 48, 48, hAlign='LEFT'), Spacer(1, 10),
+         Paragraph('LoudounCodes Karel<br/>Creative Project Lessons', h1),
+         Paragraph('Java 18 · jGRASP · Classroom review edition · October 2026', small),
+         Paragraph('Start with the API orientation, then choose the features your own project needs. '
+                   'Print the selected lesson pages; complete program listings and teacher notes follow separately.', body),
+         Spacer(1, 8)]
+for number, (_, _, title) in enumerate(LESSONS):
+    story.append(Paragraph(str(number) + '. <link href="#lab' + str(number) + '" color="#27733b">' + title + '</link>', body))
+story += [Spacer(1, 12), Paragraph('Predict. Run. Explain. Make it yours.', h2), PageBreak()]
 
 setup = parse(HERE/'README.md')
 split = next(i for i,b in enumerate(setup) if b['t']=='Header' and inline(b['c'][2])=='Teacher acceptance')
-setup[0]['c'][2] = [{'t':'Str','c':'Start here: jGRASP setup'}]
-story += blocks(setup[:split], 'setup')
-story += [PageBreak()]
-story += blocks(parse(HERE/'01-team-trails.md'), 'lab1')
-story += [PageBreak()]
-story += blocks(parse(HERE/'02-event-scoreboard.md'), 'lab2')
-story += [PageBreak(), Paragraph('Complete example programs', h1), Paragraph('Copy these programs into files with the names shown. Both examples are also in the repository’s examples/java folder. Compile and run each separately in jGRASP.', body)]
-for index, (filename, anchor) in enumerate([('TeamTrails.java','team-source'), ('EventScoreboard.java','event-source')]):
-    if index: story.append(PageBreak())
-    story.append(Paragraph('<a name="'+anchor+'"/>'+filename, h2))
-    source = (ROOT/'examples/java'/filename).read_text()
-    story.append(Preformatted(source.rstrip(), code))
+setup_start = next(i for i,b in enumerate(setup) if b['t']=='Header' and inline(b['c'][2])=='Set up in jGRASP')
+setup[setup_start]['c'][0] = 1
+setup[setup_start]['c'][2] = [{'t':'Str','c':'Set up in jGRASP'}]
+story += blocks(setup[setup_start:split], 'setup')
+for number, (markdown, _, _) in enumerate(LESSONS):
+    story += [PageBreak()]
+    story += blocks(parse(HERE/markdown), 'lab' + str(number))
+
+story += [PageBreak(), Paragraph('Complete example programs', h1),
+          Paragraph('Copy each listing into a file with the name shown and run it separately in jGRASP. '
+                    'For MapStages, also copy both map files from the listings below into that working folder. '
+                    'The same sources are in examples/java and examples/maps.', body)]
+for number, (_, filename, _) in enumerate(LESSONS):
+    if number: story.append(PageBreak())
+    story.append(Paragraph('<a name="source'+str(number)+'"/>'+filename, h2))
+    story.append(Preformatted((ROOT/'examples/java'/filename).read_text().rstrip(), code))
+story.append(PageBreak())
+story.append(Paragraph('Map files for the level-changing lesson', h1))
+for filename in ['stage-one.map', 'stage-two.map']:
+    story.append(Paragraph(filename, h2))
+    story.append(Preformatted((ROOT/'examples/maps'/filename).read_text().rstrip(), code))
 story += [PageBreak(), Paragraph('Teacher notes and sources', h1)]
 story += blocks(setup[split:])
-story.append(Paragraph('Brand asset: the existing LoudounCodes logo supplied from the personal Dropbox Marketing/logos collection. PDF layout and examples are created for this handout.', small))
+story.append(Paragraph('Brand asset: the selected master_logo.png from the personal Dropbox '
+                       'Marketing/logos collection, copied unchanged. The artwork is retained in the repository; '
+                       'the PDF uses one small placement for economical printing.', small))
+story += [PageBreak()]
+story += blocks(parse(HERE/'FEATURE-MAP.md'), 'featuremap')
 
 def page(canvas, document):
     width, height = letter
     canvas.saveState()
-    canvas.setFillColor(INK); canvas.rect(0, height-64, width, 64, fill=1, stroke=0)
-    canvas.drawImage(str(HERE/'assets/loudouncodes-logo.png'), 43, height-55, width=46, height=46, mask='auto')
-    canvas.setFillColor(colors.white); canvas.setFont(BOLD, 16)
-    canvas.drawString(100, height-38, 'LoudounCodes.org')
-    canvas.setFillColor(GOLD); canvas.rect(0, height-66, width, 2, fill=1, stroke=0)
-    canvas.setFont(FONT, 8); canvas.setFillColor(colors.white)
-    canvas.drawRightString(width-43, height-35, 'KAREL  /  CREATIVE PROJECT LABS')
     canvas.setStrokeColor(colors.HexColor('#d5ddd5')); canvas.line(43, 37, width-43, 37)
-    canvas.setFillColor(GREEN); canvas.setFont(FONT, 8)
+    canvas.setFillGray(0.35); canvas.setFont(FONT, 8)
     canvas.drawString(43, 24, 'LoudounCodes.org  •  Classroom review edition')
     canvas.drawRightString(width-43, 24, str(document.page))
     canvas.restoreState()
 
-doc = SimpleDocTemplate(str(OUTPUT), pagesize=letter, leftMargin=48, rightMargin=48, topMargin=83, bottomMargin=53,
-    title='LoudounCodes — Karel Creative Project Labs', author='LoudounCodes', subject='Team trails and event scoreboard extension labs for JKarel in jGRASP')
+doc = SimpleDocTemplate(str(OUTPUT), pagesize=letter, leftMargin=48, rightMargin=48, topMargin=45, bottomMargin=53,
+    title='LoudounCodes — Karel Creative Project Labs', author='LoudounCodes', subject='API orientation and feature lessons for JKarel in jGRASP')
 doc.build(story, onFirstPage=page, onLaterPages=page)
 print(OUTPUT)

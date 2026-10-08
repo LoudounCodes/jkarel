@@ -25,9 +25,11 @@ The Ant build and package layout remain unchanged. Use JDK 18+ and Ant 1.10.4+.
 `ant` runs the regression tests and produces `out/jkarel-1.0.0.jar` and `out/docs`.
 `ant clean` removes `build` and `out`.
 
-Start with the [classroom setup and two extension labs](docs/labs/README.md):
+Start with the [classroom setup and extension lesson sequence](docs/labs/README.md):
 [Team trails](docs/labs/01-team-trails.md) teaches colors and programmatic walls;
 [Event scoreboard](docs/labs/02-event-scoreboard.md) teaches event listeners.
+The sequence starts with API orientation and also covers walls, pacing, directions,
+map transitions, custom rendering, lettering, and the MapDataSource design seam.
 Runnable examples live alongside the existing Java examples.
 
 This classroom pass repairs directional sensors, stationary beeper storage,

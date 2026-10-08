@@ -8,10 +8,12 @@ project:
 traunche:
   id: classroom-extensions
   objective: Preserve the Ant and jGRASP workflow while repairing creative-project
-    features and adding two extension labs.
+    features and teaching the implemented extensions through a printable lesson sequence.
   scope:
   - Repair wall sensing, beeper storage and colors, and existing event callbacks.
-  - Add two original extension labs with runnable Java examples.
+  - Add original extension labs and runnable Java examples covering implemented features.
+  - Add API orientation and an advanced MapDataSource design exercise.
+  - Produce a print-friendly PDF with limited spot color.
   non_goals:
   - Change build tools, public teaching abstractions, or directory layout.
   - Replace the XML parser or introduce a new model architecture.
@@ -41,6 +43,6 @@ traunche:
   remediation_items: []
   closeout:
     state: complete
-    summary: Classroom repairs and two original labs implemented; actual classroom jGRASP acceptance remains pending.
+    summary: Classroom repairs, ten feature lessons, and print-friendly PDF implemented; classroom acceptance remains pending.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-08T17:31:18Z'
+updated_at: '2026-10-08T18:23:10Z'

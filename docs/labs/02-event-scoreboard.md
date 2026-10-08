@@ -1,4 +1,4 @@
-# Extension 2: Let the arena tell the scoreboard
+# Lesson 2: Let the arena tell the scoreboard
 
 A game needs to count pickups and moves. Should every robot have to know about
 the scoreboard? Use an interface to let a separate observer react to arena events.

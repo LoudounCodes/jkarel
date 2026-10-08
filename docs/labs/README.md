@@ -1,12 +1,27 @@
 # Creative-project extensions
 
-These two original labs are for students who have finished their Karel sequence
-and are building a game, maze, simulation, or artwork. Start with a working small
-program, predict its behavior, then choose a change that fits your own project.
-Allow one class period per lab, with extra time for the project extensions.
+These original lessons are for students who have finished their Karel sequence
+and are building a game, maze, simulation, or artwork. Start with the orientation,
+then choose the features your project needs. Each lesson includes a working example,
+predictions, experiments, and a demonstration of what you learned. Most fit one
+class period; the interface-design lesson can take longer.
 
-1. [Team trails: colors and walls](01-team-trails.md)
+0. [Meet JKarel: names, types, and the Arena API](00-meet-jkarel.md)
+1. [Team trails: robot and beeper colors](01-team-trails.md)
 2. [Event scoreboard: interfaces and observers](02-event-scoreboard.md)
+3. [Build a room: walls, beepers, and doors](03-build-a-room.md)
+4. [Predict with pacing: enums and STEP](04-predict-with-pacing.md)
+5. [Directions and retreat: sensors and protected behavior](05-directions-and-retreat.md)
+6. [Change levels: map loading and persistent players](06-change-levels.md)
+7. [Draw your own items: abstract classes and rendering](07-draw-your-own-items.md)
+8. [Robot lettering: AlphaBot and infinite supplies](08-robot-lettering.md)
+9. [Describe a map: the MapDataSource design seam](09-describe-a-map.md)
+
+Lessons 1 and 2 are the original two project extensions; the later lessons go deeper
+into individual capabilities. [Feature coverage](FEATURE-MAP.md) connects each
+lesson to its actual API and distinguishes a working feature from a design exercise.
+The PDF uses black body text, sparse green accents, no page header or filled panels,
+and one small copy of the selected LoudounCodes logo on the opening page.
 
 ## Set up in jGRASP
 
@@ -22,8 +37,8 @@ FCPS library available for assignments that still import `edu.fcps.karel2`;
 these labs import `org.loudouncodes.jkarel`.
 
 Copy the example `.java` file into your own working folder, open it in jGRASP,
-compile, and run. The file name must match its public class name. No map files or
-extra dependency JARs are needed for these two examples.
+compile, and run. The file name must match its public class name. Extra dependency JARs are not needed. The level-changing lesson needs its two
+map files copied beside the Java example; the other lessons build their own scenes.
 
 - `package org.loudouncodes.jkarel does not exist`: check the CLASSPATH entry.
 - `UnsupportedClassVersionError`: check the Java used to run in jGRASP; it needs 18+.
@@ -45,9 +60,10 @@ Close each arena window before running the next example.
 
 ## Teacher acceptance
 
-Before giving the JAR to students, run both examples in the actual classroom
+Before giving the JAR to students, run the examples in the actual classroom
 jGRASP installation. Check red and blue robots/trails in the first lab; check
-pickup scores and the final eight-move count in the second. Java installation and
+pickup scores and the final eight-move count in the second. Check STEP interactively in the run
+console and check the map files from the student working folder. Java installation and
 visual display are classroom checks, separate from the automated Ant tests.
 
 ## Sources and reuse
