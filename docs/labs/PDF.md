@@ -27,20 +27,30 @@ The logo is copied unchanged from Bock's personal Dropbox:
 It is the selected master artwork, copied unchanged. The
 Dropbox original remains untouched.
 
-Print only the lesson needed: orientation is pages 5–6; colors 7–8; events 9–10;
-walls 11–12; pacing 13; directions/retreat 14–15; map transitions 16–17; custom
-rendering 18–19; lettering 20–21; map-source design 22–23. The cover, introduction,
-guide, and setup are pages 1–4; complete code/maps are 24–34; teacher notes and
-feature coverage are 35–37.
+Print two-sided on US Letter, flipping on the **long edge**, at actual size.
+Keep the marked blank pages; disabling a printer's blank-page skipping preserves
+the intended page order. The cover is page 1, introduction 3, guide 5, and setup 6.
+Pages 2 and 4 are intentional blank backs. Every lesson starts on a right-hand
+page and occupies two pages: orientation 7–8; colors 9–10; events 11–12;
+walls 13–14; pacing 15–16; directions/retreat 17–18; map transitions 19–20;
+custom rendering 21–22; lettering 23–24; map-source design 25–26.
+Complete code/maps are 27–38; teacher notes are 39; page 40 is intentionally
+blank; feature coverage is 41–42. These ranges also support printing a single lab.
 
-Validation: 37 pages; capability labels checked in extracted text, and the cover,
-sidebars, lesson figures, and commented example layout inspected after
-PDF rendering; jGRASP and license citations retained as clickable links. The PDF
-was opened locally with macOS `open` for Bock's review. All ten commented
-Java examples compile with `javac --release 18` against the packaged library.
+Validation: 42 pages, including three intentional blanks. All ten lesson starts
+are odd-numbered; each lesson is exactly two pages. Original small robot line
+illustrations appear on every instructional and reference page after the
+introduction, with subjects drawn from the adjacent lesson or code. The cover
+uses the logo. Wider line spacing and a reserved white illustration area reduce
+visual density without filled panels. Representative introduction, lesson,
+continuation, code, and blank pages were inspected after rendering. Internal
+navigation and external citations are retained. Both Ant distributions contain
+the current PDF. Classroom acceptance remains pending.
 
 ## Illustration sources
 
+`page_art.py` draws the small subject-specific robot vignettes directly into the
+PDF; `render_pdf.py` tracks page subjects and inserts blank versos automatically.
 `illustrations.py` draws the diagrams directly into the PDF as vector graphics.
 The timing and layout diagrams are schematic explanations of the current API.
 The screenshot assets are captured from the actual Swing arena. TeamTrails and

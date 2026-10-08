@@ -149,3 +149,25 @@ illustrated PDF is open and all ten lesson figures have been inspected. A fresh
 full JAR build removed a stale Python cache entry retained by Ant's up-to-date
 check. Both distribution copies now match the PDF exactly, with caches and
 capture/verification classes excluded. Finish the local commit and hand over.
+
+## Duplex layout and small illustrations
+
+19:55 UTC direction check — Are we doing the right thing right now? Yes: the next
+usable outcome is the revised printable packet. Topic-specific original vector
+robot vignettes and additional white space now run throughout the instructional
+and reference pages. Each of the ten lessons occupies two pages beginning
+on an odd page. The 42-page packet includes marked blank backs at 2, 4, and 40.
+The full-page introduction is preserved; code line spacing is increased, and the
+scoreboard listing splits between the main program and listener implementation.
+Representative rendered introduction, blank, lesson, continuation, and code pages
+were inspected. Page-topic output checks the full pagination and illustration
+coverage. Finish distribution checks and open the PDF for Bock.
+
+PDF checks passed: 42 pages; exact blank-page text on pages 2, 4, and 40;
+vector drawing coverage on all 37 instructional/reference pages; every lesson
+start odd-numbered; all ten lessons two pages; navigation links retained.
+`ant build-jar build-starters` passed, and byte comparisons confirm both the
+full JAR and classroom ZIP contain the current PDF. Only document/rendering
+sources changed; Java code, Java 18 target, and Ant workflow are unchanged.
+Proof remains single-author automated checks and local visual inspection;
+classroom human acceptance is pending. No push or publication occurred.

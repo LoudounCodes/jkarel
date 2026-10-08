@@ -13,11 +13,12 @@ import textwrap
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Preformatted, Image, Table, TableStyle, KeepTogether
+from reportlab.platypus import BaseDocTemplate, PageTemplate, Frame, NextPageTemplate, Flowable, ActionFlowable, Paragraph, Spacer, PageBreak, Preformatted, Image, Table, TableStyle, KeepTogether
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 from illustrations import FIGURES
+from page_art import draw_vignette
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -34,10 +35,10 @@ if (font_dir / 'Arial.ttf').exists():
     pdfmetrics.registerFontFamily('Handout', normal='Handout', bold='HandoutBold', italic='HandoutItalic', boldItalic='HandoutBold')
     FONT, BOLD, ITALIC = 'Handout', 'HandoutBold', 'HandoutItalic'
 
-body = ParagraphStyle('Body', fontName=FONT, fontSize=10, leading=12.5, textColor=INK, spaceAfter=5)
+body = ParagraphStyle('Body', fontName=FONT, fontSize=10, leading=13.5, textColor=INK, spaceAfter=7)
 h1 = ParagraphStyle('Title', parent=body, fontName=BOLD, fontSize=20, leading=24, textColor=INK, spaceAfter=12, keepWithNext=True)
 h2 = ParagraphStyle('Heading', parent=body, fontName=BOLD, fontSize=13, leading=16, textColor=GREEN, spaceBefore=7, spaceAfter=4, keepWithNext=True)
-code = ParagraphStyle('Code', fontName='Courier', fontSize=8.0, leading=8.8, spaceBefore=5, spaceAfter=10)
+code = ParagraphStyle('Code', fontName='Courier', fontSize=8.0, leading=9.5, spaceBefore=5, spaceAfter=10)
 small = ParagraphStyle('Small', parent=body, fontSize=9, leading=13)
 capability = ParagraphStyle('Capability', parent=body, fontName=BOLD, leading=14, spaceAfter=10, keepWithNext=True)
 sidebar_title = ParagraphStyle('SidebarTitle', parent=small, fontName=BOLD, leading=11, spaceAfter=4)
@@ -126,18 +127,17 @@ def blocks(nodes, anchor=None):
             if value[0] == 1 and anchor:
                 heading = '<a name="' + anchor + '"/>' + heading
             continuation = {
-                'lab0': 'Predict and run', 'lab1': 'Exercises', 'lab3': 'Exercises',
-                'lab5': 'Exercises', 'lab6': 'Experiments', 'lab7': 'Exercises',
-                'lab8': 'Investigate and extend', 'lab9': 'Make a second implementation',
+                'lab1': 'Exercises', 'lab3': 'Exercises',
+                'lab5': 'Exercises', 'lab6': 'Experiments',
+                'lab8': 'Investigate and extend',
             }
             if anchor in continuation and heading == continuation[anchor]:
                 result.append(PageBreak())
                 number = int(anchor[3:])
                 result.append(Paragraph('Lesson ' + str(number) + ': ' + heading, h1))
             elif anchor == 'lab2' and heading == 'Callback rules':
-                result.append(PageBreak())
                 heading = 'Event scoreboard: callback rules'
-                result.append(Paragraph(heading, h1))
+                result.append(Paragraph(heading, h2))
             else:
                 result.append(Paragraph(heading, h1 if value[0] == 1 else h2))
         elif kind == 'CodeBlock':
@@ -178,17 +178,62 @@ def blocks(nodes, anchor=None):
                 break
     return result
 
+
+class Topic(Flowable):
+    """Carry subject information through automatic page and code-listing breaks."""
+    def __init__(self, name):
+        super().__init__()
+        self.name = name
+        self.keepWithNext = True
+    def draw(self):
+        pass
+
+class Recto(ActionFlowable):
+    """After a section break, leave an even page blank before the next section."""
+    def apply(self, doc):
+        if doc.page % 2 == 0:
+            doc.blank_pages.add(doc.page)
+            doc.handle_pageBreak()
+
+class Packet(BaseDocTemplate):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.topic = 'cover'
+        self.blank_pages = set()
+        self.page_topics = []
+    def afterFlowable(self, flowable):
+        if isinstance(flowable, Topic):
+            self.topic = flowable.name
+    def afterPage(self):
+        if self.page in self.blank_pages:
+            self.canv.saveState()
+            self.canv.setFillGray(.5)
+            self.canv.setFont(FONT, 9)
+            self.canv.drawCentredString(306, 396, 'This page intentionally left blank.')
+            self.canv.restoreState()
+            self.page_topics.append((self.page, 'blank'))
+        else:
+            if self.topic not in ('cover', 'introduction'):
+                draw_vignette(self.canv, self.topic, self.page)
+            page(self.canv, self)
+            self.page_topics.append((self.page, self.topic))
+
 cover_title = ParagraphStyle('CoverTitle', parent=h1, fontSize=28, leading=34, spaceAfter=18)
-story = [Spacer(1, 45),
+story = [Topic('cover'), Spacer(1, 45),
          Image(str(HERE/'assets/loudouncodes-logo.png'), 180, 180, hAlign='LEFT'),
          Spacer(1, 32),
          Paragraph('Karel<br/>Creative Project Lessons', cover_title),
          Paragraph('LoudounCodes', h2),
          Paragraph('Java 18 · jGRASP', body),
          Paragraph('Classroom review edition · October 2026', small),
-         PageBreak()]
-story += blocks(parse(HERE/'WHAT-IS-THIS.md'))
-story += [PageBreak(),
+         NextPageTemplate('opening'), PageBreak(), Recto(), Topic('introduction')]
+introduction = blocks(parse(HERE/'WHAT-IS-THIS.md'))
+intro_body = ParagraphStyle('IntroductionBody', parent=body, leading=12.5, spaceAfter=5)
+for flow in introduction:
+    if isinstance(flow, Paragraph) and flow.style is body:
+        flow.style = intro_body
+story += introduction
+story += [NextPageTemplate('body'), PageBreak(), Recto(), Topic('guide'),
          Paragraph('Lesson guide', h1),
          Paragraph('The classroom archive includes an independent starter folder for each lesson. '
                    'Open its jGRASP project and complete the TODOs. The appendix contains complete reference programs.', body),
@@ -204,33 +249,45 @@ split = next(i for i,b in enumerate(setup) if b['t']=='Header' and inline(b['c']
 setup_start = next(i for i,b in enumerate(setup) if b['t']=='Header' and inline(b['c'][2])=='Set up in jGRASP')
 setup[setup_start]['c'][0] = 1
 setup[setup_start]['c'][2] = [{'t':'Str','c':'Set up in jGRASP'}]
+story += [Topic('setup')]
 story += blocks(setup[setup_start:split], 'setup')
 for number, (markdown, _, _) in enumerate(LESSONS):
-    story += [PageBreak()]
+    story += [PageBreak(), Recto(), Topic('lab'+str(number))]
     story += blocks(parse(HERE/markdown), 'lab' + str(number))
 
-story += [PageBreak(), Paragraph('Complete example programs', h1),
+story += [PageBreak(), Recto(), Topic('source0'), Paragraph('Complete example programs', h1),
           Paragraph('Copy each listing into a file with the name shown and run it separately in jGRASP. '
                     'For MapStages, also copy both map files from the listings below into that working folder. '
                     'Student starter folders contain focused TODOs; these appendix listings are complete references. '
                     'The same sources are in examples/java and examples/maps.', body)]
 for number, (_, filename, _) in enumerate(LESSONS):
     if number: story.append(PageBreak())
+    story.append(Topic('source'+str(number)))
     story.append(Paragraph('<a name="source'+str(number)+'"/>'+filename, h2))
-    story.append(Preformatted((ROOT/'examples/java'/filename).read_text().rstrip(), code))
+    source = (ROOT/'examples/java'/filename).read_text().rstrip()
+    if filename == 'EventScoreboard.java':
+        # Keep the main program and listener implementation on separate pages.
+        main, listener = source.split('    private static class Scoreboard', 1)
+        story.append(Preformatted(main.rstrip(), code))
+        story += [PageBreak(), Paragraph('EventScoreboard.java: listener implementation (continued)', h2)]
+        story.append(Preformatted('    private static class Scoreboard'+listener, code))
+    else:
+        story.append(Preformatted(source, code))
 story.append(PageBreak())
+story.append(Topic('maps'))
 story.append(Paragraph('Map files for the level-changing lesson', h1))
 for filename in ['stage-one.map', 'stage-two.map']:
     story.append(Paragraph(filename, h2))
     story.append(Preformatted((ROOT/'examples/maps'/filename).read_text().rstrip(), code))
-story += [PageBreak(), Paragraph('Teacher notes and sources', h1)]
+story += [PageBreak(), Recto(), Topic('teacher'), Paragraph('Teacher notes and sources', h1)]
 story += blocks(setup[split:])
 story.append(Paragraph('Brand asset: the selected master_logo.png from the personal Dropbox '
                        'Marketing/logos collection, copied unchanged. The artwork is retained in the repository; '
                        'the PDF places it on the cover; lesson pages use only limited spot color.', small))
-story.append(Paragraph('Illustrations: original diagrams; arena views captured from the included Java examples. '
+story.append(Paragraph('Illustrations: original vector diagrams and topic-specific robot line art; arena views captured from the included Java examples. '
                        'Screenshots preserve the actual appearance. Diagram timing and layouts are schematic.', small))
 story += [PageBreak()]
+story += [Recto(), Topic('featuremap')]
 story += blocks(parse(HERE/'FEATURE-MAP.md'), 'featuremap')
 
 def page(canvas, document):
@@ -242,7 +299,14 @@ def page(canvas, document):
     canvas.drawRightString(width-43, 24, str(document.page))
     canvas.restoreState()
 
-doc = SimpleDocTemplate(str(OUTPUT), pagesize=letter, leftMargin=48, rightMargin=48, topMargin=40, bottomMargin=48,
+doc = Packet(str(OUTPUT), pagesize=letter, leftMargin=48, rightMargin=48, topMargin=40, bottomMargin=130,
     title='LoudounCodes — Karel Creative Project Labs', author='LoudounCodes', subject='API orientation and feature lessons for JKarel in jGRASP')
-doc.build(story, onFirstPage=page, onLaterPages=page)
+doc.addPageTemplates([
+    PageTemplate(id='opening', frames=[Frame(48, 48, 516, 704, leftPadding=6, rightPadding=6)]),
+    PageTemplate(id='body', frames=[Frame(48, 130, 516, 622, leftPadding=6, rightPadding=6)]),
+])
+doc.build(story)
+review = ROOT/'build/pdf-review'
+review.mkdir(parents=True, exist_ok=True)
+(review/'page-topics.json').write_text(json.dumps(doc.page_topics, indent=2)+'\n')
 print(OUTPUT)
