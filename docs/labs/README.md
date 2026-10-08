@@ -1,5 +1,7 @@
 # Creative-project extensions
 
+[What is this?](WHAT-IS-THIS.md) introduces the library and this curriculum.
+
 These original lessons are for students who have finished their Karel sequence
 and are building a game, maze, simulation, or artwork. Start with the orientation,
 then choose the features your project needs. Each lesson includes a working example,
@@ -21,7 +23,7 @@ Lessons 1 and 2 are the original two project extensions; the later lessons go de
 into individual capabilities. [Feature coverage](FEATURE-MAP.md) connects each
 lesson to its actual API and distinguishes a working feature from a design exercise.
 The PDF uses black body text, sparse green accents, no page header or filled panels,
-and one small copy of the selected LoudounCodes logo on the opening page.
+and the selected LoudounCodes logo on a separate cover page.
 
 ## Set up in jGRASP
 

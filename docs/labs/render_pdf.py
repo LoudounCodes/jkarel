@@ -159,7 +159,9 @@ story = [Spacer(1, 45),
          Paragraph('LoudounCodes', h2),
          Paragraph('Java 18 · jGRASP', body),
          Paragraph('Classroom review edition · October 2026', small),
-         PageBreak(),
+         PageBreak()]
+story += blocks(parse(HERE/'WHAT-IS-THIS.md'))
+story += [PageBreak(),
          Paragraph('Lesson guide', h1),
          Paragraph('Start with the API orientation, then choose the features your own project needs. '
                    'Print the selected lesson pages; complete program listings and teacher notes follow separately.', body),
