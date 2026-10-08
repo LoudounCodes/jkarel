@@ -36,7 +36,7 @@ and `behind()` describe relations between enum values. `turnLeft()` is an action
 on the robot. Avoid integer arithmetic on directions or assumptions about their
 numeric order.
 
-## Make it yours
+## Exercises
 
 1. Block the cell behind the scout and show that `retreat` leaves it in place.
 2. Give the scout a `turnAround` method using two left turns.

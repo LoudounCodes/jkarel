@@ -30,7 +30,7 @@ with the same coordinates does not give you the same object. Model-level wall
 changes appear on the next arena repaint; the following robot action supplies
 one here. Do not implement a game loop inside a wall event callback.
 
-## Make it yours
+## Exercises
 
 1. Move the gap to another row. Change the player's starting location to match.
 2. Keep the door closed until the player holds a key represented by a beeper.

@@ -35,7 +35,7 @@ The East, South, and West methods work the same way. Adjacent calls can build a
 longer wall. `Arena.setSize` changes the displayed grid; it does not enclose it
 with a full boundary. Build boundaries explicitly, as this example does.
 
-## Make it yours
+## Exercises
 
 1. Change both team colors. Explain why you need an import for `Color`.
 2. Change a robot's color halfway through its trail. Predict which beepers change.

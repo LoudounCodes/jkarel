@@ -131,7 +131,7 @@ story = [Image(str(HERE/'assets/loudouncodes-logo.png'), 48, 48, hAlign='LEFT'),
          Spacer(1, 8)]
 for number, (_, _, title) in enumerate(LESSONS):
     story.append(Paragraph(str(number) + '. <link href="#lab' + str(number) + '" color="#27733b">' + title + '</link>', body))
-story += [Spacer(1, 12), Paragraph('Predict. Run. Explain. Make it yours.', h2), PageBreak()]
+story.append(PageBreak())
 
 setup = parse(HERE/'README.md')
 split = next(i for i,b in enumerate(setup) if b['t']=='Header' and inline(b['c'][2])=='Teacher acceptance')

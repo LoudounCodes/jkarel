@@ -38,7 +38,7 @@ Read locations for decisions; use a subclass's protected `updatePosition` method
 when designing an item that can relocate, rather than changing another object's
 returned Location.
 
-## Make it yours
+## Exercises
 
 1. Change the outline or marker size. Show that appearance does not change location.
 2. Keep the goal after the player arrives and make the main loop announce it once.
