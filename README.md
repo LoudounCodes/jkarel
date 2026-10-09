@@ -1,5 +1,7 @@
 # LoudounCodes JKarel
 
+[Curriculum and classroom download](https://loudouncodes.github.io/jkarel/)
+
 ## Introduction:
 This code was born from the Loudoun County Public School System's use of Fairfax County's FCPSKarel computer science curriculum.
 
