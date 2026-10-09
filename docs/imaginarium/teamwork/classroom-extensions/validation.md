@@ -419,3 +419,31 @@ is unchanged since the preceding 17-test build.
 
 Single-author local visual, build, and packaging proof. Actual Windows classroom
 and interactive STEP acceptance remain pending. No push or publication.
+
+## Five consistency findings remediated
+
+Bock authorized remediation while preserving the prose. The setup now leads
+with extracting the classroom ZIP and opening the independent jGRASP project
+using its local JAR, with project-classpath troubleshooting retained. Lesson 6
+identifies the ready-to-use starter and the distinct Java/map source folders
+for the complete reference. The setup identifies the FAST, STEP, and LUDICRUS
+exceptions accurately; Lesson 8 names Pacing.LUDICRUS. STEP Javadoc says Enter
+and console-line input. Robot icon-initialization Javadoc describes its void
+initialization responsibility and points custom drawing to render.
+
+Rendered comparison: both PDFs have 42 pages; only pages 6, 19, and 23 differ.
+Every other rendered page matches after whitespace normalization. All unrelated
+Markdown and all tracked example/starter files are unchanged. Removing comments
+from the two edited Java classes yields source identical to HEAD. The three
+changed pages were visually inspected; no renderer, illustration, or pagination
+changes were needed. All two-page recto lessons and three blank versos remain.
+
+Ant build-all/build-starters passed all 17 tests. All ten independent starters
+and completed references compile for Java 18 and run against their folder-local
+JARs after relocated ZIP extraction. Windows filename/path/project checks,
+PDF/JAR/license identity, and offline Javadoc link checks passed. Packaged
+Javadoc contains the corrected descriptions; packaged library source matches
+the repository. Both distributions contain the exact revised PDF.
+
+Single-author local automated and visual proof. Windows classroom Java/jGRASP
+and interactive STEP acceptance remain pending. No push or publication.

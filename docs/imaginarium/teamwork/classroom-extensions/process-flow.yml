@@ -24,9 +24,10 @@ traunche:
   - Move the lesson plan ahead of the introduction and list the existing terminology lesson explicitly; keep all other reader content locked.
   - Add Arena.loadMap(MapDataSource) with validation, reusable beeper descriptions, and existing level-transition events; leave the locked curriculum unchanged.
   - Surgically update Lesson 9, its diagram and API references, and matching reference/starter code for the new MapDataSource overload; keep other reader content locked.
+  - Correct the five reported setup, map-file location, pacing, and icon-initialization documentation inconsistencies; preserve surrounding prose.
   non_goals:
   - Change build tools, public teaching abstractions, or directory layout.
-  - Rewrite locked lesson, introduction, teacher, or appendix prose beyond the requested ordering, terminology labels, and MapDataSource factual correction.
+  - Rewrite locked lesson, introduction, teacher, or appendix prose beyond the requested ordering, terminology labels, MapDataSource factual correction, and the five authorized consistency corrections.
   - Replace the XML parser or introduce a new model architecture.
   status: complete
   stop_lines:
@@ -56,6 +57,6 @@ traunche:
   remediation_items: []
   closeout:
     state: complete
-    summary: Lesson 9, its diagram, API references, and matching starter/reference now use the implemented MapDataSource loader. Every unrelated rendered page matches the locked PDF. The 42-page duplex layout, Java 18 examples, relocated classroom package, and offline documentation pass local checks. Windows classroom acceptance remains pending; no push or publication.
+    summary: All five authorized consistency findings are corrected. Setup follows the starter ZIP workflow; map locations, pacing names, STEP input, and icon-initialization Javadoc match the code. Only PDF pages 6, 19, and 23 changed; all other rendered pages and executable code are unchanged. Ant passes 17 tests; all ten relocated starters/references and package checks pass. Windows classroom acceptance remains pending; no push or publication.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-09T00:36:53Z'
+updated_at: '2026-10-09T02:24:52Z'

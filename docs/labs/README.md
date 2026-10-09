@@ -32,25 +32,30 @@ and the selected LoudounCodes logo on a separate cover page.
 ## Set up in jGRASP
 
 Use JDK 18 or later. The library targets Java 18; jGRASP's own minimum Java version
-is a separate requirement. The teacher builds once with `ant` and gives students
-`out/jkarel-1.0.0.jar`. Students do not need Ant or JUnit to run these labs.
+is a separate requirement. The teacher builds once with `ant build-starters` and
+gives students `out/LoudounCodes-Karel-Starter-Labs.zip`. Students do not need
+Ant or JUnit to run these labs.
 
-In jGRASP, open **Settings → PATH/CLASSPATH → Workspace**, select **CLASSPATH**,
-then **New** and browse to that JAR. Apply the setting. If your classroom uses
-jGRASP projects, choose the project scope instead of Workspace. Remove an older
-JKarel JAR entry so the compiler and runner see the same library. Keep the original
+Extract the ZIP to a writable folder. In jGRASP, choose **Project → Open**, select
+the lesson's `.gpj` file, then open its `.java` file under **Source Files**.
+Compile and run. Each project uses `jkarel.jar` in its own folder; keep the JAR,
+project, Java file, and any maps together when copying a lab. Complete its TODOs;
+the appendix contains the complete reference examples.
+
+If the local JAR is not picked up, open **Settings → PATH/CLASSPATH → Project**,
+select **CLASSPATH**, then **New** and browse to that folder's `jkarel.jar`.
+Apply the setting. Remove a conflicting older JKarel entry. Keep the original
 FCPS library available for assignments that still import `edu.fcps.karel2`;
-these labs import `org.loudouncodes.jkarel`.
-
-Copy the example `.java` file into your own working folder, open it in jGRASP,
-compile, and run. The file name must match its public class name. Extra dependency JARs are not needed. The level-changing lesson needs its two
-map files copied beside the Java example; the other lessons build their own scenes.
+these labs import `org.loudouncodes.jkarel`. Extra dependency JARs are not needed.
+The level-changing starter includes both map files beside its Java file;
+the other lessons build their own scenes.
 
 - `package org.loudouncodes.jkarel does not exist`: check the CLASSPATH entry.
 - `UnsupportedClassVersionError`: check the Java used to run in jGRASP; it needs 18+.
 - A wall exception: read the failing line and use the appropriate `...IsClear()`
   sensor before that move. The robot remains where it was.
-- STEP pacing waits for Enter in the run console. FAST is used in the examples.
+- STEP pacing waits for Enter in the run console. Most examples use FAST;
+  RobotLettering uses LUDICRUS, and PaceProbe normally selects STEP.
 
 Teacher command-line equivalent, from the repository root:
 

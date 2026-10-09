@@ -11,9 +11,11 @@ to the map and which belongs to the player.
 
 ## Set up and run
 
-Copy [MapStages.java](../../examples/java/MapStages.java), `stage-one.map`, and
-`stage-two.map` from `examples/maps` into the same student working folder. In
-jGRASP, compile and run the Java file from that folder. These maps were written
+The starter folder already contains `MapStages.java`, `stage-one.map`, and
+`stage-two.map`. To run the complete reference separately, copy
+[MapStages.java](../../examples/java/MapStages.java) from `examples/java` and both
+maps from `examples/maps` into the same working folder. In jGRASP, compile and
+run the Java file from that folder. These maps were written
 for this lab; they are small XML files you can read and edit.
 
 ```java

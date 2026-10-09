@@ -14,12 +14,12 @@ public enum Pacing {
   
   /**
    * When this pacing is used, the Arena will wait for you
-   * to hit any key on your keyboard before letting the
+   * to press Enter in the run console before letting the
    * Robots advance to their next move.
    *
    * WARNING: This may be incompatible with programs that
    * try to use other kinds of keyboard input, as it grabs
-   * hold of the keyboard waiting for a keypress.
+   * hold of console input waiting for a line.
    */
   STEP {
     @Override

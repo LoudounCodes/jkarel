@@ -13,7 +13,7 @@ inspect how a larger behavior is composed from familiar robot actions.
 
 Compile [RobotLettering.java](../../examples/java/RobotLettering.java). It imports
 `AlphaBot` from `org.loudouncodes.jkarel.demo`, opens a blank 24-by-12 arena,
-sets a fast pace, and writes `HI` in blue beepers.
+sets `Pacing.LUDICRUS`, and writes `HI` in blue beepers.
 
 ```java
 AlphaBot sign = new AlphaBot();

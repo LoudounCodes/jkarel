@@ -82,10 +82,9 @@ public class Robot extends Item {
   }
 
     /**
-     * Subclasses that know what they are doing can override this method
-     * in order to change the way robots draw themselves in the arena.
-     *
-     * return a hashmap with Directions as the key and icons as the value.
+     * Initializes the default robot icons for each Direction using its color.
+     * Called during construction and when setColor changes the color.
+     * For a custom robot appearance, override render(Graphics, int, int).
      */
     protected void initializeIcons() {
         HashMap<Direction, BufferedImage> images = new HashMap<Direction, BufferedImage>();
