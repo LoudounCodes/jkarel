@@ -29,7 +29,27 @@ quality or GUI acceptance. No behavior regression suite was needed for comment-o
 source edits. The smoke examples and generated pages are ignored local build output.
 
 Proof level: single-author local automated validation and code inspection.
-No independent review, live-site acceptance, push, or deployment is claimed.
-The local-scope publication boundary remains active; the PDF and classroom ZIP
-were not regenerated. See out/docs/org/loudouncodes/jkarel/package-summary.html
+The initial local pass did not include publication or independent review.
+Publication was subsequently authorized and verified as recorded below. See out/docs/org/loudouncodes/jkarel/package-summary.html
 for the local core-package preview.
+
+## Authorized publication
+
+Bock subsequently authorized publication. The process flow was updated and
+validated before pushing and again after deployment. Published source revision:
+`9f2d831c7706cbb5aa224b835f1d5bbfe25c676f`.
+
+GitHub Actions run https://github.com/LoudounCodes/jkarel/actions/runs/37881083709
+completed successfully: Java 18 build and tests, relocated starter verification,
+site assembly, upload, and Pages deployment.
+
+Live HTTP verification passed for core, demo, and XML package summaries under
+both `/jkarel/javadoc/` and the historical `/jkarel/out/docs/` address. Each page
+contains its new section heading and no placeholder. The downloaded starter ZIP
+passes integrity checking and contains byte-identical copies of those three live
+Javadoc pages. The published PDF remains byte-identical to the locked local PDF,
+SHA-256 `c4ec178cad083d9ddab630f7a96033806052516682b06cbbb5795ee717760aec`.
+
+Proof is single-author automated validation plus live HTTP verification.
+Independent review and classroom acceptance remain unclaimed. The scope boundary
+permits this JKarel publication and excludes unrelated changes.
