@@ -183,9 +183,9 @@ def sources():
     box(d,0,3,128,53,'SupplyRoom',['student implementation'])
     box(d,176,27,162,72,'MapDataSource contract',['width, height','walls, beeper stacks'])
     arrow(d,132,89,172,75);arrow(d,132,29,172,51)
-    box(d,384,27,132,72,'install(source)',['student adapter','Arena/model operations'])
+    box(d,384,27,132,72,'Arena.loadMap',['reads the contract','installs the level'])
     arrow(d,342,63,380,63)
-    return d, 'Two implementations, one contract, one adapter. The library does not yet load this interface directly.'
+    return d, 'Two implementations supply the same contract; Arena.loadMap installs either description.'
 
 
 FIGURES = [orientation, trails, listeners, doors, pacing, retreat, levels, custom, lettering, sources]

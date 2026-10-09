@@ -22,7 +22,7 @@ class period; the interface-design lesson can take longer.
 6. [Change levels: map loading and persistent players](06-change-levels.md)
 7. [Draw your own items: abstract classes and rendering](07-draw-your-own-items.md)
 8. [Robot lettering: AlphaBot and infinite supplies](08-robot-lettering.md)
-9. [Describe a map: the MapDataSource design seam](09-describe-a-map.md)
+9. [Describe a map: the MapDataSource interface](09-describe-a-map.md)
 
 [Feature coverage](FEATURE-MAP.md) connects each
 lesson to its actual API and distinguishes a working feature from a design exercise.

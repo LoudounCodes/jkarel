@@ -56,7 +56,7 @@ LESSONS = [
     ('06-change-levels.md', 'MapStages.java', 'Load maps and change levels'),
     ('07-draw-your-own-items.md', 'CustomItems.java', 'Custom items and robot rendering'),
     ('08-robot-lettering.md', 'RobotLettering.java', 'AlphaBot lettering and infinite supplies'),
-    ('09-describe-a-map.md', 'DescribeAMap.java', 'MapDataSource design extension'),
+    ('09-describe-a-map.md', 'DescribeAMap.java', 'MapDataSource interfaces'),
 ]
 links = {'README.md': '#setup', 'FEATURE-MAP.md': '#featuremap',
          '../../LICENSE.TXT': 'https://github.com/LoudounCodes/jkarel/blob/master/LICENSE.TXT'}
@@ -133,6 +133,8 @@ def blocks(nodes, anchor=None):
             if anchor == 'featuremap' and heading == 'Teaching notes':
                 result += [PageBreak(), Paragraph(heading, h1)]
                 continue
+            if anchor == 'lab9' and heading == 'Make a second implementation':
+                result.append(PageBreak())
             continuation = {
                 'lab1': 'Exercises', 'lab3': 'Exercises',
                 'lab5': 'Exercises', 'lab6': 'Experiments',

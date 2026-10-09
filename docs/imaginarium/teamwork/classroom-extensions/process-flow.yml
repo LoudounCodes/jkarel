@@ -23,9 +23,10 @@ traunche:
   - Restore the prose from before the comparison rewrite and consolidate unpublished follow-up work into a clean history.
   - Move the lesson plan ahead of the introduction and list the existing terminology lesson explicitly; keep all other reader content locked.
   - Add Arena.loadMap(MapDataSource) with validation, reusable beeper descriptions, and existing level-transition events; leave the locked curriculum unchanged.
+  - Surgically update Lesson 9, its diagram and API references, and matching reference/starter code for the new MapDataSource overload; keep other reader content locked.
   non_goals:
   - Change build tools, public teaching abstractions, or directory layout.
-  - Rewrite locked lesson, introduction, teacher, or appendix prose beyond the requested ordering and terminology labels.
+  - Rewrite locked lesson, introduction, teacher, or appendix prose beyond the requested ordering, terminology labels, and MapDataSource factual correction.
   - Replace the XML parser or introduce a new model architecture.
   status: complete
   stop_lines:
@@ -51,11 +52,10 @@ traunche:
   accepted_deferrals: []
   unresolved_risks:
   - Windows classroom Java/jGRASP execution and interactive STEP input await human verification.
-  - Locked Lesson 9 and its appendix adapter comment describe the previously missing overload; factual correction awaits authorization.
   findings: []
   remediation_items: []
   closeout:
     state: complete
-    summary: Added Arena.loadMap(MapDataSource) through existing model operations with pre-clear validation, copied beeper descriptions, preserved wall identity, robot/listener continuity, and existing addition/map-loaded notifications. XML loading and locked curriculum content remain unchanged. All 17 regression tests, ten starter/reference compilations and runs, a Java 18 packaged-JAR example of the new call, updated offline Javadoc, final distribution copies, notices, archive portability, and documentation links passed local checks. Single-author local implementation and verification; locked Lesson 9 factual correction and actual Windows/interactive STEP acceptance remain pending. No push or publication.
+    summary: Lesson 9, its diagram, API references, and matching starter/reference now use the implemented MapDataSource loader. Every unrelated rendered page matches the locked PDF. The 42-page duplex layout, Java 18 examples, relocated classroom package, and offline documentation pass local checks. Windows classroom acceptance remains pending; no push or publication.
 created_at: '2026-10-08T17:24:28Z'
-updated_at: '2026-10-08T23:58:40Z'
+updated_at: '2026-10-09T00:36:53Z'

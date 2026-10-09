@@ -392,3 +392,30 @@ remain pending. No push or publication.
 loader works through the existing API, checks pass, and the classroom package
 is rebuilt. Stop here; XML-parser restructuring and locked lesson changes
 are outside this addition.
+
+## Authorized MapDataSource curriculum correction
+
+Bock authorized a surgical PDF correction for the implemented loader. Lesson 9
+now uses Arena.loadMap(new TrainingMap()), explains validation and level-loading
+behavior, and asks students to load a second implementation and check reloading.
+The diagram, lesson-plan label, feature references, commented appendix example,
+and matching starter use the same implemented API. The obsolete student adapter
+is removed. The introduction and Lessons 0–8 remain byte-for-byte unchanged.
+
+Both PDFs have 42 pages. Normalized rendered text on every unrelated page matches
+the locked PDF exactly, including footers. Changes are confined to pages 3, 25,
+26, 37, 41, and 42. All lessons retain two pages and odd-numbered starts, and
+the three intentionally blank versos remain. Visually inspected the corrected
+lesson, appendix listing, and feature references.
+
+Ant build-jar/build-starters passed. The updated starter and completed reference
+compile for Java 18 and run with a folder-local classroom JAR after extraction
+into a path containing spaces: both finish at [4, 2], with inventory 0 and 2
+respectively. ZIP filename/path/project checks passed. The root README, JAR,
+PDF, and 38 offline Javadoc HTML pages (21 public API types) pass package checks;
+all local documentation links resolve. Both distributions contain the exact
+revised PDF, and packaged Lesson 9 sources match the repository. Library source
+is unchanged since the preceding 17-test build.
+
+Single-author local visual, build, and packaging proof. Actual Windows classroom
+and interactive STEP acceptance remain pending. No push or publication.

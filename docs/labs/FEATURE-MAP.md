@@ -15,7 +15,7 @@ concepts it introduces.
 | Runtime map reload; bundled and local maps | 6 | loadMap(String); existing player/listener persistence; XML wall length |
 | Self-rendering objects and generic user items | 7 | abstract Item; add/removeUserItem; Robot.render override; grid versus pixels |
 | Letter-drawing robot and infinite supply ownership | 8 | demo.AlphaBot.say; BeeperStack.INFINITY; ASCII and layout limits |
-| A data-source interface for future maps | 9 | MapDataSource descriptor; explicit student-written installation adapter |
+| A data-source interface for maps | 9 | MapDataSource descriptor; Arena.loadMap(MapDataSource) |
 
 ## Teaching notes
 
@@ -27,6 +27,6 @@ and unregistering. Later lessons use map-load events and custom-item removal.
 Callbacks run synchronously; students should keep game loops outside listeners.
 The library does not provide timer or keyboard-input events.
 
-Lesson 9 is an advanced design exercise. The MapDataSource interface describes a
-map, but the XML loader does not consume it directly. Students write an adapter
-in their example program and use it with two implementations.
+Lesson 9 uses MapDataSource to describe a map and `Arena.loadMap` to install it.
+Students write two implementations and load each through the same interface.
+The existing String overload continues to load XML maps.

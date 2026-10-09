@@ -15,13 +15,13 @@ its initial output is a starting state, not the finished result described below.
 
 ## Before you edit
 
-The adapter creates an empty 8-by-6 scene. The player walks to [4, 2] and has inventory zero because the map description has no supplies yet.
+`Arena.loadMap` creates an empty 8-by-6 scene from the unfinished description. The player walks to [4, 2] and has inventory zero because the map description has no supplies yet.
 
 ## Your work
 
 1. Add the requested beeper stack and wall to TrainingMap.
-2. Use the supplied adapter to reach [4, 2] with inventory 2.
-3. Write a second MapDataSource implementation and install it through the same adapter.
+2. Use `Arena.loadMap` to reach [4, 2] with inventory 2.
+3. Write a second MapDataSource implementation and load it with the same `Arena.loadMap` call.
 
 The corresponding lesson is `09-describe-a-map.md` in the curriculum packet.
 The complete `DescribeAMap.java` listing in the packet appendix is a reference.

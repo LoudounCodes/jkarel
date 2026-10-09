@@ -23,19 +23,11 @@ public class DescribeAMap {
             return walls;
         }
     }
-    // This is OUR adapter. Arena has no loadMap(MapDataSource) overload yet.
-    private static void install(MapDataSource source) {
-        Arena.openDefaultMap();
-        Arena.setSize(source.getWidth(), source.getHeight());
-        // Translate the interface data into existing model operations.
-        for (Wall wall : source.getWalls()) Arena.getModel().addWall(wall);
-        for (BeeperStack stack : source.getBeepers().values())
-            Arena.getModel().putBeepers(stack.getLocation(), stack.getBeepers(), stack.getColor());
-    }
     public static void main(String[] args) {
         Arena.setPace(Pacing.FAST);
         // Finish constructing the scene before creating the player.
-        install(new TrainingMap());
+        // The library reads the description through the MapDataSource contract.
+        Arena.loadMap(new TrainingMap());
         Robot player = new Robot(2, 2, Direction.EAST, 0);
         player.move(); player.move();
         while (player.nextToABeeper()) player.pickBeeper();
