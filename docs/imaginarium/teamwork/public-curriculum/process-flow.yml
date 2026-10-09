@@ -18,7 +18,7 @@
       "Rewrite locked curriculum prose or change library API/build structure.",
       "Add a custom domain, paid services, analytics, or third-party accounts."
     ],
-    "status": "in_progress",
+    "status": "complete",
     "stop_lines": [
       {
         "id": "scope",
@@ -34,7 +34,7 @@
     ],
     "state_dimensions": {
       "process_proof": "single_author_local_automated_and_browser_checks",
-      "publication_readiness": "pending_live_verification"
+      "publication_readiness": "published_and_live_verified_classroom_acceptance_pending"
     },
     "state_transitions": [],
     "team_lead_non_authoring": false,
@@ -46,10 +46,10 @@
     "findings": [],
     "remediation_items": [],
     "closeout": {
-      "state": "stopped_before_threshold",
-      "summary": "Preparing the responsive site and automated Pages artifact; publication and live download verification are pending."
+      "state": "complete",
+      "summary": "Published the responsive curriculum site at https://loudouncodes.github.io/jkarel/. GitHub Actions run 37875522813 passed its Java 18 build, regression tests, relocated starter checks, assembly, and deployment. Live desktop/mobile browser checks, exact reviewed PDF identity, ZIP integrity/current sources/PDF/Javadoc, and historical API/JAR URLs pass. Locked curriculum and Ant build remain unchanged. Actual Windows classroom and interactive STEP acceptance remain pending."
     }
   },
   "created_at": "2026-10-09T02:30:11Z",
-  "updated_at": "2026-10-09T02:30:11Z"
+  "updated_at": "2026-10-09T02:41:31Z"
 }
